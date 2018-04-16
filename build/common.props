@@ -1,0 +1,35 @@
+<Project>
+  <Import Project="..\version.props" />
+  <PropertyGroup>
+    <Product>SnowLeopard</Product>
+    <Authors>Vito</Authors>
+    <Company>Vito</Company>
+    <Copyright>Copyright © Vito 2018</Copyright>
+    <PackageId>$(ProjectName)</PackageId>
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://gitee.com/alienwow/SnowLeopard.git</RepositoryUrl>
+    <PackageLicenseUrl>http://license.alienwow.cc</PackageLicenseUrl>
+    <PackageProjectUrl>https://gitee.com/alienwow/SnowLeopard/</PackageProjectUrl>
+    <PackageIconUrl>http://license.alienwow.cc/SnowLeopard.ico</PackageIconUrl>
+    <PackageTags></PackageTags>
+    <NeutralLanguage>zh-CN</NeutralLanguage>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageOutputPath></PackageOutputPath>
+    <IncludeSymbols>false</IncludeSymbols>
+    <IncludeSource>false</IncludeSource>
+    <MinClientVersion>4.1.0</MinClientVersion>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <NeutralLanguage>zh-CN</NeutralLanguage>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
