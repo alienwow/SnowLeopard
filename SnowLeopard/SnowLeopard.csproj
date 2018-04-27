@@ -15,8 +15,9 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <PackageReference Include="Lynx" Version="1.0.1-pre1-insider106" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
-    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

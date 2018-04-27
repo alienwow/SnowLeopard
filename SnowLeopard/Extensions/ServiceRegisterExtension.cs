@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Lynx;
+using Microsoft.Extensions.DependencyInjection;
 using SnowLeopard.Abstractions.Services;
 using System.Linq;
 using System.Reflection;
@@ -20,9 +21,8 @@ namespace SnowLeopard.Extensions
 
             #region 自动注册 IDependencyTransientRegister、IDependencyTransientRegister
 
-            var utils = new SnowLeopardUtils();
-            var assemblys = utils.GetAllAssembly();
-            var types = utils.GetAllType();
+            var assemblys = LynxUtils.GetAllAssembly();
+            var types = LynxUtils.GetAllType();
 
             var transientServiceInterface = typeof(IDependencyTransientRegister);
             var scopedServiceInterface = typeof(IDependencyScopedRegister);

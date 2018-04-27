@@ -12,36 +12,5 @@ namespace SnowLeopard
     /// </summary>
     public class SnowLeopardUtils
     {
-        /// <summary>
-        /// GetAllAssembly
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Assembly> GetAllAssembly()
-        {
-            var rv = new List<Assembly>();
-            var path = Assembly.GetEntryAssembly().Location;
-            var dir = new DirectoryInfo(Path.GetDirectoryName(path));
-
-            var dlls = dir.GetFiles("*.dll", SearchOption.AllDirectories);
-
-            foreach (var dll in dlls)
-            {
-                try
-                {
-                    rv.Add(AssemblyLoadContext.Default.LoadFromAssemblyPath(dll.FullName));
-                }
-                catch { }
-            }
-            return rv;
-        }
-
-        /// <summary>
-        /// GetAllType
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Type> GetAllType()
-        {
-            return GetAllAssembly().SelectMany(x => x.GetTypes());
-        }
     }
 }
