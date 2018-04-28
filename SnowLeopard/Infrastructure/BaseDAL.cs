@@ -103,7 +103,7 @@ namespace SnowLeopard.Infrastructure
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        public virtual bool Delete(object id, IDbTransaction transaction = null, int? commandTimeout = null)
+        public virtual int Delete(object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             if (id == null)
                 throw new ArgumentException("Cannot be null", nameof(id));
@@ -112,7 +112,27 @@ namespace SnowLeopard.Infrastructure
 
             using (var conn = new MySqlConnection(_connStr))
             {
-                return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text) > 0;
+                return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            }
+        }
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public virtual int Delete(IEnumerable<object> id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            if (id == null)
+                throw new ArgumentException("Cannot be null", nameof(id));
+
+            var sql = $"DELETE FROM {typeof(T).GetTableName()} WHERE id IN @id";
+
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
             }
         }
 
@@ -123,7 +143,7 @@ namespace SnowLeopard.Infrastructure
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        public async virtual Task<bool> DeleteAsync(object id, IDbTransaction transaction = null, int? commandTimeout = null)
+        public async virtual Task<int> DeleteAsync(object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             if (id == null)
                 throw new ArgumentException("Cannot be null", nameof(id));
@@ -132,7 +152,27 @@ namespace SnowLeopard.Infrastructure
 
             using (var conn = new MySqlConnection(_connStr))
             {
-                return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text) > 0;
+                return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            }
+        }
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        public async virtual Task<int> DeleteAsync(IEnumerable<object> id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            if (id == null)
+                throw new ArgumentException("Cannot be null", nameof(id));
+
+            var sql = $"DELETE FROM {typeof(T).GetTableName()} WHERE id IN @id";
+
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
             }
         }
 

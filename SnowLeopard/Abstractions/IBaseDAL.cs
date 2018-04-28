@@ -61,6 +61,42 @@ namespace SnowLeopard.Abstractions
         /// <summary>
         /// Delete
         /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        int Delete(object id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        Task<int> DeleteAsync(object id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        int Delete(IEnumerable<object> id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns></returns>
+        Task<int> DeleteAsync(IEnumerable<object> id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// Delete
+        /// </summary>
         /// <param name="model"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
@@ -117,24 +153,6 @@ namespace SnowLeopard.Abstractions
         #endregion
 
         #region Get
-
-        /// <summary>
-        /// Delete
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns></returns>
-        bool Delete(object id, IDbTransaction transaction = null, int? commandTimeout = null);
-
-        /// <summary>
-        /// DeleteAsync
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns></returns>
-        Task<bool> DeleteAsync(object id, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// Get
