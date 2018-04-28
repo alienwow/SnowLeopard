@@ -20,7 +20,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        long Insert(T model, IDbTransaction transaction = null, int? commandTimeout = null);
+        int Insert(T model, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// InsertAsync
@@ -30,7 +30,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="commandTimeout"></param>
         /// <param name="sqlAdapter"></param>
         /// <returns></returns>
-        Task<long> InsertAsync(T model, IDbTransaction transaction = null, int? commandTimeout = null, ISqlAdapter sqlAdapter = null);
+        Task<int> InsertAsync(T model, IDbTransaction transaction = null, int? commandTimeout = null, ISqlAdapter sqlAdapter = null);
 
         /// <summary>
         /// BatchInsert
@@ -41,7 +41,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="commandTimeout"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        long BatchInsert(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        int BatchInsert(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
 
         /// <summary>
         /// BatchInsertAsync
@@ -52,7 +52,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="commandTimeout"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        Task<long> BatchInsertAsync(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+        Task<int> BatchInsertAsync(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
 
         #endregion
 

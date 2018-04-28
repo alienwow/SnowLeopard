@@ -40,11 +40,11 @@ namespace SnowLeopard.Infrastructure
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns></returns>
-        public virtual long Insert(T model, IDbTransaction transaction = null, int? commandTimeout = null)
+        public virtual int Insert(T model, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             using (var conn = new MySqlConnection(_connStr))
             {
-                return conn.Insert(model, transaction, commandTimeout);
+                return (int)conn.Insert(model, transaction, commandTimeout);
             }
         }
 
@@ -56,7 +56,7 @@ namespace SnowLeopard.Infrastructure
         /// <param name="commandTimeout"></param>
         /// <param name="sqlAdapter"></param>
         /// <returns></returns>
-        public async virtual Task<long> InsertAsync(T model, IDbTransaction transaction = null, int? commandTimeout = null, ISqlAdapter sqlAdapter = null)
+        public async virtual Task<int> InsertAsync(T model, IDbTransaction transaction = null, int? commandTimeout = null, ISqlAdapter sqlAdapter = null)
         {
             using (var conn = new MySqlConnection(_connStr))
             {
@@ -73,7 +73,7 @@ namespace SnowLeopard.Infrastructure
         /// <param name="commandTimeout"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public virtual long BatchInsert(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public virtual int BatchInsert(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return Execute(sql, models, transaction, commandTimeout, commandType);
         }
@@ -87,7 +87,7 @@ namespace SnowLeopard.Infrastructure
         /// <param name="commandTimeout"></param>
         /// <param name="commandType"></param>
         /// <returns></returns>
-        public async virtual Task<long> BatchInsertAsync(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        public async virtual Task<int> BatchInsertAsync(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             return await ExecuteAsync(sql, models, transaction, commandTimeout, commandType);
         }
