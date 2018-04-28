@@ -15,9 +15,12 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Lynx" Version="1.0.1-pre1-insider106" />
+    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="Dapper.Contrib" Version="1.50.4" />
+    <PackageReference Include="Lynx" Version="1.0.1-pre1-insider108" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.3" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
   </ItemGroup>
 
 </Project>

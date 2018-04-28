@@ -9,8 +9,18 @@ namespace SnowLeopard.Infrastructure
     /// <typeparam name="T"></typeparam>
     public class PagingViewModel<T>
     {
+        /// <summary>
+        /// PagingViewModel
+        /// </summary>
         public PagingViewModel() { }
 
+        /// <summary>
+        /// PagingViewModel
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="count"></param>
         public PagingViewModel(IEnumerable<T> list, int page, int pageSize, long count)
         {
             List = list;
