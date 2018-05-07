@@ -169,7 +169,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="id"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
-        /// <returnsEntity of T></returns>
+        /// <returns>Entity of T</returns>
         Task<T> GetAsync(object id, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>

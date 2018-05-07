@@ -293,7 +293,7 @@ namespace SnowLeopard.Infrastructure
         /// <param name="id"></param>
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
-        /// <returnsEntity of T></returns>
+        /// <returns>Entity of T</returns>
         public async virtual Task<T> GetAsync(object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             using (var conn = new MySqlConnection(_connStr))
