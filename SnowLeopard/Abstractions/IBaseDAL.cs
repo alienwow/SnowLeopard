@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -32,40 +33,11 @@ namespace SnowLeopard.Abstractions
         /// <returns>Identity of inserted entity</returns>
         Task<int> InsertAsync(T model, IDbTransaction transaction = null, int? commandTimeout = null, ISqlAdapter sqlAdapter = null);
 
-        /// <summary>
-        /// BatchInsert
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="models"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns>The number of rows affected.</returns>
-        int BatchInsert(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
-
-        /// <summary>
-        /// BatchInsertAsync
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="models"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns>The number of rows affected.</returns>
-        Task<int> BatchInsertAsync(string sql, T models = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
-
         #endregion
 
         #region Delete
 
-        /// <summary>
-        /// Delete
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of rows affected.</returns>
-        int Delete(object id, IDbTransaction transaction = null, int? commandTimeout = null);
+        #region Int
 
         /// <summary>
         /// Delete
@@ -74,7 +46,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>The number of rows affected.</returns>
-        int Delete(IEnumerable<object> id, IDbTransaction transaction = null, int? commandTimeout = null);
+        int Delete(int id, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// DeleteAsync
@@ -83,7 +55,38 @@ namespace SnowLeopard.Abstractions
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>The number of rows affected.</returns>
-        Task<int> DeleteAsync(object id, IDbTransaction transaction = null, int? commandTimeout = null);
+        Task<int> DeleteAsync(int id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        int Delete(IEnumerable<int> ids, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        Task<int> DeleteAsync(IEnumerable<int> ids, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        #endregion
+
+        #region String
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        int Delete(string id, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// DeleteAsync
@@ -92,7 +95,67 @@ namespace SnowLeopard.Abstractions
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>The number of rows affected.</returns>
-        Task<int> DeleteAsync(IEnumerable<object> id, IDbTransaction transaction = null, int? commandTimeout = null);
+        Task<int> DeleteAsync(string id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        int Delete(IEnumerable<string> ids, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        Task<int> DeleteAsync(IEnumerable<string> ids, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        #endregion
+
+        #region Guid
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        int Delete(Guid id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        Task<int> DeleteAsync(Guid id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        int Delete(IEnumerable<Guid> ids, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        Task<int> DeleteAsync(IEnumerable<Guid> ids, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        #endregion
 
         /// <summary>
         /// Delete
@@ -154,6 +217,8 @@ namespace SnowLeopard.Abstractions
 
         #region Get
 
+        #region Int
+
         /// <summary>
         /// Get
         /// </summary>
@@ -161,7 +226,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Entity of T</returns>
-        T Get(object id, IDbTransaction transaction = null, int? commandTimeout = null);
+        T Get(int id, IDbTransaction transaction = null, int? commandTimeout = null);
 
         /// <summary>
         /// GetAsync
@@ -170,7 +235,53 @@ namespace SnowLeopard.Abstractions
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Entity of T</returns>
-        Task<T> GetAsync(object id, IDbTransaction transaction = null, int? commandTimeout = null);
+        Task<T> GetAsync(int id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        #endregion
+
+        #region String
+
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>Entity of T</returns>
+        T Get(string id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// GetAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>Entity of T</returns>
+        Task<T> GetAsync(string id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        #endregion
+
+        #region Guid
+
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>Entity of T</returns>
+        T Get(Guid id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// GetAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>Entity of T</returns>
+        Task<T> GetAsync(Guid id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        #endregion
 
         /// <summary>
         /// GetAll
@@ -187,32 +298,6 @@ namespace SnowLeopard.Abstractions
         /// <param name="commandTimeout"></param>
         /// <returns>Entity of T</returns>
         Task<IEnumerable<T>> GetAllAsync(IDbTransaction transaction = null, int? commandTimeout = null);
-
-        #endregion
-
-        #region Execute
-
-        /// <summary>
-        /// Execute
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns>The number of rows affected.</returns>
-        int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
-
-        /// <summary>
-        /// ExecuteAsync
-        /// </summary>
-        /// <param name="sql"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns>The number of rows affected.</returns>
-        Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
 
         #endregion
 
@@ -287,5 +372,31 @@ namespace SnowLeopard.Abstractions
         Task<IEnumerable<Model>> QueryAsync<Model>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
 
         #endregion
-    }
+
+        #region Execute
+
+        /// <summary>
+        /// Execute
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns>The number of rows affected.</returns>
+        int Execute(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// ExecuteAsync
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="param"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <param name="commandType"></param>
+        /// <returns>The number of rows affected.</returns>
+        Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+
+        #endregion
+}
 }
