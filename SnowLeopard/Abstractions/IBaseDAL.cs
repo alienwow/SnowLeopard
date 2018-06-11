@@ -398,5 +398,56 @@ namespace SnowLeopard.Abstractions
         Task<int> ExecuteAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
 
         #endregion
-}
+
+        #region ExecuteScalar
+
+        /// <summary>
+        /// ExecuteScalar
+        /// </summary>
+        /// <typeparam name="Model">The type to return.</typeparam>
+        /// <param name="sql">The SQL to execute.</param>
+        /// <param name="param">The parameters to use for this command.</param>
+        /// <param name="transaction">The transaction to use for this command.</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
+        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>The first cell returned, as System.Object.</returns>
+        Model ExecuteScalar<Model>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// ExecuteScalarAsync
+        /// </summary>
+        /// <typeparam name="Model">The type to return.</typeparam>
+        /// <param name="sql">The SQL to execute.</param>
+        /// <param name="param">The parameters to use for this command.</param>
+        /// <param name="transaction">The transaction to use for this command.</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
+        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>The first cell returned, as System.Object.</returns>
+        Task<Model> ExecuteScalarAsync<Model>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// ExecuteScalar
+        /// </summary>
+        /// <param name="sql">The SQL to execute.</param>
+        /// <param name="param">The parameters to use for this command.</param>
+        /// <param name="transaction">The transaction to use for this command.</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
+        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>The first cell returned, as System.Object.</returns>
+        object ExecuteScalar(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+
+        /// <summary>
+        /// ExecuteScalarAsync
+        /// </summary>
+        /// <param name="sql">The SQL to execute.</param>
+        /// <param name="param">The parameters to use for this command.</param>
+        /// <param name="transaction">The transaction to use for this command.</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
+        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>The first cell returned, as System.Object.</returns>
+        Task<object> ExecuteScalarAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null);
+
+        #endregion
+
+    }
 }

@@ -685,5 +685,79 @@ namespace SnowLeopard.Infrastructure
 
         #endregion
 
+        #region ExecuteScalar
+
+        /// <summary>
+        /// ExecuteScalar
+        /// </summary>
+        /// <typeparam name="Model">The type to return.</typeparam>
+        /// <param name="sql">The SQL to execute.</param>
+        /// <param name="param">The parameters to use for this command.</param>
+        /// <param name="transaction">The transaction to use for this command.</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
+        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>The first cell returned, as System.Object.</returns>
+        public virtual Model ExecuteScalar<Model>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                return conn.ExecuteScalar<Model>(sql, param, transaction, commandTimeout, commandType);
+            }
+        }
+
+        /// <summary>
+        /// ExecuteScalarAsync
+        /// </summary>
+        /// <typeparam name="Model">The type to return.</typeparam>
+        /// <param name="sql">The SQL to execute.</param>
+        /// <param name="param">The parameters to use for this command.</param>
+        /// <param name="transaction">The transaction to use for this command.</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
+        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>The first cell returned, as System.Object.</returns>
+        public async virtual Task<Model> ExecuteScalarAsync<Model>(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                return await conn.ExecuteScalarAsync<Model>(sql, param, transaction, commandTimeout, commandType);
+            }
+        }
+
+        /// <summary>
+        /// ExecuteScalar
+        /// </summary>
+        /// <param name="sql">The SQL to execute.</param>
+        /// <param name="param">The parameters to use for this command.</param>
+        /// <param name="transaction">The transaction to use for this command.</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
+        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>The first cell returned, as System.Object.</returns>
+        public virtual object ExecuteScalar(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                return conn.ExecuteScalar(sql, param, transaction, commandTimeout, commandType);
+            }
+        }
+
+        /// <summary>
+        /// ExecuteScalarAsync
+        /// </summary>
+        /// <param name="sql">The SQL to execute.</param>
+        /// <param name="param">The parameters to use for this command.</param>
+        /// <param name="transaction">The transaction to use for this command.</param>
+        /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
+        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>The first cell returned, as System.Object.</returns>
+        public async virtual Task<object> ExecuteScalarAsync(string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                return await conn.ExecuteScalarAsync(sql, param, transaction, commandTimeout, commandType);
+            }
+        }
+
+        #endregion
+
     }
 }
