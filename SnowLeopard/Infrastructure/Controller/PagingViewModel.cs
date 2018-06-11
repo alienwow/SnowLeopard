@@ -18,13 +18,13 @@ namespace SnowLeopard.Infrastructure
         /// PagingViewModel
         /// </summary>
         /// <param name="list"></param>
-        /// <param name="page"></param>
+        /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <param name="count"></param>
-        public PagingViewModel(IEnumerable<T> list, int page, int pageSize, long count)
+        public PagingViewModel(IEnumerable<T> list, int pageIndex, int pageSize, long count)
         {
             List = list;
-            Page = page;
+            PageIndex = pageIndex;
             PageSize = pageSize;
             Count = count;
         }
@@ -42,7 +42,7 @@ namespace SnowLeopard.Infrastructure
         /// <summary>
         /// 页码
         /// </summary>
-        public int Page { get; set; }
+        public int PageIndex { get; set; }
 
         /// <summary>
         /// 分页数
