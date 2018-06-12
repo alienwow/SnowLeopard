@@ -38,7 +38,7 @@ namespace SnowLeopard.Infrastructure
                 //将时间统一处理成本地时间
                 if (reader.TokenType == JsonToken.Integer)// 时间戳转时间
                 {
-                    return Convert.ToInt64(reader.Value).ToUtcTime();
+                    return Convert.ToInt64(reader.Value).ToLocalTime();
                 }
                 else if (reader.TokenType == JsonToken.Date)
                 {
