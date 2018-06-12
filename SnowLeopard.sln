@@ -5,7 +5,14 @@ VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard", "SnowLeopard\SnowLeopard.csproj", "{80349260-DD15-4116-AF3E-930EB668A8D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowLeopard.Console", "SnowLeopard.Console\SnowLeopard.Console.csproj", "{79C9094D-ABDD-46AE-AD71-16BCAFE2FE0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Console", "SnowLeopard.Console\SnowLeopard.Console.csproj", "{79C9094D-ABDD-46AE-AD71-16BCAFE2FE0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0CEE2DC6-6D6C-4C75-A1E9-81BADA4AE912}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		version.props = version.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
