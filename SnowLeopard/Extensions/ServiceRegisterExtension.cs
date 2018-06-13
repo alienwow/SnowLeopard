@@ -1,6 +1,9 @@
 ﻿using Lynx;
 using Microsoft.Extensions.DependencyInjection;
+using MySql.Data.MySqlClient;
 using SnowLeopard.Abstractions.Services;
+using System;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 
@@ -62,6 +65,11 @@ namespace SnowLeopard.Extensions
             }
 
             #endregion
+        }
+
+        public static void AddDbConnection(this IServiceCollection services, Func<IServiceProvider, IDbConnection> implementationFactory)
+        {
+            services.AddTransient(implementationFactory);
         }
     }
 }
