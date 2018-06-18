@@ -9,9 +9,19 @@ namespace SnowLeopard.Abstractions
     /// IBaseDAL
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public partial interface IBaseDAL<T>
+    public partial interface IBaseDAL<T> : IDisposable
         where T : class
     {
+        /// <summary>
+        /// ConnStr
+        /// </summary>
+        string ConnStr { get; }
+
+        /// <summary>
+        /// DbConnection
+        /// </summary>
+        IDbConnection DbConnection { get; }
+
         #region Insert
 
         /// <summary>
@@ -20,7 +30,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="model"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Identity of inserted entity</returns>
-        int Insert(T model, int? commandTimeout = null);
+        long Insert(T model, int? commandTimeout = null);
 
         /// <summary>
         /// InsertAsync
@@ -411,5 +421,7 @@ namespace SnowLeopard.Abstractions
 
         #endregion
 
+
+        void Close();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Lynx;
 using Microsoft.Extensions.DependencyInjection;
-using MySql.Data.MySqlClient;
 using SnowLeopard.Abstractions.Services;
 using System;
 using System.Data;

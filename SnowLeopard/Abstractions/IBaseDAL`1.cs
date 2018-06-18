@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SnowLeopard.Abstractions
 {
-    public partial interface IBaseDAL<T>
+    public partial interface IBaseDAL<T> : IDisposable
         where T : class
     {
         #region Insert
@@ -17,7 +17,7 @@ namespace SnowLeopard.Abstractions
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Identity of inserted entity</returns>
-        int Insert(T model, IDbTransaction transaction, int? commandTimeout = null);
+        long Insert(T model, IDbTransaction transaction, int? commandTimeout = null);
 
         /// <summary>
         /// InsertAsync

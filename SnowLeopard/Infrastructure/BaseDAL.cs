@@ -17,14 +17,15 @@ namespace SnowLeopard.Infrastructure
     public abstract partial class BaseDAL<T> : IBaseDAL<T>
         where T : class
     {
-        private string _connStr = string.Empty;
-
         /// <summary>
         /// ConnStr
         /// </summary>
-        public string ConnStr => _connStr;
+        public string ConnStr { get; private set; }
 
-        private IDbConnection _dbConnection;
+        /// <summary>
+        /// DbConnection
+        /// </summary>
+        public IDbConnection DbConnection { get; private set; }
 
         /// <summary>
         /// BaseDAL
@@ -32,7 +33,7 @@ namespace SnowLeopard.Infrastructure
         /// <param name="dbConnection"></param>
         public BaseDAL(IDbConnection dbConnection)
         {
-            _dbConnection = dbConnection;
+            DbConnection = dbConnection;
         }
 
         #region Insert
@@ -43,9 +44,10 @@ namespace SnowLeopard.Infrastructure
         /// <param name="model"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Identity of inserted entity</returns>
-        public virtual int Insert(T model, int? commandTimeout = null)
+        public virtual long Insert(T model, int? commandTimeout = null)
         {
-            return (int)_dbConnection.Insert(model, null, commandTimeout);
+            long result = DbConnection.Insert(model, null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -57,7 +59,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Identity of inserted entity</returns>
         public async virtual Task<int> InsertAsync(T model, int? commandTimeout = null, ISqlAdapter sqlAdapter = null)
         {
-            return await _dbConnection.InsertAsync(model, null, commandTimeout, sqlAdapter);
+            int result = await DbConnection.InsertAsync(model, null, commandTimeout, sqlAdapter);
+            return result;
         }
 
         #endregion
@@ -82,7 +85,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            return _dbConnection.Execute(sql, new { id }, null, commandTimeout, CommandType.Text);
+            int result = DbConnection.Execute(sql, new { id }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -98,7 +102,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            return await _dbConnection.ExecuteAsync(sql, new { id }, null, commandTimeout, CommandType.Text);
+            int result = await DbConnection.ExecuteAsync(sql, new { id }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -114,7 +119,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            return _dbConnection.Execute(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            int result = DbConnection.Execute(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -130,7 +136,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            return await _dbConnection.ExecuteAsync(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            int result = await DbConnection.ExecuteAsync(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         #endregion
@@ -150,7 +157,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            return _dbConnection.Execute(sql, new { id }, null, commandTimeout, CommandType.Text);
+            int result = DbConnection.Execute(sql, new { id }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -166,7 +174,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            return await _dbConnection.ExecuteAsync(sql, new { id }, null, commandTimeout, CommandType.Text);
+            int result = await DbConnection.ExecuteAsync(sql, new { id }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -182,7 +191,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            return _dbConnection.Execute(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            int result = DbConnection.Execute(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -198,7 +208,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            return await _dbConnection.ExecuteAsync(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            int result = await DbConnection.ExecuteAsync(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         #endregion
@@ -218,7 +229,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            return _dbConnection.Execute(sql, new { id }, null, commandTimeout, CommandType.Text);
+            int result = DbConnection.Execute(sql, new { id }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -234,7 +246,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            return await _dbConnection.ExecuteAsync(sql, new { id }, null, commandTimeout, CommandType.Text);
+            int result = await DbConnection.ExecuteAsync(sql, new { id }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -250,7 +263,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            return _dbConnection.Execute(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            int result = DbConnection.Execute(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -266,7 +280,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            return await _dbConnection.ExecuteAsync(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            int result = await DbConnection.ExecuteAsync(sql, new { ids }, null, commandTimeout, CommandType.Text);
+            return result;
         }
 
         #endregion
@@ -279,7 +294,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if deleted, false if not found</returns>
         public virtual bool Delete(T model, int? commandTimeout = null)
         {
-            return _dbConnection.Delete(model, null, commandTimeout);
+            bool result = DbConnection.Delete(model, null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -290,7 +306,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if deleted, false if not found</returns>
         public async virtual Task<bool> DeleteAsync(T model, int? commandTimeout = null)
         {
-            return await _dbConnection.DeleteAsync(model, null, commandTimeout);
+            bool result = await DbConnection.DeleteAsync(model, null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -300,7 +317,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if deleted, false if none found</returns>
         public virtual bool DeleteAll(int? commandTimeout = null)
         {
-            return _dbConnection.DeleteAll<T>(null, commandTimeout);
+            bool result = DbConnection.DeleteAll<T>(null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -310,7 +328,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if deleted, false if none found</returns>
         public async virtual Task<bool> DeleteAllAsync(int? commandTimeout = null)
         {
-            return await _dbConnection.DeleteAllAsync<T>(null, commandTimeout);
+            bool result = await DbConnection.DeleteAllAsync<T>(null, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -325,7 +344,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if updated, false if not found or not modified (tracked entities)</returns>
         public virtual bool Update(T model, int? commandTimeout = null)
         {
-            return _dbConnection.Update(model, null, commandTimeout);
+            bool result = DbConnection.Update(model, null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -336,7 +356,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if updated, false if not found or not modified (tracked entities)</returns>
         public async virtual Task<bool> UpdateAsync(T model, int? commandTimeout = null)
         {
-            return await _dbConnection.UpdateAsync(model, null, commandTimeout);
+            bool result = await DbConnection.UpdateAsync(model, null, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -353,7 +374,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public virtual T Get(int id, int? commandTimeout = null)
         {
-            return _dbConnection.Get<T>(id, null, commandTimeout);
+            T result = DbConnection.Get<T>(id, null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -364,7 +386,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public async virtual Task<T> GetAsync(int id, int? commandTimeout = null)
         {
-            return await _dbConnection.GetAsync<T>(id, null, commandTimeout);
+            T result = await DbConnection.GetAsync<T>(id, null, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -379,7 +402,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public virtual T Get(string id, int? commandTimeout = null)
         {
-            return _dbConnection.Get<T>(id, null, commandTimeout);
+            T result = DbConnection.Get<T>(id, null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -390,7 +414,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public async virtual Task<T> GetAsync(string id, int? commandTimeout = null)
         {
-            return await _dbConnection.GetAsync<T>(id, null, commandTimeout);
+            T result = await DbConnection.GetAsync<T>(id, null, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -405,7 +430,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public virtual T Get(Guid id, int? commandTimeout = null)
         {
-            return _dbConnection.Get<T>(id, null, commandTimeout);
+            T result = DbConnection.Get<T>(id, null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -416,7 +442,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public async virtual Task<T> GetAsync(Guid id, int? commandTimeout = null)
         {
-            return await _dbConnection.GetAsync<T>(id, null, commandTimeout);
+            T result = await DbConnection.GetAsync<T>(id, null, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -428,7 +455,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public virtual IEnumerable<T> GetAll(int? commandTimeout = null)
         {
-            return _dbConnection.GetAll<T>(null, commandTimeout);
+            IEnumerable<T> result = DbConnection.GetAll<T>(null, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -438,7 +466,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public async virtual Task<IEnumerable<T>> GetAllAsync(int? commandTimeout = null)
         {
-            return await _dbConnection.GetAllAsync<T>(null, commandTimeout);
+            IEnumerable<T> result = await DbConnection.GetAllAsync<T>(null, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -461,7 +490,8 @@ namespace SnowLeopard.Infrastructure
         /// </returns>
         public virtual IEnumerable<T> Query(string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _dbConnection.Query<T>(sql, param, null, buffered, commandTimeout, commandType);
+            IEnumerable<T> result = DbConnection.Query<T>(sql, param, null, buffered, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -479,7 +509,8 @@ namespace SnowLeopard.Infrastructure
         /// </returns>
         public async virtual Task<IEnumerable<T>> QueryAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await _dbConnection.QueryAsync<T>(sql, param, null, commandTimeout, commandType);
+            IEnumerable<T> result = await DbConnection.QueryAsync<T>(sql, param, null, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -499,7 +530,8 @@ namespace SnowLeopard.Infrastructure
         /// </returns>
         public virtual IEnumerable<Model> Query<Model>(string sql, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _dbConnection.Query<Model>(sql, param, null, buffered, commandTimeout, commandType);
+            IEnumerable<Model> result = DbConnection.Query<Model>(sql, param, null, buffered, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -518,7 +550,8 @@ namespace SnowLeopard.Infrastructure
         /// </returns>
         public async virtual Task<IEnumerable<Model>> QueryAsync<Model>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await _dbConnection.QueryAsync<Model>(sql, param, null, commandTimeout, commandType);
+            IEnumerable<Model> result = await DbConnection.QueryAsync<Model>(sql, param, null, commandTimeout, commandType);
+            return result;
         }
 
         #endregion
@@ -535,7 +568,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The number of rows affected.</returns>
         public virtual int Execute(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _dbConnection.Execute(sql, param, null, commandTimeout, commandType);
+            int result = DbConnection.Execute(sql, param, null, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -548,7 +582,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The number of rows affected.</returns>
         public async virtual Task<int> ExecuteAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await _dbConnection.ExecuteAsync(sql, param, null, commandTimeout, commandType);
+            int result = await DbConnection.ExecuteAsync(sql, param, null, commandTimeout, commandType);
+            return result;
         }
 
         #endregion
@@ -566,7 +601,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The first cell returned, as System.Object.</returns>
         public virtual Model ExecuteScalar<Model>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _dbConnection.ExecuteScalar<Model>(sql, param, null, commandTimeout, commandType);
+            Model result = DbConnection.ExecuteScalar<Model>(sql, param, null, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -580,7 +616,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The first cell returned, as System.Object.</returns>
         public async virtual Task<Model> ExecuteScalarAsync<Model>(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await _dbConnection.ExecuteScalarAsync<Model>(sql, param, null, commandTimeout, commandType);
+            Model result = await DbConnection.ExecuteScalarAsync<Model>(sql, param, null, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -593,7 +630,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The first cell returned, as System.Object.</returns>
         public virtual object ExecuteScalar(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return _dbConnection.ExecuteScalar(sql, param, null, commandTimeout, commandType);
+            object result = DbConnection.ExecuteScalar(sql, param, null, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -606,10 +644,25 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The first cell returned, as System.Object.</returns>
         public async virtual Task<object> ExecuteScalarAsync(string sql, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            return await _dbConnection.ExecuteScalarAsync(sql, param, null, commandTimeout, commandType);
+            object result = await DbConnection.ExecuteScalarAsync(sql, param, null, commandTimeout, commandType);
+            return result;
         }
 
         #endregion
+
+        public void Close()
+        {
+            if (DbConnection.State != ConnectionState.Closed)
+            {
+                DbConnection.Close();
+            }
+        }
+
+        public void Dispose()
+        {
+            Close();
+            DbConnection.Dispose();
+        }
 
     }
 }

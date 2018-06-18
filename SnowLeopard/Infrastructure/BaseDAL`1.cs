@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
 using Lynx.Extension;
-using MySql.Data.MySqlClient;
 using SnowLeopard.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -23,12 +22,10 @@ namespace SnowLeopard.Infrastructure
         /// <param name="transaction"></param>
         /// <param name="commandTimeout"></param>
         /// <returns>Identity of inserted entity</returns>
-        public virtual int Insert(T model, IDbTransaction transaction, int? commandTimeout = null)
+        public virtual long Insert(T model, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return (int)conn.Insert(model, transaction, commandTimeout);
-            }
+            long result = DbConnection.Insert(model, transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -41,10 +38,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Identity of inserted entity</returns>
         public async virtual Task<int> InsertAsync(T model, IDbTransaction transaction, int? commandTimeout = null, ISqlAdapter sqlAdapter = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.InsertAsync(model, transaction, commandTimeout, sqlAdapter);
-            }
+            int result = await DbConnection.InsertAsync(model, transaction, commandTimeout, sqlAdapter);
+            return result;
         }
 
         #endregion
@@ -67,10 +62,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = DbConnection.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -87,10 +80,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = await DbConnection.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -107,10 +98,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = DbConnection.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -127,10 +116,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = await DbConnection.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         #endregion
@@ -151,10 +138,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = DbConnection.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -171,10 +156,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = await DbConnection.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -191,10 +174,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = DbConnection.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -211,10 +192,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = await DbConnection.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         #endregion
@@ -235,10 +214,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = DbConnection.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -255,10 +232,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = await DbConnection.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -275,10 +250,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = DbConnection.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         /// <summary>
@@ -295,10 +268,8 @@ namespace SnowLeopard.Infrastructure
 
             var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
 
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
-            }
+            int result = await DbConnection.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
+            return result;
         }
 
         #endregion
@@ -312,10 +283,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if deleted, false if not found</returns>
         public virtual bool Delete(T model, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Delete(model, transaction, commandTimeout);
-            }
+            bool result = DbConnection.Delete(model, transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -327,10 +296,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if deleted, false if not found</returns>
         public async virtual Task<bool> DeleteAsync(T model, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.DeleteAsync(model, transaction, commandTimeout);
-            }
+            bool result = await DbConnection.DeleteAsync(model, transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -341,10 +308,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if deleted, false if none found</returns>
         public virtual bool DeleteAll(IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.DeleteAll<T>(transaction, commandTimeout);
-            }
+            bool result = DbConnection.DeleteAll<T>(transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -355,10 +320,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if deleted, false if none found</returns>
         public async virtual Task<bool> DeleteAllAsync(IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.DeleteAllAsync<T>(transaction, commandTimeout);
-            }
+            bool result = await DbConnection.DeleteAllAsync<T>(transaction, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -374,10 +337,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if updated, false if not found or not modified (tracked entities)</returns>
         public virtual bool Update(T model, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Update(model, transaction, commandTimeout);
-            }
+            bool result = DbConnection.Update(model, transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -389,10 +350,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>true if updated, false if not found or not modified (tracked entities)</returns>
         public async virtual Task<bool> UpdateAsync(T model, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.UpdateAsync(model, transaction, commandTimeout);
-            }
+            bool result = await DbConnection.UpdateAsync(model, transaction, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -410,10 +369,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public virtual T Get(int id, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Get<T>(id, transaction, commandTimeout);
-            }
+            T result = DbConnection.Get<T>(id, transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -425,10 +382,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public async virtual Task<T> GetAsync(int id, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.GetAsync<T>(id, transaction, commandTimeout);
-            }
+            T result = await DbConnection.GetAsync<T>(id, transaction, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -444,10 +399,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public virtual T Get(string id, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Get<T>(id, transaction, commandTimeout);
-            }
+            T result = DbConnection.Get<T>(id, transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -459,10 +412,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public async virtual Task<T> GetAsync(string id, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.GetAsync<T>(id, transaction, commandTimeout);
-            }
+            T result = await DbConnection.GetAsync<T>(id, transaction, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -478,10 +429,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public virtual T Get(Guid id, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Get<T>(id, transaction, commandTimeout);
-            }
+            T result = DbConnection.Get<T>(id, transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -493,10 +442,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public async virtual Task<T> GetAsync(Guid id, IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.GetAsync<T>(id, transaction, commandTimeout);
-            }
+            T result = await DbConnection.GetAsync<T>(id, transaction, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -509,10 +456,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public virtual IEnumerable<T> GetAll(IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.GetAll<T>(transaction, commandTimeout);
-            }
+            IEnumerable<T> result = DbConnection.GetAll<T>(transaction, commandTimeout);
+            return result;
         }
 
         /// <summary>
@@ -523,10 +468,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>Entity of T</returns>
         public async virtual Task<IEnumerable<T>> GetAllAsync(IDbTransaction transaction, int? commandTimeout = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.GetAllAsync<T>(transaction, commandTimeout);
-            }
+            IEnumerable<T> result = await DbConnection.GetAllAsync<T>(transaction, commandTimeout);
+            return result;
         }
 
         #endregion
@@ -550,10 +493,8 @@ namespace SnowLeopard.Infrastructure
         /// </returns>
         public virtual IEnumerable<T> Query(string sql, IDbTransaction transaction, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
-            }
+            IEnumerable<T> result = DbConnection.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -572,10 +513,8 @@ namespace SnowLeopard.Infrastructure
         /// </returns>
         public async virtual Task<IEnumerable<T>> QueryAsync(string sql, IDbTransaction transaction, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
-            }
+            IEnumerable<T> result = await DbConnection.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -596,10 +535,8 @@ namespace SnowLeopard.Infrastructure
         /// </returns>
         public virtual IEnumerable<Model> Query<Model>(string sql, IDbTransaction transaction, object param = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Query<Model>(sql, param, transaction, buffered, commandTimeout, commandType);
-            }
+            IEnumerable<Model> result = DbConnection.Query<Model>(sql, param, transaction, buffered, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -619,10 +556,8 @@ namespace SnowLeopard.Infrastructure
         /// </returns>
         public async virtual Task<IEnumerable<Model>> QueryAsync<Model>(string sql, IDbTransaction transaction, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.QueryAsync<Model>(sql, param, transaction, commandTimeout, commandType);
-            }
+            IEnumerable<Model> result = await DbConnection.QueryAsync<Model>(sql, param, transaction, commandTimeout, commandType);
+            return result;
         }
 
         #endregion
@@ -640,10 +575,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The number of rows affected.</returns>
         public virtual int Execute(string sql, IDbTransaction transaction, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.Execute(sql, param, transaction, commandTimeout, commandType);
-            }
+            int result = DbConnection.Execute(sql, param, transaction, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -657,10 +590,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The number of rows affected.</returns>
         public async virtual Task<int> ExecuteAsync(string sql, IDbTransaction transaction, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
-            }
+            int result = await DbConnection.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
+            return result;
         }
 
         #endregion
@@ -679,10 +610,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The first cell returned, as System.Object.</returns>
         public virtual Model ExecuteScalar<Model>(string sql, IDbTransaction transaction, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.ExecuteScalar<Model>(sql, param, transaction, commandTimeout, commandType);
-            }
+            Model result = DbConnection.ExecuteScalar<Model>(sql, param, transaction, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -697,10 +626,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The first cell returned, as System.Object.</returns>
         public async virtual Task<Model> ExecuteScalarAsync<Model>(string sql, IDbTransaction transaction, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteScalarAsync<Model>(sql, param, transaction, commandTimeout, commandType);
-            }
+            Model result = await DbConnection.ExecuteScalarAsync<Model>(sql, param, transaction, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -714,10 +641,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The first cell returned, as System.Object.</returns>
         public virtual object ExecuteScalar(string sql, IDbTransaction transaction, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return conn.ExecuteScalar(sql, param, transaction, commandTimeout, commandType);
-            }
+            object result = DbConnection.ExecuteScalar(sql, param, transaction, commandTimeout, commandType);
+            return result;
         }
 
         /// <summary>
@@ -731,10 +656,8 @@ namespace SnowLeopard.Infrastructure
         /// <returns>The first cell returned, as System.Object.</returns>
         public async virtual Task<object> ExecuteScalarAsync(string sql, IDbTransaction transaction, object param = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            using (var conn = new MySqlConnection(_connStr))
-            {
-                return await conn.ExecuteScalarAsync(sql, param, transaction, commandTimeout, commandType);
-            }
+            object result = await DbConnection.ExecuteScalarAsync(sql, param, transaction, commandTimeout, commandType);
+            return result;
         }
 
         #endregion

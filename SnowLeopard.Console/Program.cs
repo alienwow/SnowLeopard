@@ -18,9 +18,14 @@ namespace SnowLeopard.Console
         {
             var connStr = "Server=localhost;Port=7002;Database=ZGD;User=root;Password=abcd-1234;";
             IServiceCollection services = new ServiceCollection();
-            services.AddDbConnection((x) =>
+            services.AddMySqlDbConnection((x) =>
             {
-                return new MySqlConnection(connStr);
+                MySqlConnection conn = new MySqlConnection(connStr);
+                if (conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+                return conn;
             });
 
             var builder = new ContainerBuilder();
@@ -30,12 +35,14 @@ namespace SnowLeopard.Console
             var container = builder.Build();
 
             var dal = container.Resolve<GroupDAL>();
-            dal.TT().Wait();
+            //dal.InsertAsync().Wait();
+
+            dal.BatchInsertAsync().Wait();
 
             //var dal = new GroupDAL("Server=localhost;Port=7002;Database=ZGD;User=root;Password=abcd-1234;");
 
             //dal.TT();
-
+            System.Console.ReadKey();
             System.Console.WriteLine("Hello World!");
         }
     }
@@ -48,44 +55,72 @@ namespace SnowLeopard.Console
             _dbConnection = dbConnection;
         }
 
-        public async Task TT()
+        /// <summary>
+        /// 批量插入
+        /// </summary>
+        /// <returns></returns>
+        public async Task BatchInsertAsync()
         {
-            _dbConnection.Open();
-            //IDbTransaction tran = _dbConnection.BeginTransaction();
-            //var sql = "SELECT * FROM groups ORDER BY GroupStatus ASC,MemberCount DESC,EntryDeadline ASC;";
-
-            var sql1 = "INSERT INTO `groups` (`Id`, `CoverUrl`, `CreateTime`, `Describe`, `EntryDeadline`, `GenderRequirements`, `GroupStatus`, `IsTimeNo`, `MemberCount`, `MemberLimit`, `PayType`, `TeamLeaderId`) VALUES ('1', '1', '2018-6-13 12:51:36', '1', '2018-6-13 12:51:41', 1, 1, '', 1, 1, 1, '1');";
-            var sql2 = "INSERT INTO `groups` (`Id`, `CoverUrl`, `CreateTime`, `Describe`, `EntryDeadline`, `GenderRequirements`, `GroupStatus`, `IsTimeNo`, `MemberCount`, `MemberLimit`, `PayType`, `TeamLeaderId`) VALUES ('1', '2', '2018-6-13 12:51:36', '2', '2018-6-13 12:51:41', 2, 2, '', 2, 2, 2, '2');";
+            if (_dbConnection.State == ConnectionState.Closed)
+            {
+                _dbConnection.Open();
+            }
+            IDbTransaction tran = _dbConnection.BeginTransaction();
 
             try
             {
-                var model = new Group()
+                var batchInsertSql = @"INSERT INTO `groups` 
+(`CoverUrl`, `CreateTime`, `Describe`, `EntryDeadline`, `GenderRequirements`, `GroupStatus`, `IsTimeNo`, `MemberCount`, `MemberLimit`, `PayType`, `TeamLeaderId`)
+VALUES (@CoverUrl,@CreateTime,@Describe,@EntryDeadline,@GenderRequirements,@GroupStatus,@IsTimeNo,@MemberCount,@MemberLimit,@PayType,@TeamLeaderId)";
+
+                var objs = new Group[10];
+                for (int i = 0; i < 10; i++)
                 {
-                    CoverUrl = "",
-                    EntryDeadline = DateTime.Now,
-                    GroupStatus = 1,
-                    MemberCount = 1,
-                    MemberLimit = 1,
-                    PayType = 1,
-                    TeamLeaderId = 2,
-                    Describe = "",
-                    IsTimeNo = true,
-                    GenderRequirements = 2,
-                    CreateTime = DateTime.Now
-                };
-                var res = await InsertAsync(model);
+                    objs[i] = new Group
+                    {
+                        CoverUrl = i.ToString(),
+                        EntryDeadline = DateTime.Now,
+                        GroupStatus = 1,
+                        MemberCount = i,
+                        MemberLimit = i,
+                        PayType = i,
+                        TeamLeaderId = i,
+                        Describe = i.ToString(),
+                        IsTimeNo = true,
+                        GenderRequirements = i,
+                        CreateTime = DateTime.Now
+                    };
+                }
 
-                //await ExecuteAsync(sql1, null, tran);
-                //await ExecuteAsync(sql2, null, tran);
+                await ExecuteAsync(batchInsertSql, tran, objs);
 
-                //tran.Commit();
+                tran.Commit();
             }
             catch (Exception ex)
             {
-                //tran.Rollback();
+                tran.Rollback();
                 System.Console.WriteLine(ex);
             }
-            //var res = Query(sql);
+        }
+
+        public async Task InsertAsync()
+        {
+            _dbConnection.Open();
+            var model = new Group()
+            {
+                CoverUrl = "",
+                EntryDeadline = DateTime.Now,
+                GroupStatus = 1,
+                MemberCount = 1,
+                MemberLimit = 1,
+                PayType = 1,
+                TeamLeaderId = 2,
+                Describe = "",
+                IsTimeNo = true,
+                GenderRequirements = 2,
+                CreateTime = DateTime.Now
+            };
+            var res = await InsertAsync(model);
         }
     }
 
