@@ -8,7 +8,28 @@ using System.Threading.Tasks;
 
 namespace SnowLeopard.Infrastructure.Common
 {
-    public enum HttpMethodEnum { GET, POST, PUT, DELETE }
+    /// <summary>
+    /// HttpMethodEnum
+    /// </summary>
+    public enum HttpMethodEnum
+    {
+        /// <summary>
+        /// GET
+        /// </summary>
+        GET,
+        /// <summary>
+        /// POST
+        /// </summary>
+        POST,
+        /// <summary>
+        /// PUT
+        /// </summary>
+        PUT,
+        /// <summary>
+        /// DELETE
+        /// </summary>
+        DELETE
+    }
 
     /// <summary>
     /// 有关HTTP请求的辅助类
@@ -45,7 +66,7 @@ namespace SnowLeopard.Infrastructure.Common
             // 如果是Post请求，则设置表单
             if (method == HttpMethodEnum.POST || method == HttpMethodEnum.PUT)
             {
-                request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
+                request.ContentType = "application/x-www-form-urlencoded; charset=utf-8";
                 if (postdata == null || postdata.Count == 0)
                 {
                     request.Headers[HttpRequestHeader.ContentLength] = "0";
