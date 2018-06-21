@@ -4,24 +4,24 @@ using System.Collections.Generic;
 namespace SnowLeopard.Infrastructure
 {
     /// <summary>
-    /// PagingViewModel
+    /// PagingDTO
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class PagingViewModel<T>
+    public class PagingDTO<T>
     {
         /// <summary>
-        /// PagingViewModel
+        /// PagingDTO
         /// </summary>
-        public PagingViewModel() { }
+        public PagingDTO() { }
 
         /// <summary>
-        /// PagingViewModel
+        /// PagingDTO
         /// </summary>
         /// <param name="list"></param>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <param name="count"></param>
-        public PagingViewModel(IEnumerable<T> list, int page, int pageSize, long count)
+        public PagingDTO(IEnumerable<T> list, int page, int pageSize, long count)
         {
             List = list;
             Page = page;

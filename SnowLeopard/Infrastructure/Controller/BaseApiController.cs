@@ -16,9 +16,9 @@ namespace SnowLeopard.Infrastructure
         /// <param name="statusCode">状态码</param>
         /// <param name="msg">msg</param>
         /// <returns></returns>
-        public virtual BaseViewModel<T> BaseResult<T>(T data, int statusCode = 200, string msg = "success")
+        public virtual BaseDTO<T> BaseResult<T>(T data, int statusCode = 200, string msg = "success")
         {
-            return new BaseViewModel<T>()
+            return new BaseDTO<T>()
             {
                 Code = statusCode,
                 Msg = msg,
@@ -37,13 +37,13 @@ namespace SnowLeopard.Infrastructure
         /// <param name="statusCode">状态码</param>
         /// <param name="msg">msg</param>
         /// <returns></returns>
-        public virtual BaseViewModel<PagingViewModel<T>> BaseResult<T>(IEnumerable<T> list, int page, int pageSize, long count, int statusCode = 200, string msg = "success")
+        public virtual BaseDTO<PagingDTO<T>> BaseResult<T>(IEnumerable<T> list, int page, int pageSize, long count, int statusCode = 200, string msg = "success")
         {
-            return new BaseViewModel<PagingViewModel<T>>()
+            return new BaseDTO<PagingDTO<T>>()
             {
                 Code = statusCode,
                 Msg = msg,
-                Data = new PagingViewModel<T>(list, page, pageSize, count)
+                Data = new PagingDTO<T>(list, page, pageSize, count)
             };
         }
     }

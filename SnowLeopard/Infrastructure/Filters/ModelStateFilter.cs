@@ -35,7 +35,7 @@ namespace SnowLeopard.Infrastructure.Filters
             if (!context.ModelState.IsValid)
             {
                 _logger.LogInformation("模型绑定失败！");
-                var result = new BaseViewModel<SerializableError>()
+                var result = new BaseDTO<SerializableError>()
                 {
                     Code = (int)HttpStatusCode.BadRequest,
                     Msg = nameof(HttpStatusCode.BadRequest),

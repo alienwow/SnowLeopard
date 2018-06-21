@@ -39,7 +39,7 @@ namespace SnowLeopard.Infrastructure.Filters
                 if (context.Result is ObjectResult)
                 {
                     var objectResult = context.Result as ObjectResult;
-                    var result = new BaseViewModel<object>();
+                    var result = new BaseDTO<object>();
                     if (objectResult.Value == null)
                     {
                         result.Code = (int)HttpStatusCode.NoContent;
@@ -56,7 +56,7 @@ namespace SnowLeopard.Infrastructure.Filters
                 }
                 else if (context.Result is EmptyResult)
                 {
-                    var result = new BaseViewModel<object>()
+                    var result = new BaseDTO<object>()
                     {
                         Code = (int)HttpStatusCode.NoContent,
                         Msg = nameof(HttpStatusCode.NoContent),
@@ -68,7 +68,7 @@ namespace SnowLeopard.Infrastructure.Filters
                 {
                     var contentResult = context.Result as ContentResult;
 
-                    var result = new BaseViewModel<object>()
+                    var result = new BaseDTO<object>()
                     {
                         Code = (int)HttpStatusCode.OK,
                         Msg = nameof(HttpStatusCode.OK),
@@ -80,7 +80,7 @@ namespace SnowLeopard.Infrastructure.Filters
                 {
                     var statusCodeResult = context.Result as StatusCodeResult;
 
-                    var result = new BaseViewModel<object>()
+                    var result = new BaseDTO<object>()
                     {
                         Code = statusCodeResult.StatusCode,
                         Msg = ((HttpStatusCode)statusCodeResult.StatusCode).ToString(),
