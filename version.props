@@ -35,11 +35,11 @@
     
     
     <!-- 版本后缀 -->
-    <VersionSuffix Condition="'$(VersionSuffix)' == ''">pre1</VersionSuffix>
+    <VersionSuffix Condition="'$(VersionSuffix)' == ''">pre2</VersionSuffix>
     <!-- 产品创建版本号 -->
     <ProductBuildNumber></ProductBuildNumber>
     <!-- NuGet 包后缀 -->
-    <PackageSuffix>insider137</PackageSuffix>
+    <PackageSuffix>insider110</PackageSuffix>
 
     <BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
     <!-- 文件版本 -->

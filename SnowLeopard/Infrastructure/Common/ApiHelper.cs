@@ -36,6 +36,9 @@ namespace SnowLeopard.Infrastructure.Common
     /// </summary>
     public class APIHelper
     {
+        /// <summary>
+        /// UserAgent
+        /// </summary>
         public const string DEFAULT_USER_AGENT = "SnowLeopard/ASPNETCORE2.1(@Vito.Wu)";
 
         /// <summary>

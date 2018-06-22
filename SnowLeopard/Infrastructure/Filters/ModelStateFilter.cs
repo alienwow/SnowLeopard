@@ -22,7 +22,7 @@ namespace SnowLeopard.Infrastructure.Filters
         /// <param name="env"></param>
         public ModelStateFilter(ILoggerFactory loggerFactory, IHostingEnvironment env)
         {
-            _logger = loggerFactory.CreateLogger<HttpGlobalExceptionFilter>();
+            _logger = loggerFactory.CreateLogger<GlobalExceptionFilter>();
             _env = env;
         }
 

@@ -4,10 +4,10 @@ using SnowLeopard.Abstractions.Services;
 using System.Linq;
 using System.Reflection;
 
-namespace SnowLeopard.Extensions
+namespace SnowLeopard.DependencyInjection
 {
     /// <summary>
-    /// ServiceRegisterExtension
+    /// ServiceRegister Extension
     /// </summary>
     public static class ServiceRegisterExtension
     {
