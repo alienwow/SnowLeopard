@@ -63,10 +63,6 @@ namespace SnowLeopard.Infrastructure.Filters
         {
             var logger = _loggerFactory.CreateLogger(context.Exception.TargetSite.ReflectedType);
 
-            logger.LogError(new EventId(context.Exception.HResult),
-                            context.Exception,
-                            context.Exception.Message);
-
             ObjectResult result = null;
             BaseDTO<object> baseResult = new BaseDTO<object>()
             {
@@ -76,6 +72,10 @@ namespace SnowLeopard.Infrastructure.Filters
             };
             if (_baseExceptions.Contains(context.Exception.GetType()) || context.Exception.GetType().IsSubclassOf(typeof(BaseException)))
             {
+                logger.LogInformation(
+                            new EventId(context.Exception.HResult)
+                            , context.Exception.Message
+                        );
                 if (context.Exception is BaseException baseException)
                 {
                     baseResult.Code = baseException.Code;
@@ -84,6 +84,10 @@ namespace SnowLeopard.Infrastructure.Filters
             }
             else
             {
+                logger.LogError(new EventId(context.Exception.HResult),
+                                context.Exception,
+                                context.Exception.Message);
+
                 result = new InternalServerErrorObjectResult(baseResult);
             }
 

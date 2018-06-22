@@ -53,7 +53,9 @@ namespace SnowLeopard.WebApi.Controllers
                 case 15: throw new TypeInitializationException("", null); break;
                 case 16: throw new NotFiniteNumberException(); break;
                 case 17: throw new Exceptions.BaseException($"参数{nameof(value)}为空"); break;
+                case 18: throw new Exception("为捕获的异常"); break;
                 default:
+                    throw new Exception("为捕获的异常");
                     break;
             }
             if (string.IsNullOrEmpty(value))
