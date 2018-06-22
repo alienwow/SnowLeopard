@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.props = version.props
 	EndProjectSection
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{59000BBC-A70C-4EEF-AC84-F9D9785354E6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7D8F4061-A053-4450-9917-0687BF608E82}"
@@ -24,16 +22,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Console", "test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.WebApi", "test\SnowLeopard.WebApi\SnowLeopard.WebApi.csproj", "{54E251B3-95B2-4987-981B-167DFCC8E04D}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker\docker-compose.dcproj", "{59000BBC-A70C-4EEF-AC84-F9D9785354E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDA1E49D-DB97-481D-A1FB-BACD9DA85B29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDA1E49D-DB97-481D-A1FB-BACD9DA85B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA1E49D-DB97-481D-A1FB-BACD9DA85B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,6 +42,10 @@ Global
 		{54E251B3-95B2-4987-981B-167DFCC8E04D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54E251B3-95B2-4987-981B-167DFCC8E04D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54E251B3-95B2-4987-981B-167DFCC8E04D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +54,7 @@ Global
 		{FDA1E49D-DB97-481D-A1FB-BACD9DA85B29} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 		{37799260-A466-4FD5-957D-2CC84307AD6E} = {7D8F4061-A053-4450-9917-0687BF608E82}
 		{54E251B3-95B2-4987-981B-167DFCC8E04D} = {7D8F4061-A053-4450-9917-0687BF608E82}
+		{59000BBC-A70C-4EEF-AC84-F9D9785354E6} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C818AB9D-C1C2-4DFA-B615-D5CB147E1306}

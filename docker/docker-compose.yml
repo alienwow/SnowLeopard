@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY}snowleopardwebapi
     build:
       context: .
-      dockerfile: src/test/SnowLeopard.WebApi/Dockerfile
+      dockerfile: test/SnowLeopard.WebApi/Dockerfile
