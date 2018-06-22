@@ -18,7 +18,7 @@ namespace SnowLeopard.Infrastructure
     public abstract class BaseDAL<T> : IBaseDAL<T>
         where T : class
     {
-        private string _connStr = string.Empty;
+        private string _connStr;
 
         /// <summary>
         /// ConnStr
@@ -44,6 +44,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return (int)conn.Insert(model, transaction, commandTimeout);
             }
         }
@@ -60,6 +61,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.InsertAsync(model, transaction, commandTimeout, sqlAdapter);
             }
         }
@@ -68,8 +70,8 @@ namespace SnowLeopard.Infrastructure
 
         #region Delete
 
-        private const string _deleteObjSql = "DELETE FROM {0} WHERE id=@id";
-        private const string _deleteObjsSql = "DELETE FROM {0} WHERE id IN @ids";
+        private const string __DELETE_OBJ_SQL = "DELETE FROM {0} WHERE id=@id";
+        private const string __DELETE_OBJS_SQL = "DELETE FROM {0} WHERE id IN @ids";
 
         #region Int
 
@@ -85,10 +87,11 @@ namespace SnowLeopard.Infrastructure
             if (id <= 0)
                 throw new ArgumentException(nameof(id) + "必须大于0");
 
-            var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJ_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -105,10 +108,11 @@ namespace SnowLeopard.Infrastructure
             if (id <= 0)
                 throw new ArgumentException(nameof(id) + "必须大于0");
 
-            var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJ_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -125,10 +129,11 @@ namespace SnowLeopard.Infrastructure
             if (ids == null || ids.Count() == 0)
                 throw new ArgumentException("不允许为null，且至少包含于个元素", nameof(ids));
 
-            var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJS_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -145,10 +150,11 @@ namespace SnowLeopard.Infrastructure
             if (ids == null || ids.Count() == 0)
                 throw new ArgumentException("不允许为null，且至少包含于个元素", nameof(ids));
 
-            var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJS_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -169,10 +175,11 @@ namespace SnowLeopard.Infrastructure
             if (id == null)
                 throw new ArgumentException("Cannot be null", nameof(id));
 
-            var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJ_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -189,10 +196,11 @@ namespace SnowLeopard.Infrastructure
             if (id == null)
                 throw new ArgumentException("Cannot be null", nameof(id));
 
-            var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJ_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -209,10 +217,11 @@ namespace SnowLeopard.Infrastructure
             if (ids == null || ids.Count() == 0)
                 throw new ArgumentException("不允许为null，且至少包含于个元素", nameof(ids));
 
-            var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJS_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -229,10 +238,11 @@ namespace SnowLeopard.Infrastructure
             if (ids == null || ids.Count() == 0)
                 throw new ArgumentException("不允许为null，且至少包含于个元素", nameof(ids));
 
-            var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJS_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -253,10 +263,11 @@ namespace SnowLeopard.Infrastructure
             if (id == Guid.Empty)
                 throw new ArgumentException(nameof(id) + " 不是标准的Guid");
 
-            var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJ_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -273,10 +284,11 @@ namespace SnowLeopard.Infrastructure
             if (id == Guid.Empty)
                 throw new ArgumentException(nameof(id) + " 不是标准的Guid");
 
-            var sql = string.Format(_deleteObjSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJ_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -293,10 +305,11 @@ namespace SnowLeopard.Infrastructure
             if (ids == null || ids.Count() == 0)
                 throw new ArgumentException("不允许为null，且至少包含于个元素", nameof(ids));
 
-            var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJS_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -313,10 +326,11 @@ namespace SnowLeopard.Infrastructure
             if (ids == null || ids.Count() == 0)
                 throw new ArgumentException("不允许为null，且至少包含于个元素", nameof(ids));
 
-            var sql = string.Format(_deleteObjsSql, typeof(T).GetTableName());
+            var sql = string.Format(__DELETE_OBJS_SQL, typeof(T).GetTableName());
 
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
             }
         }
@@ -334,6 +348,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Delete(model, transaction, commandTimeout);
             }
         }
@@ -349,6 +364,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.DeleteAsync(model, transaction, commandTimeout);
             }
         }
@@ -363,6 +379,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.DeleteAll<T>(transaction, commandTimeout);
             }
         }
@@ -377,6 +394,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.DeleteAllAsync<T>(transaction, commandTimeout);
             }
         }
@@ -396,6 +414,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Update(model, transaction, commandTimeout);
             }
         }
@@ -411,6 +430,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.UpdateAsync(model, transaction, commandTimeout);
             }
         }
@@ -432,6 +452,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Get<T>(id, transaction, commandTimeout);
             }
         }
@@ -447,6 +468,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.GetAsync<T>(id, transaction, commandTimeout);
             }
         }
@@ -466,6 +488,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Get<T>(id, transaction, commandTimeout);
             }
         }
@@ -481,6 +504,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.GetAsync<T>(id, transaction, commandTimeout);
             }
         }
@@ -500,6 +524,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Get<T>(id, transaction, commandTimeout);
             }
         }
@@ -515,6 +540,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.GetAsync<T>(id, transaction, commandTimeout);
             }
         }
@@ -531,6 +557,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.GetAll<T>(transaction, commandTimeout);
             }
         }
@@ -545,6 +572,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.GetAllAsync<T>(transaction, commandTimeout);
             }
         }
@@ -572,6 +600,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Query<T>(sql, param, transaction, buffered, commandTimeout, commandType);
             }
         }
@@ -594,6 +623,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.QueryAsync<T>(sql, param, transaction, commandTimeout, commandType);
             }
         }
@@ -618,6 +648,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Query<Model>(sql, param, transaction, buffered, commandTimeout, commandType);
             }
         }
@@ -641,6 +672,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.QueryAsync<Model>(sql, param, transaction, commandTimeout, commandType);
             }
         }
@@ -662,6 +694,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.Execute(sql, param, transaction, commandTimeout, commandType);
             }
         }
@@ -679,6 +712,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteAsync(sql, param, transaction, commandTimeout, commandType);
             }
         }
@@ -701,6 +735,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.ExecuteScalar<Model>(sql, param, transaction, commandTimeout, commandType);
             }
         }
@@ -719,6 +754,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteScalarAsync<Model>(sql, param, transaction, commandTimeout, commandType);
             }
         }
@@ -736,6 +772,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return conn.ExecuteScalar(sql, param, transaction, commandTimeout, commandType);
             }
         }
@@ -753,6 +790,7 @@ namespace SnowLeopard.Infrastructure
         {
             using (var conn = new MySqlConnection(_connStr))
             {
+                conn.Open();
                 return await conn.ExecuteScalarAsync(sql, param, transaction, commandTimeout, commandType);
             }
         }
