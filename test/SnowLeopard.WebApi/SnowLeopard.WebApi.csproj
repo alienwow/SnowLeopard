@@ -8,7 +8,7 @@
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
-  <Import Project="..\..\..\build\common.props" />
+  <Import Project="..\..\common.props" />
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningsAsErrors>NU1605</WarningsAsErrors>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SnowLeopard\SnowLeopard.csproj" />
+    <ProjectReference Include="..\..\src\SnowLeopard\SnowLeopard.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 <Project>
-  <Import Project="..\version.props" />
+  <Import Project=".\version.props" />
   <PropertyGroup>
     <Product>SnowLeopard</Product>
     <Authors>Vito</Authors>
