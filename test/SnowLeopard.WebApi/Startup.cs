@@ -16,12 +16,26 @@ namespace SnowLeopard.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        /// <summary>
+        /// Startup
+        /// </summary>
+        /// <param name="configuration">configuration</param>
+        /// <param name="hostingEnvironment">hostingEnvironment</param>
+        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            HostingEnvironment = hostingEnvironment;
         }
 
+        /// <summary>
+        /// Configuration
+        /// </summary>
         public IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// HostingEnvironment
+        /// </summary>
+        public IHostingEnvironment HostingEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -46,9 +60,8 @@ namespace SnowLeopard.WebApi
                     };
                 });
 
-            services.AddSwaggerGen(options =>
+            services.AddSnowLeopardSwaggerGen(HostingEnvironment, options =>
             {
-                options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new Info
                 {
                     Title = "SnowLeopard.WebApi HTTP API",

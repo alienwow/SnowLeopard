@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Reflection;
 
 namespace SnowLeopard.WebApi
 {
@@ -22,37 +19,45 @@ namespace SnowLeopard.WebApi
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile("appsettings.Development.json", true, false)
-                .AddJsonFile("appsettings.Production.json", true, false)
-                .AddEnvironmentVariables()
-                .AddCommandLine(args);
+                .AddEnvironmentVariables();
 
-            if (args != null)
-            {
-                configurationBuilder.AddCommandLine(args);
-            }
-            var hostingconfig = configurationBuilder.Build();
-            var url = hostingconfig[GlobalConsts.APPLICATION_URL_KEY];
-            var globalConfig = hostingconfig.Get<GlobalConfig>();
+            if (args != null) configurationBuilder.AddCommandLine(args);
 
-            return
-                WebHost.CreateDefaultBuilder(args)
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .ConfigureAppConfiguration((builderContext, config) =>
-                {
-                    config.AddJsonFile("appsettings.json", false, true);
-                    config.AddEnvironmentVariables();
-                })
-                .ConfigureLogging((hostingContext, builder) =>
-                {
-                    builder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    builder.AddConsole();
-                    builder.AddDebug();
-                })
-                .UseConfiguration(hostingconfig)
-                .UseStartup<Startup>()
-                .UseKestrel()
-                .UseUrls(url);
+            var hostingConfig = configurationBuilder.Build();
+            var globalConfig = hostingConfig.Get<GlobalConfig>();
+
+            return WebHost
+                    .CreateDefaultBuilder(args)
+                    .UseKestrel()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .ConfigureAppConfiguration((hostingCtx, config) =>
+                    {
+                        var env = hostingCtx.HostingEnvironment;
+
+                        config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+                        if (env.IsDevelopment())
+                        {
+                            var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
+                            if (appAssembly != null)
+                            {
+                                config.AddUserSecrets(appAssembly, optional: true);
+                            }
+                        }
+
+                        config.AddEnvironmentVariables();
+
+                        if (args != null) config.AddCommandLine(args);
+                    })
+                    .ConfigureLogging((hostingCtx, logging) =>
+                    {
+                        logging.AddConfiguration(hostingCtx.Configuration.GetSection("Logging"));
+                        logging.AddConsole();
+                        logging.AddDebug();
+                    })
+                    .UseUrls(globalConfig.ApplicationUrl)
+                    .UseStartup<Startup>();
         }
     }
 }

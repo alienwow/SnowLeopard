@@ -13,6 +13,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningsAsErrors>NU1605</WarningsAsErrors>
     <NoWarn>1701;1702;1705;1591;1570;0414</NoWarn>
+    <DocumentationFile>bin\Debug\netcoreapp2.1\SnowLeopard.WebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netcoreapp2.1\SnowLeopard.WebApi.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
