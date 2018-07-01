@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace SnowLeopard.WebApi.Controllers
 {
+    /// <summary>
+    /// Values
+    /// </summary>
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ValuesController : BaseApiController
     {
-        // GET api/values
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), (int)HttpStatusCode.OK)]
         public async Task<IEnumerable<string>> Get()
@@ -20,7 +26,11 @@ namespace SnowLeopard.WebApi.Controllers
             return await Task.FromResult(new string[] { "value1", "value2" });
         }
 
-        // GET api/values/5
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), (int)HttpStatusCode.OK)]
         public async Task<string> Get(int id)
@@ -29,7 +39,11 @@ namespace SnowLeopard.WebApi.Controllers
         }
 
         static int count = 0;
-        // POST api/values
+
+        /// <summary>
+        /// Post
+        /// </summary>
+        /// <param name="value"></param>
         [HttpPost]
         public void Post([FromBody] string value)
         {
@@ -64,13 +78,20 @@ namespace SnowLeopard.WebApi.Controllers
             }
         }
 
-        // PUT api/values/5
+        /// <summary>
+        /// Put
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/values/5
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

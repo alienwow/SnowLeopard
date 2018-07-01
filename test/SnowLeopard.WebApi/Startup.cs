@@ -66,8 +66,8 @@ namespace SnowLeopard.WebApi
                 {
                     Title = "SnowLeopard.WebApi HTTP API",
                     Version = "v1",
-                    Description = "The Basket Service HTTP API",
-                    TermsOfService = "Terms Of Service"
+                    Description = "The SnowLeopard.WebApi Service HTTP API",
+                    TermsOfService = "None"
                 });
 
                 //options.AddSecurityDefinition("oauth2", new OAuth2Scheme
@@ -107,11 +107,10 @@ namespace SnowLeopard.WebApi
 
             app.UseMvc();
 
-            var pathBase = string.Empty;
             app.UseSwagger()
                .UseSwaggerUI(c =>
                {
-                   c.SwaggerEndpoint($"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json", "SnowLeopard.WebApi.API V1");
+                   c.SwaggerEndpoint("/swagger/v1/swagger.json", "SnowLeopard.WebApi.API V1");
                    c.OAuthClientId("snowleopard.webapiswaggerui");
                    c.OAuthAppName("SnowLeopard.WebApi Swagger UI");
                });
