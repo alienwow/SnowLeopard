@@ -77,6 +77,46 @@ namespace SnowLeopard.Abstractions
 
         #endregion
 
+        #region Int64
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        int Delete(long id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        Task<int> DeleteAsync(long id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        int Delete(IEnumerable<long> ids, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        Task<int> DeleteAsync(IEnumerable<long> ids, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        #endregion
+
         #region String
 
         /// <summary>
@@ -236,6 +276,28 @@ namespace SnowLeopard.Abstractions
         /// <param name="commandTimeout"></param>
         /// <returns>Entity of T</returns>
         Task<T> GetAsync(int id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        #endregion
+
+        #region Int64
+
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>Entity of T</returns>
+        T Get(long id, IDbTransaction transaction = null, int? commandTimeout = null);
+
+        /// <summary>
+        /// GetAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>Entity of T</returns>
+        Task<T> GetAsync(long id, IDbTransaction transaction = null, int? commandTimeout = null);
 
         #endregion
 

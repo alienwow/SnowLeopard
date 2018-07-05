@@ -161,6 +161,94 @@ namespace SnowLeopard.Infrastructure
 
         #endregion
 
+        #region Int64
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        public virtual int Delete(long id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            if (id <= 0)
+                throw new ArgumentException(nameof(id) + "必须大于0");
+
+            var sql = string.Format(__DELETE_OBJ_SQL, typeof(T).GetTableName());
+
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                return conn.Execute(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            }
+        }
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        public async virtual Task<int> DeleteAsync(long id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            if (id <= 0)
+                throw new ArgumentException(nameof(id) + "必须大于0");
+
+            var sql = string.Format(__DELETE_OBJ_SQL, typeof(T).GetTableName());
+
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                return await conn.ExecuteAsync(sql, new { id }, transaction, commandTimeout, CommandType.Text);
+            }
+        }
+
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        public virtual int Delete(IEnumerable<long> ids, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            if (ids == null || ids.Count() == 0)
+                throw new ArgumentException("不允许为null，且至少包含于个元素", nameof(ids));
+
+            var sql = string.Format(__DELETE_OBJS_SQL, typeof(T).GetTableName());
+
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                return conn.Execute(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
+            }
+        }
+
+        /// <summary>
+        /// DeleteAsync
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>The number of rows affected.</returns>
+        public async virtual Task<int> DeleteAsync(IEnumerable<long> ids, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            if (ids == null || ids.Count() == 0)
+                throw new ArgumentException("不允许为null，且至少包含于个元素", nameof(ids));
+
+            var sql = string.Format(__DELETE_OBJS_SQL, typeof(T).GetTableName());
+
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                return await conn.ExecuteAsync(sql, new { ids }, transaction, commandTimeout, CommandType.Text);
+            }
+        }
+
+        #endregion
+
         #region String
 
         /// <summary>
@@ -465,6 +553,42 @@ namespace SnowLeopard.Infrastructure
         /// <param name="commandTimeout"></param>
         /// <returns>Entity of T</returns>
         public async virtual Task<T> GetAsync(int id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                return await conn.GetAsync<T>(id, transaction, commandTimeout);
+            }
+        }
+
+        #endregion
+
+        #region Int64
+
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>Entity of T</returns>
+        public virtual T Get(long id, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            using (var conn = new MySqlConnection(_connStr))
+            {
+                conn.Open();
+                return conn.Get<T>(id, transaction, commandTimeout);
+            }
+        }
+
+        /// <summary>
+        /// GetAsync
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transaction"></param>
+        /// <param name="commandTimeout"></param>
+        /// <returns>Entity of T</returns>
+        public async virtual Task<T> GetAsync(long id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             using (var conn = new MySqlConnection(_connStr))
             {
