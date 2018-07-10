@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -28,7 +30,11 @@ namespace SnowLeopard.Infrastructure.Common
         /// <summary>
         /// DELETE
         /// </summary>
-        DELETE
+        DELETE,
+        /// <summary>
+        /// PATCH
+        /// </summary>
+        PATCH
     }
 
     /// <summary>
@@ -37,7 +43,27 @@ namespace SnowLeopard.Infrastructure.Common
     public class APIHelper
     {
         /// <summary>
-        /// UserAgent
+        /// InitJsonSerializerSetting
+        /// </summary>
+        /// <param name="jsonSerializerSettings"></param>
+        public static void InitJsonSerializerSetting(JsonSerializerSettings jsonSerializerSettings)
+        {
+            DefaultJsonSerializerSettings = jsonSerializerSettings;
+        }
+
+        /// <summary>
+        /// DefaultJsonSerializerSettings
+        /// </summary>
+        public static JsonSerializerSettings DefaultJsonSerializerSettings { get; private set; } = new JsonSerializerSettings()
+        {
+            ContractResolver = new DateTimeContractResolver()
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()// 使用驼峰样式
+            }
+        };
+
+        /// <summary>
+        /// Default User Agent
         /// </summary>
         public const string DEFAULT_USER_AGENT = "SnowLeopard/ASPNETCORE2.1(@Vito.Wu)";
 
@@ -49,12 +75,20 @@ namespace SnowLeopard.Infrastructure.Common
         /// <param name="postdata">Post数据</param>
         /// <param name="timeout">超时秒数</param>
         /// <param name="proxy">代理</param>
+        /// <param name="jsonSerializerSettings">jsonSerializerSettings</param>
         /// <returns>远程方法返回的内容</returns>
-        public static async Task<string> CallAPIAsync(string url, HttpMethodEnum method = HttpMethodEnum.GET, IDictionary<string, string> postdata = null, int? timeout = null, string proxy = null)
+        public static async Task<string> CallAPIAsync(
+            string url,
+            HttpMethodEnum method = HttpMethodEnum.GET,
+            IDictionary<string, string> postdata = null,
+            int? timeout = null,
+            string proxy = null,
+            JsonSerializerSettings jsonSerializerSettings = null
+        )
         {
             if (string.IsNullOrEmpty(url))
             {
-                return string.Empty;
+                throw new ArgumentNullException(nameof(url));
             }
 
             //  新建http请求
@@ -143,8 +177,16 @@ namespace SnowLeopard.Infrastructure.Common
         /// <param name="postdata">Post数据</param>
         /// <param name="timeout">超时秒数</param>
         /// <param name="proxy">代理</param>
+        /// <param name="jsonSerializerSettings">jsonSerializerSettings</param>
         /// <returns>强类型</returns>
-        public static async Task<T> CallAPIAsync<T>(string url, HttpMethodEnum method = HttpMethodEnum.GET, IDictionary<string, string> postdata = null, int? timeout = null, string proxy = null)
+        public static async Task<T> CallAPIAsync<T>(
+            string url,
+            HttpMethodEnum method = HttpMethodEnum.GET,
+            IDictionary<string, string> postdata = null,
+            int? timeout = null,
+            string proxy = null,
+            JsonSerializerSettings jsonSerializerSettings = null
+        )
         {
             var s = await CallAPIAsync(url, method, postdata, timeout, proxy);
             return JsonDeserialize<T>(s);
@@ -158,8 +200,16 @@ namespace SnowLeopard.Infrastructure.Common
         /// <param name="postdata">Post数据</param>
         /// <param name="timeout">超时秒数</param>
         /// <param name="proxy">代理</param>
+        /// <param name="jsonSerializerSettings">jsonSerializerSettings</param>
         /// <returns>远程方法返回的内容</returns>
-        public static string CallAPI(string url, HttpMethodEnum method = HttpMethodEnum.GET, IDictionary<string, string> postdata = null, int? timeout = null, string proxy = null)
+        public static string CallAPI(
+            string url,
+            HttpMethodEnum method = HttpMethodEnum.GET,
+            IDictionary<string, string> postdata = null,
+            int? timeout = null,
+            string proxy = null,
+            JsonSerializerSettings jsonSerializerSettings = null
+        )
         {
             return CallAPIAsync(url, method, postdata, timeout, proxy).Result;
         }
@@ -173,26 +223,19 @@ namespace SnowLeopard.Infrastructure.Common
         /// <param name="postdata">Post数据</param>
         /// <param name="timeout">超时秒数</param>
         /// <param name="proxy">代理</param>
+        /// <param name="jsonSerializerSettings">jsonSerializerSettings</param>
         /// <returns>强类型</returns>
-        public static T CallAPI<T>(string url, HttpMethodEnum method = HttpMethodEnum.GET, IDictionary<string, string> postdata = null, int? timeout = null, string proxy = null)
+        public static T CallAPI<T>(
+            string url,
+            HttpMethodEnum method = HttpMethodEnum.GET,
+            IDictionary<string, string> postdata = null,
+            int? timeout = null,
+            string proxy = null,
+            JsonSerializerSettings jsonSerializerSettings = null
+        )
         {
             var s = CallAPI(url, method, postdata, timeout, proxy);
             return JsonDeserialize<T>(s);
-        }
-
-        /// <summary>
-        /// Json序列化
-        /// </summary>
-        /// <param name="input">输入</param>
-        /// <returns>Json</returns>
-        public static string JsonSerialize(object input)
-        {
-            var s = JsonConvert.SerializeObject(input);
-            if (s != null && s.StartsWith("[") == false)
-            {
-                s = "[" + s + "]";
-            }
-            return s;
         }
 
         /// <summary>
@@ -200,12 +243,13 @@ namespace SnowLeopard.Infrastructure.Common
         /// </summary>
         /// <typeparam name="T">返回类型</typeparam>
         /// <param name="input">Json字符串</param>
+        /// <param name="jsonSerializerSettings">The JsonSerializer Settings</param>
         /// <returns>强类型</returns>
-        public static T JsonDeserialize<T>(string input)
+        public static T JsonDeserialize<T>(string input, JsonSerializerSettings jsonSerializerSettings = null)
         {
             try
             {
-                T rv = JsonConvert.DeserializeObject<T>(input);
+                T rv = JsonConvert.DeserializeObject<T>(input, jsonSerializerSettings ?? DefaultJsonSerializerSettings);
                 return rv;
             }
             catch
