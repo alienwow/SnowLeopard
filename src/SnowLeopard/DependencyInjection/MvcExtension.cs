@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using SnowLeopard.Infrastructure.Filters;
+using SnowLeopard.Infrastructure;
 using System.Reflection;
 
 namespace SnowLeopard.DependencyInjection

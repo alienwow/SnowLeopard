@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SnowLeopard.Infrastructure.Filters
+namespace SnowLeopard.Infrastructure
 {
     /// <summary>
     /// GlobalExceptionFilter

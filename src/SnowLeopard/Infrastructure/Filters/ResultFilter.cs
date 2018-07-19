@@ -6,7 +6,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace SnowLeopard.Infrastructure.Filters
+namespace SnowLeopard.Infrastructure
 {
     /// <summary>
     /// ResultFilter

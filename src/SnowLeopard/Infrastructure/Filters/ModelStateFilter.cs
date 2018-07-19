@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace SnowLeopard.Infrastructure.Filters
+namespace SnowLeopard.Infrastructure
 {
     /// <summary>
     /// ModelStateFilter
