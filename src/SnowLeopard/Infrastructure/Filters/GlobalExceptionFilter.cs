@@ -74,9 +74,9 @@ namespace SnowLeopard.Infrastructure
             {
                 logger.LogInformation(
                             new EventId(context.Exception.HResult),
-                            context.Exception,
                             context.Exception.Message
                         );
+
                 if (context.Exception is BaseException baseException)
                 {
                     baseResult.Code = baseException.Code;
