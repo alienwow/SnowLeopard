@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SnowLeopard.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace SnowLeopard.WebApi.Controllers
     [ApiController]
     public class ValuesController : BaseApiController
     {
+        private readonly ILogger _logger;
+        public ValuesController(ILogger<ValuesController> logger)
+        {
+            _logger = logger;
+        }
         /// <summary>
         /// Get
         /// </summary>
@@ -47,6 +53,7 @@ namespace SnowLeopard.WebApi.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            _logger.LogInformation($"即将发生异常：{count}");
             switch (count++)
             {
                 case 0: throw new MemberAccessException(); break;

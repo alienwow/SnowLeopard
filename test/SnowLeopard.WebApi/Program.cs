@@ -52,9 +52,9 @@ namespace SnowLeopard.WebApi
                     })
                     .ConfigureLogging((hostingCtx, logging) =>
                     {
-                        logging.AddConfiguration(hostingCtx.Configuration.GetSection("Logging"));
-                        logging.AddConsole();
-                        logging.AddDebug();
+                        //logging.AddConfiguration(hostingCtx.Configuration.GetSection("Logging"));
+                        //logging.AddConsole();
+                        //logging.AddDebug();
                     })
                     .UseUrls(globalConfig.ApplicationUrl)
                     .UseStartup<Startup>();
