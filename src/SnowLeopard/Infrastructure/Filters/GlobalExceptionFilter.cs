@@ -73,8 +73,8 @@ namespace SnowLeopard.Infrastructure
             if (_baseExceptions.Contains(context.Exception.GetType()) || context.Exception.GetType().IsSubclassOf(typeof(BaseException)))
             {
                 logger.LogInformation(
-                            new EventId(context.Exception.HResult)
-                            , context.Exception.Message
+                            new EventId(context.Exception.HResult),
+                            context.Exception.Message
                         );
                 if (context.Exception is BaseException baseException)
                 {
@@ -84,14 +84,18 @@ namespace SnowLeopard.Infrastructure
             }
             else
             {
-                logger.LogError(new EventId(context.Exception.HResult),
-                                context.Exception,
-                                context.Exception.Message);
+                logger.LogError(
+                            new EventId(context.Exception.HResult),
+                            context.Exception,
+                            context.Exception.Message
+                        );
 
                 result = new InternalServerErrorObjectResult(baseResult);
             }
 
-            if (_env.IsDevelopment()) baseResult.Data = context.Exception;
+            if (_env.IsDevelopment()) baseResult.Data = context.Exception?.ToString()
+                                                                    ?? context.Exception?.Message
+                                                                    ?? string.Empty;
 
             context.Result = result;
             context.ExceptionHandled = true;
