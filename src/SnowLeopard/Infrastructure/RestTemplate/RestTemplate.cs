@@ -286,7 +286,7 @@ namespace SnowLeopard.Infrastructure
             string bodyStr = await result.Content.ReadAsStringAsync();
             if (!string.IsNullOrWhiteSpace(bodyStr))
             {
-                respEntity.Body = JsonConvert.DeserializeObject<T>(bodyStr);
+                respEntity.Body = JsonConvert.DeserializeObject<T>(bodyStr, APIHelper.DefaultJsonSerializerSettings);
             }
 
             return respEntity;
