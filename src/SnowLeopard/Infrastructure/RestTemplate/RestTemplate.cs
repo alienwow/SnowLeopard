@@ -42,7 +42,7 @@ namespace SnowLeopard.Infrastructure
         /// </summary>
         /// <param name="serviceName"></param>
         /// <returns></returns>
-        private async Task<string> ResolveRootUrlAsync(string serviceName)
+        public async Task<string> ResolveRootUrlAsync(string serviceName)
         {
             using (var consulClient = new ConsulClient(c => c.Address = new Uri(ConsulServerUrl)))
             {
@@ -66,7 +66,7 @@ namespace SnowLeopard.Infrastructure
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        private async Task<string> ResolveUrlAsync(string url)
+        public async Task<string> ResolveUrlAsync(string url)
         {
             var uri = new Uri(url);
             string serviceName = uri.Host;//apiservice1
