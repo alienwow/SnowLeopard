@@ -69,6 +69,10 @@ namespace SnowLeopard.WebApi
             });
 
             services.Configure<GlobalConfig>(Configuration);
+            // 添加服务发现组件
+            services.AddSnowLeopardServiceDiscovery();
+
+            // 添加所有 IDependencyTransientRegister 服务
             services.AddSnowLeopardServices();
 
             return services.AddSnowLeopardAutofac();
@@ -81,8 +85,8 @@ namespace SnowLeopard.WebApi
         /// <param name="env"></param>
         /// <param name="loggerFactory"></param>
         public void Configure(
-            IApplicationBuilder app, 
-            IHostingEnvironment env, 
+            IApplicationBuilder app,
+            IHostingEnvironment env,
             ILoggerFactory loggerFactory
         )
         {
@@ -103,7 +107,9 @@ namespace SnowLeopard.WebApi
                    c.OAuthClientId("snowleopard.webapiswaggerui");
                    c.OAuthAppName("SnowLeopard.WebApi Swagger UI");
                });
-
+#if RELEASE
+            app.RegisterService(GlobalConsts.SERVICE_NAME, GlobalConfig.ApplicationUrl);
+#endif
         }
     }
 }
