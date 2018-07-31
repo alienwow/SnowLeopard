@@ -13,6 +13,8 @@ using SnowLeopard.DependencyInjection;
 using SnowLeopard.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SnowLeopard.WebApi
 {
@@ -72,19 +74,12 @@ namespace SnowLeopard.WebApi
                     TermsOfService = "None"
                 });
 
-                //options.AddSecurityDefinition("oauth2", new OAuth2Scheme
-                //{
-                //    Type = "oauth2",
-                //    Flow = "implicit",
-                //    AuthorizationUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/authorize",
-                //    TokenUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/token",
-                //    Scopes = new Dictionary<string, string>()
-                //    {
-                //        { "basket", "Basket API" }
-                //    }
-                //});
+                // 添加文件上传
+                options.AddFileUploadFilter();
 
-                //options.OperationFilter<AuthorizeCheckOperationFilter>();
+                // 为swagger 添加oauth2.0 bearer授权
+                options.AddOAuth2BearerAuthentication();
+
             });
 
             services.Configure<GlobalConfig>(Configuration);

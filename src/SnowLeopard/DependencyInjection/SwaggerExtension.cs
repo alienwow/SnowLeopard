@@ -1,10 +1,13 @@
 ﻿using Lynx.Extension;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using SnowLeopard.Infrastructure.Swagger;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace SnowLeopard.DependencyInjection
@@ -54,5 +57,33 @@ namespace SnowLeopard.DependencyInjection
             return services;
         }
 
+        /// <summary>
+        /// AddFileUploadFilter
+        /// </summary>
+        /// <param name="options"></param>
+        public static void AddFileUploadFilter(this SwaggerGenOptions options)
+        {
+            options.OperationFilter<SwaggerFileUploadFilter>();
+        }
+
+        /// <summary>
+        /// AddOAuth2BearerAuthentication
+        /// </summary>
+        /// <param name="options"></param>
+        public static void AddOAuth2BearerAuthentication(this SwaggerGenOptions options)
+        {
+            options.AddSecurityDefinition("Bearer", new ApiKeyScheme
+            {
+                Description = "JWT Bearer 授权 \"Authorization:     Bearer+空格+token\"",
+                Name = "Authorization",
+                In = "header",
+                Type = "apiKey"
+            });
+            
+            options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>()
+            {
+                { "Bearer",Enumerable.Empty<string>() }
+            });
+        }
     }
 }
