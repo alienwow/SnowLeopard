@@ -1,20 +1,13 @@
-﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Exceptionless;
+﻿using Exceptionless;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using SnowLeopard.DependencyInjection;
-using SnowLeopard.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace SnowLeopard.WebApi
 {
@@ -28,6 +21,7 @@ namespace SnowLeopard.WebApi
         public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             Configuration = configuration;
+            GlobalConfig = Configuration.Get<GlobalConfig>();
             HostingEnvironment = hostingEnvironment;
         }
 
@@ -41,28 +35,20 @@ namespace SnowLeopard.WebApi
         /// </summary>
         public IHostingEnvironment HostingEnvironment { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// GlobalConfig
+        /// </summary>
+        public GlobalConfig GlobalConfig { get; }
+
+        /// <summary>
+        /// ConfigureServices
+        /// </summary>
+        /// <param name="services"></param>
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            var globalConfig = Configuration.Get<GlobalConfig>();
-
             services
-                .AddMvc(options =>
-                {
-                    options.AddSnowLeopardFilters();
-                })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddControllersAsServices()
-                .AddJsonOptions(options =>// 全局配置Json序列化处理
-                {
-                    //忽略循环引用
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    //将时间转换为时间戳
-                    options.SerializerSettings.ContractResolver = new DateTimeContractResolver()
-                    {
-                        NamingStrategy = new CamelCaseNamingStrategy()// 使用驼峰样式
-                    };
-                });
+                .AddSnowLeopardMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSnowLeopardSwaggerGen(HostingEnvironment, options =>
             {
@@ -85,23 +71,23 @@ namespace SnowLeopard.WebApi
             services.Configure<GlobalConfig>(Configuration);
             services.AddSnowLeopardServices();
 
-            var container = new ContainerBuilder();
-            container.Populate(services);
-
-            var serviceProvider = new AutofacServiceProvider(container.Build());
-            GlobalServices.SetServiceProvider(serviceProvider);
-
-            return serviceProvider;
+            return services.AddSnowLeopardAutofac();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        /// <param name="loggerFactory"></param>
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            ILoggerFactory loggerFactory
+        )
         {
             app.UseExceptionless(Configuration);
-
             loggerFactory.AddExceptionless();
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
             {
@@ -109,7 +95,6 @@ namespace SnowLeopard.WebApi
             }
 
             app.UseMvc();
-
 
             app.UseSwagger()
                .UseSwaggerUI(c =>
