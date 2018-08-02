@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Exceptions;
+using SnowLeopard.Model.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

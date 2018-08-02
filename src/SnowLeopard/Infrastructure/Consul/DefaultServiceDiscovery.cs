@@ -18,12 +18,10 @@ namespace SnowLeopard.Infrastructure.Consul
         /// <returns></returns>
         public override async Task<CatalogService[]> ResolveServiceAsync(string serviceName)
         {
-            CatalogService[] services;
             using (var consulClient = new ConsulClient(c => c.Address = new Uri(_consulServerUrl)))
             {
-                services = (await consulClient.Catalog.Service(serviceName)).Response;
+                return (await consulClient.Catalog.Service(serviceName)).Response;
             }
-            return services;
         }
 
         /// <summary>

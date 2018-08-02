@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SnowLeopard.Model.BaseModels;
 using System.Collections.Generic;
 
 namespace SnowLeopard.Infrastructure

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.DependencyInjection;
+using SnowLeopard.Infrastructure.Http;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 
@@ -74,6 +75,8 @@ namespace SnowLeopard.WebApi
 
             // 添加所有 IDependencyTransientRegister 服务
             services.AddSnowLeopardServices();
+            services.AddHttpClient();
+            services.AddSingleton<SnowLeopardHttpClient, SnowLeopardHttpClient>();
 
             return services.AddSnowLeopardAutofac();
         }

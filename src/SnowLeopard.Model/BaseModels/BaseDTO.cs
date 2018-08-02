@@ -1,4 +1,4 @@
-﻿namespace SnowLeopard.Infrastructure
+﻿namespace SnowLeopard.Model.BaseModels
 {
     /// <summary>
     /// BaseDTO

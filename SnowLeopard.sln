@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.WebApi", "test\
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker\docker-compose.dcproj", "{59000BBC-A70C-4EEF-AC84-F9D9785354E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowLeopard.Model", "src\SnowLeopard.Model\SnowLeopard.Model.csproj", "{5732D7F1-9FCF-4D46-BE01-FDBC321A197D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59000BBC-A70C-4EEF-AC84-F9D9785354E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5732D7F1-9FCF-4D46-BE01-FDBC321A197D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5732D7F1-9FCF-4D46-BE01-FDBC321A197D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5732D7F1-9FCF-4D46-BE01-FDBC321A197D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5732D7F1-9FCF-4D46-BE01-FDBC321A197D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{37799260-A466-4FD5-957D-2CC84307AD6E} = {7D8F4061-A053-4450-9917-0687BF608E82}
 		{54E251B3-95B2-4987-981B-167DFCC8E04D} = {7D8F4061-A053-4450-9917-0687BF608E82}
 		{59000BBC-A70C-4EEF-AC84-F9D9785354E6} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
+		{5732D7F1-9FCF-4D46-BE01-FDBC321A197D} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C818AB9D-C1C2-4DFA-B615-D5CB147E1306}

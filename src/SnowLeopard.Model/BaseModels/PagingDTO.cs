@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SnowLeopard.Infrastructure
+namespace SnowLeopard.Model.BaseModels
 {
     /// <summary>
     /// PagingDTO

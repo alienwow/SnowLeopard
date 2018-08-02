@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Infrastructure;
+using SnowLeopard.Infrastructure.Http;
+using SnowLeopard.Model.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -17,9 +19,15 @@ namespace SnowLeopard.WebApi.Controllers
     public class ValuesController : BaseApiController
     {
         private readonly ILogger _logger;
-        public ValuesController(ILogger<ValuesController> logger)
+        private readonly SnowLeopardHttpClient _snowLeopardHttpClient;
+
+        public ValuesController(
+            ILogger<ValuesController> logger,
+            SnowLeopardHttpClient snowLeopardHttpClient
+        )
         {
             _logger = logger;
+            _snowLeopardHttpClient = snowLeopardHttpClient;
         }
         /// <summary>
         /// Get
@@ -29,6 +37,7 @@ namespace SnowLeopard.WebApi.Controllers
         [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), (int)HttpStatusCode.OK)]
         public async Task<IEnumerable<string>> Get()
         {
+            var result = await _snowLeopardHttpClient.GetAsync<string>("http://10.100.82.157:8013/api/v1/Health");
             return await Task.FromResult(new string[] { "value1", "value2" });
         }
 

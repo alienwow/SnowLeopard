@@ -8,7 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SnowLeopard.Infrastructure
+namespace SnowLeopard.Infrastructure.Http
 {
     /// <summary>
     /// HttpMethodEnum
