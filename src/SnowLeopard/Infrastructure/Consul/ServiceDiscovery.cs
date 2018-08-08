@@ -1,4 +1,5 @@
 ﻿using Consul;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace SnowLeopard.Infrastructure.Consul
@@ -10,10 +11,15 @@ namespace SnowLeopard.Infrastructure.Consul
     {
         protected readonly string _consulServerUrl = "http://127.0.0.1:8500";
 
+        private readonly ILogger _logger;
+
         /// <summary>
         /// ServiceDiscovery
         /// </summary>
-        public ServiceDiscovery() { }
+        public ServiceDiscovery()
+        {
+            _logger = GlobalServices.GetRequiredService<ILogger<ServiceDiscovery>>();
+        }
 
         /// <summary>
         /// ServiceDiscovery
@@ -21,6 +27,7 @@ namespace SnowLeopard.Infrastructure.Consul
         /// <param name="consulServerUrl"></param>
         public ServiceDiscovery(string consulServerUrl)
         {
+            _logger = GlobalServices.GetRequiredService<ILogger<ServiceDiscovery>>();
             _consulServerUrl = consulServerUrl;
         }
 
