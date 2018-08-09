@@ -1,4 +1,5 @@
 ﻿using Exceptionless;
+using Exceptionless.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.DependencyInjection;
 using SnowLeopard.Infrastructure.Http;
+using SnowLeopard.Model;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.IO;
+using System.Text;
 
 namespace SnowLeopard.WebApi
 {
@@ -70,6 +74,7 @@ namespace SnowLeopard.WebApi
             });
 
             services.Configure<GlobalConfig>(Configuration);
+
             // 添加服务发现组件
             services.AddSnowLeopardServiceDiscovery();
 
@@ -110,6 +115,8 @@ namespace SnowLeopard.WebApi
                    c.OAuthClientId("snowleopard.webapiswaggerui");
                    c.OAuthAppName("SnowLeopard.WebApi Swagger UI");
                });
+
+            app.RegisterService(GlobalConsts.SERVICE_NAME, GlobalConfig.ApplicationUrl);
 #if RELEASE
             app.RegisterService(GlobalConsts.SERVICE_NAME, GlobalConfig.ApplicationUrl);
 #endif

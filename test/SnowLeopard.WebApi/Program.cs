@@ -34,9 +34,6 @@ namespace SnowLeopard.WebApi
                     {
                         var env = hostingCtx.HostingEnvironment;
 
-                        config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
-
                         if (env.IsDevelopment())
                         {
                             var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
@@ -45,10 +42,6 @@ namespace SnowLeopard.WebApi
                                 config.AddUserSecrets(appAssembly, optional: true);
                             }
                         }
-
-                        config.AddEnvironmentVariables();
-
-                        if (args != null) config.AddCommandLine(args);
                     })
                     .ConfigureLogging((hostingCtx, logging) =>
                     {

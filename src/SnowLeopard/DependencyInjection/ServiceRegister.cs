@@ -2,7 +2,10 @@
 using Lynx.Extension;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using SnowLeopard.Model;
 using System;
+using System.IO;
+using System.Text;
 
 namespace SnowLeopard.DependencyInjection
 {
@@ -13,6 +16,7 @@ namespace SnowLeopard.DependencyInjection
     {
         internal const string _CONSUL_SERVER_URL = "http://127.0.0.1:8500";
         internal const string _CONSUL_DEFAULT_DC = "dc1";
+        internal const string _SERVICE_ID_FILE = "service-id";
 
         /// <summary>
         /// 注册服务
@@ -20,6 +24,7 @@ namespace SnowLeopard.DependencyInjection
         /// <param name="self"></param>
         /// <param name="serviceName"></param>
         /// <param name="applicationUrl"></param>
+        /// <param name="snowLeopardConfig"></param>
         /// <param name="applicationLifetime"></param>
         /// <param name="serviceId"></param>
         /// <param name="configOverride"></param>
@@ -37,12 +42,24 @@ namespace SnowLeopard.DependencyInjection
 
             if (applicationLifetime == null)
                 applicationLifetime = GlobalServices.GetRequiredService<IApplicationLifetime>();
-            //throw new ArgumentNullException(nameof(applicationLifetime));
 
             var host = new Uri(applicationUrl);
 
-            if (serviceId.IsMissing())
-                serviceId = serviceName + Guid.NewGuid();
+            using (var fs = new FileStream(_SERVICE_ID_FILE, FileMode.OpenOrCreate))
+            {
+                if (serviceId.IsMissing() && fs.Length > 0)
+                {
+                    var bytes = new byte[fs.Length];
+                    fs.Read(bytes, 0, bytes.Length);
+                    serviceId = Encoding.UTF8.GetString(bytes);
+                }
+                else
+                {
+                    serviceId = $"{serviceName}-{Guid.NewGuid()}";
+                    var bytes = Encoding.UTF8.GetBytes(serviceId);
+                    fs.Write(bytes, 0, bytes.Length);
+                }
+            }
 
             if (configOverride == null)
                 configOverride = ConsulConfig;
