@@ -116,7 +116,6 @@ namespace SnowLeopard.WebApi
                    c.OAuthAppName("SnowLeopard.WebApi Swagger UI");
                });
 
-            app.RegisterService(GlobalConsts.SERVICE_NAME, GlobalConfig.ApplicationUrl);
 #if RELEASE
             app.RegisterService(GlobalConsts.SERVICE_NAME, GlobalConfig.ApplicationUrl);
 #endif

@@ -7,18 +7,18 @@ namespace SnowLeopard.Infrastructure
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [AllowAnonymous]
-    public class HealthController : BaseApiController
+    public class VersionsController : BaseApiController
     {
         private readonly ILogger _logger;
         private readonly SnowLeopardUtils _snowLeopardUtils;
 
         /// <summary>
-        /// HealthController
+        /// VersionsController
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="snowLeopardUtils"></param>
-        public HealthController(
-            ILogger<HealthController> logger,
+        public VersionsController(
+            ILogger<VersionsController> logger,
             SnowLeopardUtils snowLeopardUtils
             )
         {
@@ -30,10 +30,20 @@ namespace SnowLeopard.Infrastructure
         /// Get
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public string Get()
+        [HttpGet("EntryAssemblyVersion")]
+        public string GetEntryAssemblyVersion()
         {
             return _snowLeopardUtils.EntryAssemblyVersion;
+        }
+
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("SnowLeopardVersion")]
+        public string GetSnowLeopardVersion()
+        {
+            return _snowLeopardUtils.SnowLeopardVersion;
         }
     }
 }
