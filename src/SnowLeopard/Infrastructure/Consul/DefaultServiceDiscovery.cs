@@ -75,7 +75,10 @@ namespace SnowLeopard.Infrastructure.Consul
             else
             {
                 //根据当前时钟毫秒数对可用服务个数取模，取出一台机器使用
-                var service = services.ElementAt(Environment.TickCount % services.Count());
+                var tickCount = Environment.TickCount;
+                var index = tickCount % services.Count();
+                _logger.LogDebug($"TickCount:{tickCount}\tservicesCount:{services.Count()}\tRemainderResult:{index}");
+                var service = services.ElementAt(index);
                 _logger.LogInformation($"ResolveRootUrlResult:【{service.ServiceAddress}:{service.ServicePort}】");
                 return $"{service.ServiceAddress}:{service.ServicePort}";
             }
