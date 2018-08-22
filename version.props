@@ -1,9 +1,9 @@
 <Project>
   <PropertyGroup>
     <!-- 版本前缀 -->
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>1.0.1</VersionPrefix>
     <!-- 版本后缀 -->
-    <VersionSuffix Condition="'$(VersionSuffix)' == ''">pre5</VersionSuffix>
+    <VersionSuffix Condition="'$(VersionSuffix)' == ''">pre1</VersionSuffix>
     <!-- 产品创建版本号 -->
     <ProductBuildNumber></ProductBuildNumber>
     <!-- NuGet 包后缀 -->
