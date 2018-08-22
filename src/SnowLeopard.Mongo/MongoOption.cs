@@ -1,19 +1,19 @@
-﻿namespace SnowLeopard.WebApi
+﻿namespace SnowLeopard.Mongo
 {
     /// <summary>
-    /// GlobalConfig
+    /// MongodbOption
     /// </summary>
-    public class GlobalConfig
+    public class MongoOption
     {
         /// <summary>
-        /// 连接字符串
+        /// ConnectionString
         /// </summary>
         public string ConnectionString { get; set; }
 
         /// <summary>
-        /// 站点监听地址
+        /// DataBase
         /// </summary>
-        public string ApplicationUrl { get; set; }
-
+        public string DataBase { get; set; }
     }
+
 }

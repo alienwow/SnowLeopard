@@ -48,7 +48,6 @@ namespace SnowLeopard.Infrastructure.Http
         /// <summary>
         /// 发出Get请求
         /// </summary>
-        /// <typeparam name="T">响应报文反序列类型</typeparam>
         /// <param name="url">请求路径</param>
         /// <param name="requestHeaders">请求额外的报文头信息</param>
         /// <param name="contentType">default to application/json</param>
@@ -102,7 +101,6 @@ namespace SnowLeopard.Infrastructure.Http
         /// <summary>
         /// 发出Post请求
         /// </summary>
-        /// <typeparam name="T">响应报文反序列类型</typeparam>
         /// <param name="url">请求路径</param>
         /// <param name="body">请求数据，将会被json序列化后放到请求报文体中</param>
         /// <param name="requestHeaders">请求额外的报文头信息</param>
@@ -160,7 +158,6 @@ namespace SnowLeopard.Infrastructure.Http
         /// <summary>
         /// 发出Put请求
         /// </summary>
-        /// <typeparam name="T">响应报文反序列类型</typeparam>
         /// <param name="url">请求路径</param>
         /// <param name="body">请求数据，将会被json序列化后放到请求报文体中</param>
         /// <param name="requestHeaders">请求额外的报文头信息</param>
@@ -218,7 +215,6 @@ namespace SnowLeopard.Infrastructure.Http
         /// <summary>
         /// 发出Delete请求
         /// </summary>
-        /// <typeparam name="T">响应报文反序列类型</typeparam>
         /// <param name="url">请求路径</param>
         /// <param name="body">请求数据，将会被json序列化后放到请求报文体中</param>
         /// <param name="requestHeaders">请求额外的报文头信息</param>
@@ -264,7 +260,6 @@ namespace SnowLeopard.Infrastructure.Http
         /// <summary>
         /// 发出Http请求
         /// </summary>
-        /// <typeparam name="T">响应报文反序列类型</typeparam>
         /// <param name="requestMsg">请求数据</param>
         /// <returns></returns>
         public async Task<HttpResponse<string>> SendForStringAsync(HttpRequestMessage requestMsg)

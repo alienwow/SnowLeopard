@@ -1,8 +1,7 @@
 ﻿using Consul;
-using Lynx.Extension;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using SnowLeopard.Model;
+using SnowLeopard.Lynx.Extension;
 using System;
 using System.IO;
 using System.Text;
@@ -24,7 +23,6 @@ namespace SnowLeopard.DependencyInjection
         /// <param name="self"></param>
         /// <param name="serviceName"></param>
         /// <param name="applicationUrl"></param>
-        /// <param name="snowLeopardConfig"></param>
         /// <param name="applicationLifetime"></param>
         /// <param name="serviceId"></param>
         /// <param name="configOverride"></param>

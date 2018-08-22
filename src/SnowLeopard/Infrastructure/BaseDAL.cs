@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using Dapper.Contrib.Extensions;
-using Lynx.Extension;
+using SnowLeopard.Lynx.Extension;
 using MySql.Data.MySqlClient;
 using SnowLeopard.Abstractions;
 using System;

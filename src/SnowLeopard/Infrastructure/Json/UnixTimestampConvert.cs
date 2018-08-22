@@ -1,4 +1,4 @@
-﻿using Lynx.Extension;
+﻿using SnowLeopard.Lynx.Extension;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;

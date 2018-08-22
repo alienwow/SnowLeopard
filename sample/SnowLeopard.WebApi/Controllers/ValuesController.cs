@@ -62,35 +62,34 @@ namespace SnowLeopard.WebApi.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
-            _logger.LogInformation($"即将发生异常：{count}");
-            switch (count++)
-            {
-                case 0: throw new MemberAccessException(); break;
-                case 1: throw new ArgumentException(); break;
-                case 2: throw new ArgumentNullException(); break;
-                case 3: throw new ArithmeticException(); break;
-                case 4: throw new ArrayTypeMismatchException(); break;
-                case 5: throw new DivideByZeroException(); break;
-                case 6: throw new FormatException(); break;
-                case 7: throw new IndexOutOfRangeException(); break;
-                case 8: throw new InvalidCastException(); break;
-                case 9: throw new MulticastNotSupportedException(); break;
-                case 10: throw new NotSupportedException(); break;
-                case 11: throw new NullReferenceException(); break;
-                case 12: throw new OutOfMemoryException(); break;
-                case 13: throw new OverflowException(); break;
-                case 14: throw new StackOverflowException(); break;
-                case 15: throw new TypeInitializationException("", null); break;
-                case 16: throw new NotFiniteNumberException(); break;
-                case 17: throw new Exceptions.BaseException($"参数{nameof(value)}为空"); break;
-                case 18: throw new Exception("为捕获的异常"); break;
-                default:
-                    throw new Exception("为捕获的异常");
-                    break;
-            }
             if (string.IsNullOrEmpty(value))
             {
                 throw new Exceptions.BaseException($"参数{nameof(value)}为空");
+            }
+            _logger.LogInformation($"即将发生异常：{count}");
+            switch (count++)
+            {
+                case 0: throw new MemberAccessException();
+                case 1: throw new ArgumentException();
+                case 2: throw new ArgumentNullException();
+                case 3: throw new ArithmeticException();
+                case 4: throw new ArrayTypeMismatchException();
+                case 5: throw new DivideByZeroException();
+                case 6: throw new FormatException();
+                case 7: throw new IndexOutOfRangeException();
+                case 8: throw new InvalidCastException();
+                case 9: throw new MulticastNotSupportedException();
+                case 10: throw new NotSupportedException();
+                case 11: throw new NullReferenceException();
+                case 12: throw new OutOfMemoryException();
+                case 13: throw new OverflowException();
+                case 14: throw new StackOverflowException();
+                case 15: throw new TypeInitializationException("", null);
+                case 16: throw new NotFiniteNumberException();
+                case 17: throw new Exceptions.BaseException($"参数{nameof(value)}为空");
+                case 18: throw new Exception("为捕获的异常");
+                default:
+                    throw new Exception("为捕获的异常");
             }
         }
 

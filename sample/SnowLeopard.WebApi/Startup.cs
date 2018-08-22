@@ -1,5 +1,4 @@
 ﻿using Exceptionless;
-using Exceptionless.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.DependencyInjection;
 using SnowLeopard.Infrastructure.Http;
-using SnowLeopard.Model;
+using SnowLeopard.Mongo;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.IO;
-using System.Text;
 
 namespace SnowLeopard.WebApi
 {
@@ -82,6 +79,8 @@ namespace SnowLeopard.WebApi
             services.AddSnowLeopardServices();
             services.AddHttpClient();
             services.AddSingleton<SnowLeopardHttpClient, SnowLeopardHttpClient>();
+
+            services.AddSnowLeopardMongoContext();
 
             return services.AddSnowLeopardAutofac();
         }
