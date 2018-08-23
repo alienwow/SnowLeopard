@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SnowLeopard.Mongo
@@ -89,5 +90,56 @@ namespace SnowLeopard.Mongo
 
         #endregion
 
+        #region FindOneAndUpdate
+
+        /// <summary>
+        /// FindOneAndUpdateAsync
+        /// </summary>
+        public async static Task<T> FindOneAndUpdateAsync<T>(this IMongoCollection<T> collenction,
+            Expression<Func<T, bool>> filter,
+            UpdateDefinition<T> update,
+            bool isUpsert,
+            CancellationToken cancellationToken = default(CancellationToken)
+        )
+        {
+            if (filter == null) { throw new ArgumentNullException(nameof(filter)); }
+            if (update == null) { throw new ArgumentNullException(nameof(update)); }
+
+            FindOneAndUpdateOptions<T, T> options = null;
+            if (isUpsert)
+            {
+                options = new FindOneAndUpdateOptions<T, T>
+                {
+                    IsUpsert = isUpsert
+                };
+            }
+            return await collenction.FindOneAndUpdateAsync<T, T>(filter, update, options, cancellationToken);
+        }
+
+        /// <summary>
+        /// FindOneAndUpdate
+        /// </summary>
+        public static T FindOneAndUpdate<T>(this IMongoCollection<T> collenction,
+            Expression<Func<T, bool>> filter,
+            UpdateDefinition<T> update,
+            bool isUpsert,
+            CancellationToken cancellationToken = default(CancellationToken)
+        )
+        {
+            if (filter == null) { throw new ArgumentNullException(nameof(filter)); }
+            if (update == null) { throw new ArgumentNullException(nameof(update)); }
+
+            FindOneAndUpdateOptions<T, T> options = null;
+            if (isUpsert)
+            {
+                options = new FindOneAndUpdateOptions<T, T>
+                {
+                    IsUpsert = isUpsert
+                };
+            }
+            return collenction.FindOneAndUpdate<T, T>(filter, update, options, cancellationToken);
+        }
+
+        #endregion
     }
 }
