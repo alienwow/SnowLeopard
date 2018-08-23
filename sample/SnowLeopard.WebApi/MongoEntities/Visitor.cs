@@ -1,4 +1,5 @@
-﻿using SnowLeopard.Mongo.BaseEntities;
+﻿using MongoDB.Bson;
+using SnowLeopard.Mongo.BaseEntities;
 using System;
 
 namespace SnowLeopard.WebApi.MongoEntities
@@ -6,7 +7,7 @@ namespace SnowLeopard.WebApi.MongoEntities
     /// <summary>
     /// 来访表
     /// </summary>
-    public class Visitor : TopBaseMongoEntity
+    public class Visitor : TopBaseMongoEntity<ObjectId>
     {
         /// <summary>
         /// UserId
