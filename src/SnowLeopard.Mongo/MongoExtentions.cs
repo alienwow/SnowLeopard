@@ -110,7 +110,8 @@ namespace SnowLeopard.Mongo
             {
                 options = new FindOneAndUpdateOptions<T, T>
                 {
-                    IsUpsert = isUpsert
+                    IsUpsert = isUpsert,
+                    ReturnDocument = ReturnDocument.After
                 };
             }
             return await collenction.FindOneAndUpdateAsync<T, T>(filter, update, options, cancellationToken);
@@ -134,7 +135,8 @@ namespace SnowLeopard.Mongo
             {
                 options = new FindOneAndUpdateOptions<T, T>
                 {
-                    IsUpsert = isUpsert
+                    IsUpsert = isUpsert,
+                    ReturnDocument = ReturnDocument.After
                 };
             }
             return collenction.FindOneAndUpdate<T, T>(filter, update, options, cancellationToken);

@@ -62,11 +62,9 @@ namespace SnowLeopard.WebApi.Controllers
         [ProducesResponseType(typeof(BaseDTO<Visitor>), (int)HttpStatusCode.OK)]
         public async Task<Visitor> Post([FromBody]Visitor value)
         {
-            value.VisitorTime = DateTime.Now;
-
             var result = await _vistorMongoCtx.Visitors
                             .FindOneAndUpdateAsync(x => x.UserId == value.UserId && x.VisitorId == value.VisitorId,
-                                Builders<Visitor>.Update.Set(x => x.VisitorTime, DateTime.Now),
+                                Builders<Visitor>.Update.Set(x => x.VisitTime, DateTime.Now),
                                 true
                             );
             return result;
@@ -81,11 +79,9 @@ namespace SnowLeopard.WebApi.Controllers
         [ProducesResponseType(typeof(BaseDTO<Visitor>), (int)HttpStatusCode.OK)]
         public async Task<Visitor> Put(string id, [FromBody]Visitor value)
         {
-            value.VisitorTime = DateTime.Now;
-
             var result = await _vistorMongoCtx.Visitors
                             .FindOneAndUpdateAsync(x => x.UserId == value.UserId && x.VisitorId == value.VisitorId,
-                                Builders<Visitor>.Update.Set(x => x.VisitorTime, DateTime.Now),
+                                Builders<Visitor>.Update.Set(x => x.VisitTime, DateTime.Now),
                                 true
                             );
             return result;

@@ -22,6 +22,6 @@ namespace SnowLeopard.WebApi.MongoEntities
         /// <summary>
         /// 来访时间
         /// </summary>
-        public DateTime VisitorTime { get; set; }
+        public DateTime VisitTime { get; set; }
     }
 }
