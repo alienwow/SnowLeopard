@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Infrastructure;
 using SnowLeopard.Infrastructure.Http;
+using SnowLeopard.Infrastructure.ModelBinders;
 using SnowLeopard.Model.BaseModels;
 using System;
 using System.Collections.Generic;
@@ -48,9 +49,9 @@ namespace SnowLeopard.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), (int)HttpStatusCode.OK)]
-        public async Task<string> Get(int id)
+        public async Task<string> Get([ModelBinder(typeof(DateTimeBinder))]DateTime? id, [ModelBinder(typeof(DateTimeBinder))]DateTime? abc)
         {
-            return await Task.FromResult("value");
+            return await Task.FromResult($"{id.Value.ToString("yyyy-MM-dd HH:mm:ss")}:{(abc.HasValue ? abc.Value.ToString("yyyy-MM-dd HH:mm:ss") : "null")}");
         }
 
         static int count = 0;
