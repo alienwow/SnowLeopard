@@ -24,8 +24,10 @@ namespace SnowLeopard.Infrastructure.ModelBinders
             var modelName = bindingContext.ModelName;
             if (string.IsNullOrEmpty(modelName))
             {
-                throw new ArgumentNullException(nameof(modelName));
+                bindingContext.Result = ModelBindingResult.Success(null);
+                return Task.CompletedTask;
             }
+
             var valueProviderResult =
                 bindingContext.ValueProvider.GetValue(modelName);
 
@@ -42,12 +44,13 @@ namespace SnowLeopard.Infrastructure.ModelBinders
                 bindingContext.Result = ModelBindingResult.Success(null);
                 return Task.CompletedTask;
             }
+
             if (!long.TryParse(value, out long unixTimestamp))
             {
                 // Non-integer arguments result in model state errors
                 bindingContext.ModelState.TryAddModelError(
                                             bindingContext.ModelName,
-                                            "Author Id must be an integer.");
+                                            $"{modelName} must be an integer.");
                 return Task.CompletedTask;
             }
 

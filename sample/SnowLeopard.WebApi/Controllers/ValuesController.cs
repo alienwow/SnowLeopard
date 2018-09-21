@@ -49,7 +49,7 @@ namespace SnowLeopard.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), (int)HttpStatusCode.OK)]
-        public async Task<string> Get([ModelBinder(typeof(DateTimeBinder))]DateTime? id, [ModelBinder(typeof(DateTimeBinder))]DateTime? abc)
+        public async Task<string> Get([FromRoute][ModelBinder(typeof(DateTimeBinder))]DateTime? id, [ModelBinder(typeof(DateTimeBinder))]DateTime? abc)
         {
             return await Task.FromResult($"{id.Value.ToString("yyyy-MM-dd HH:mm:ss")}:{(abc.HasValue ? abc.Value.ToString("yyyy-MM-dd HH:mm:ss") : "null")}");
         }
