@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Model.BaseModels;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -36,11 +38,29 @@ namespace SnowLeopard.Infrastructure
             if (!context.ModelState.IsValid)
             {
                 _logger.LogInformation("模型绑定失败！");
-                var result = new BaseDTO<SerializableError>()
+
+                var modelStateErrorMsgs = new List<ModelStateErrorMsg>();
+                foreach (var modelStatePair in context.ModelState)
+                {
+                    var key = modelStatePair.Key;
+                    var errors = modelStatePair.Value.Errors;
+                    if (errors != null && errors.Count > 0)
+                    {
+                        var errorMessages = errors.Select(error =>
+                        {
+                            return string.IsNullOrEmpty(error.ErrorMessage) ?
+                               "The input was not valid." : error.ErrorMessage;
+                        }).ToArray();
+
+                        modelStateErrorMsgs.Add(new ModelStateErrorMsg(key, errorMessages));
+                    }
+                }
+
+                var result = new BaseDTO<List<ModelStateErrorMsg>>()
                 {
                     Code = (int)HttpStatusCode.BadRequest,
                     Msg = nameof(HttpStatusCode.BadRequest),
-                    Data = new SerializableError(context.ModelState)
+                    Data = modelStateErrorMsgs
                 };
 
                 context.Result = new BadRequestObjectResult(result);
