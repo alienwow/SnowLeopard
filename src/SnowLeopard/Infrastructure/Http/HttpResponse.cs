@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SnowLeopard.Infrastructure.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -32,7 +33,7 @@ namespace SnowLeopard.Infrastructure.Http
             string bodyStr = httpResponseMessage.Content.ReadAsStringAsync().Result;
             if (!string.IsNullOrWhiteSpace(bodyStr))
             {
-                Body = JsonConvert.DeserializeObject<T>(bodyStr, settings ?? APIHelper.DefaultJsonSerializerSettings);
+                Body = Json.JsonConvert.DeserializeObject<T>(bodyStr, settings);
             }
         }
 

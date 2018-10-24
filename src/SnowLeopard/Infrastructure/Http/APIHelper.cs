@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using SnowLeopard.Infrastructure.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,26 +43,6 @@ namespace SnowLeopard.Infrastructure.Http
     public class APIHelper
     {
         /// <summary>
-        /// InitJsonSerializerSetting
-        /// </summary>
-        /// <param name="jsonSerializerSettings"></param>
-        public static void InitJsonSerializerSetting(JsonSerializerSettings jsonSerializerSettings)
-        {
-            DefaultJsonSerializerSettings = jsonSerializerSettings;
-        }
-
-        /// <summary>
-        /// DefaultJsonSerializerSettings
-        /// </summary>
-        public static JsonSerializerSettings DefaultJsonSerializerSettings { get; private set; } = new JsonSerializerSettings()
-        {
-            ContractResolver = new DateTimeContractResolver()
-            {
-                NamingStrategy = new CamelCaseNamingStrategy()// 使用驼峰样式
-            }
-        };
-
-        /// <summary>
         /// Default User Agent
         /// </summary>
         public const string DEFAULT_USER_AGENT = "SnowLeopard/ASPNETCORE2.1(@Vito.Wu)";
@@ -75,7 +55,7 @@ namespace SnowLeopard.Infrastructure.Http
         /// <param name="postdata">Post数据</param>
         /// <param name="timeout">超时秒数</param>
         /// <param name="proxy">代理</param>
-        /// <param name="jsonSerializerSettings">jsonSerializerSettings</param>
+        /// <param name="settings">jsonSerializerSettings</param>
         /// <returns>远程方法返回的内容</returns>
         public static async Task<string> CallAPIAsync(
             string url,
@@ -83,7 +63,7 @@ namespace SnowLeopard.Infrastructure.Http
             IDictionary<string, string> postdata = null,
             int? timeout = null,
             string proxy = null,
-            JsonSerializerSettings jsonSerializerSettings = null
+            JsonSerializerSettings settings = null
         )
         {
             if (string.IsNullOrEmpty(url))
@@ -177,7 +157,7 @@ namespace SnowLeopard.Infrastructure.Http
         /// <param name="postdata">Post数据</param>
         /// <param name="timeout">超时秒数</param>
         /// <param name="proxy">代理</param>
-        /// <param name="jsonSerializerSettings">jsonSerializerSettings</param>
+        /// <param name="settings">jsonSerializerSettings</param>
         /// <returns>强类型</returns>
         public static async Task<T> CallAPIAsync<T>(
             string url,
@@ -185,7 +165,7 @@ namespace SnowLeopard.Infrastructure.Http
             IDictionary<string, string> postdata = null,
             int? timeout = null,
             string proxy = null,
-            JsonSerializerSettings jsonSerializerSettings = null
+            JsonSerializerSettings settings = null
         )
         {
             var s = await CallAPIAsync(url, method, postdata, timeout, proxy);
@@ -200,7 +180,7 @@ namespace SnowLeopard.Infrastructure.Http
         /// <param name="postdata">Post数据</param>
         /// <param name="timeout">超时秒数</param>
         /// <param name="proxy">代理</param>
-        /// <param name="jsonSerializerSettings">jsonSerializerSettings</param>
+        /// <param name="settings">jsonSerializerSettings</param>
         /// <returns>远程方法返回的内容</returns>
         public static string CallAPI(
             string url,
@@ -208,7 +188,7 @@ namespace SnowLeopard.Infrastructure.Http
             IDictionary<string, string> postdata = null,
             int? timeout = null,
             string proxy = null,
-            JsonSerializerSettings jsonSerializerSettings = null
+            JsonSerializerSettings settings = null
         )
         {
             return CallAPIAsync(url, method, postdata, timeout, proxy).Result;
@@ -223,7 +203,7 @@ namespace SnowLeopard.Infrastructure.Http
         /// <param name="postdata">Post数据</param>
         /// <param name="timeout">超时秒数</param>
         /// <param name="proxy">代理</param>
-        /// <param name="jsonSerializerSettings">jsonSerializerSettings</param>
+        /// <param name="settings">jsonSerializerSettings</param>
         /// <returns>强类型</returns>
         public static T CallAPI<T>(
             string url,
@@ -231,7 +211,7 @@ namespace SnowLeopard.Infrastructure.Http
             IDictionary<string, string> postdata = null,
             int? timeout = null,
             string proxy = null,
-            JsonSerializerSettings jsonSerializerSettings = null
+            JsonSerializerSettings settings = null
         )
         {
             var s = CallAPI(url, method, postdata, timeout, proxy);
@@ -243,13 +223,13 @@ namespace SnowLeopard.Infrastructure.Http
         /// </summary>
         /// <typeparam name="T">返回类型</typeparam>
         /// <param name="input">Json字符串</param>
-        /// <param name="jsonSerializerSettings">The JsonSerializer Settings</param>
+        /// <param name="settings">The JsonSerializer Settings</param>
         /// <returns>强类型</returns>
-        public static T JsonDeserialize<T>(string input, JsonSerializerSettings jsonSerializerSettings = null)
+        public static T JsonDeserialize<T>(string input, JsonSerializerSettings settings = null)
         {
             try
             {
-                T rv = JsonConvert.DeserializeObject<T>(input, jsonSerializerSettings ?? DefaultJsonSerializerSettings);
+                T rv = Json.JsonConvert.DeserializeObject<T>(input, settings);
                 return rv;
             }
             catch

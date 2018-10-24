@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System;
 
@@ -19,6 +20,7 @@ namespace SnowLeopard.Infrastructure.Json
 
             //忽略循环引用
             DefaultJsonSerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            DefaultJsonSerializerSettings.Converters.Add(new StringEnumConverter(true));
 
             //将时间转换为时间戳
             DefaultJsonSerializerSettings.ContractResolver = new DateTimeContractResolver()
