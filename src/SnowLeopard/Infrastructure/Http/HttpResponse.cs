@@ -33,7 +33,7 @@ namespace SnowLeopard.Infrastructure.Http
             string bodyStr = httpResponseMessage.Content.ReadAsStringAsync().Result;
             if (!string.IsNullOrWhiteSpace(bodyStr))
             {
-                Body = Json.JsonConvert.DeserializeObject<T>(bodyStr, settings);
+                Body = SnowLeopardJsonConvert.DeserializeObject<T>(bodyStr, settings);
             }
         }
 

@@ -10,10 +10,7 @@ namespace SnowLeopard.Infrastructure.Json
     /// <summary>
     /// Provides methods for converting between common language runtime types and JSON types.
     /// </summary>
-    /// <example>
-    ///   <code lang="cs" source="..\Src\Exceptionless.Json.Tests\Documentation\SerializationTests.cs" region="SerializeObject" title="Serializing and Deserializing JSON with JsonConvert" />
-    /// </example>
-    public static class JsonConvert
+    public static class SnowLeopardJsonConvert
     {
         /// <summary>
         /// Represents JavaScript's boolean value true as a string. This field is read-only.

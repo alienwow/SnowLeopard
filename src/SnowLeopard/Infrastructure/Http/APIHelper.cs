@@ -229,7 +229,7 @@ namespace SnowLeopard.Infrastructure.Http
         {
             try
             {
-                T rv = Json.JsonConvert.DeserializeObject<T>(input, settings);
+                T rv = SnowLeopardJsonConvert.DeserializeObject<T>(input, settings);
                 return rv;
             }
             catch

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SnowLeopard.Infrastructure.Json;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -91,7 +92,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Post, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(JsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendAsync<T>(requestMsg);
@@ -116,7 +117,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Post, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(JsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendForStringAsync(requestMsg);
@@ -148,7 +149,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Put, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(JsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendAsync<T>(requestMsg);
@@ -173,7 +174,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Put, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(JsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendForStringAsync(requestMsg);
@@ -205,7 +206,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Delete, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(JsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendAsync<T>(requestMsg);
@@ -232,7 +233,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Delete, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(JsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendForStringAsync(requestMsg);
