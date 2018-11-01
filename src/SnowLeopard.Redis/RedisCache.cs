@@ -9,7 +9,7 @@ using SnowLeopard.Lynx;
 using StackExchange.Redis;
 
 // VSCode 正则替换生成接口
-// from: public (.*\))\n\s+\{[a-zA-Z0-9=_\(\);+,\.\n\s\[\]<>\{\}\/\u4e00-\u9fa5]+\}
+// from: ((public async)|(public)) (.*\))\n\s+\{[a-zA-Z0-9=_\(\);+,\.\n\s\[\]<>\{\}\/\u4e00-\u9fa5]+\}
 // to: $1;
 
 namespace SnowLeopard.Redis
@@ -66,8 +66,21 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public bool KeyDelete(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.KeyDelete(_instanceName + key, flags);
+        }
+
+        /// <summary>
+        /// KeyDelete
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> KeyDeleteAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.KeyDeleteAsync(_instanceName + key, flags);
         }
 
         /// <summary>
@@ -79,13 +92,31 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public long KeyDelete(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             var keyArray = new RedisKey[keys.Length];
             for (int i = 0; i < keys.Length; i++)
             {
                 keyArray[i] = _instanceName + keys[i];
             }
             return database.KeyDelete(keyArray, flags);
+        }
+
+        /// <summary>
+        /// KeyDelete
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<long> KeyDeleteAsync(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            var keyArray = new RedisKey[keys.Length];
+            for (int i = 0; i < keys.Length; i++)
+            {
+                keyArray[i] = _instanceName + keys[i];
+            }
+            return await database.KeyDeleteAsync(keyArray, flags);
         }
 
         /// <summary>
@@ -97,8 +128,21 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public byte[] KeyDump(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.KeyDump(_instanceName + key, flags);
+        }
+
+        /// <summary>
+        /// KeyDump
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<byte[]> KeyDumpAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.KeyDumpAsync(_instanceName + key, flags);
         }
 
         /// <summary>
@@ -110,8 +154,21 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public bool KeyExists(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.KeyExists(_instanceName + key);
+        }
+
+        /// <summary>
+        /// KeyExists
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> KeyExistsAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.KeyExistsAsync(_instanceName + key);
         }
 
         /// <summary>
@@ -124,8 +181,22 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public bool KeyExpire(string key, TimeSpan? expiry, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.KeyExpire(_instanceName + key, expiry, flags);
+        }
+
+        /// <summary>
+        /// KeyExists
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expiry"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> KeyExpireAsync(string key, TimeSpan? expiry, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.KeyExpireAsync(_instanceName + key, expiry, flags);
         }
 
         /// <summary>
@@ -138,8 +209,22 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public bool KeyExpire(string key, DateTime? expiry, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.KeyExpire(_instanceName + key, expiry, flags);
+        }
+
+        /// <summary>
+        /// KeyExpire
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expiry"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> KeyExpireAsync(string key, DateTime? expiry, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.KeyExpireAsync(_instanceName + key, expiry, flags);
         }
 
         /// <summary>
@@ -192,8 +277,22 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public T Get<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return DeserializeObject<T>(database.StringGet(_instanceName + key, flags));
+        }
+
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<T> GetAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return DeserializeObject<T>(await database.StringGetAsync(_instanceName + key, flags));
         }
 
         /// <summary>
@@ -206,12 +305,34 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public T[] Get<T>(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             var redisKeys = new RedisKey[keys.Length];
             for (int i = 0; i < keys.Length; i++)
                 redisKeys[i] = _instanceName + keys[i];
             var redisVals = database.StringGet(redisKeys, flags);
             var res = new T[redisVals.Length];
+            for (int i = 0; i < redisVals.Length; i++)
+                res[i] = DeserializeObject<T>(redisVals[i]);
+            return res;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="keys"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<T[]> GetAsync<T>(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            var redisKeys = new RedisKey[keys.Length];
+            for (int i = 0; i < keys.Length; i++)
+                redisKeys[i] = _instanceName + keys[i];
+            RedisValue[] redisVals = await database.StringGetAsync(redisKeys, flags);
+
+            T[] res = new T[redisVals.Length];
             for (int i = 0; i < redisVals.Length; i++)
                 res[i] = DeserializeObject<T>(redisVals[i]);
             return res;
@@ -229,67 +350,168 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         public void Set<T>(string key, T value, int db = 0, TimeSpan? timeSpan = null, When when = When.Always, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             database.StringSet(_instanceName + key, SerializeObject(value), timeSpan, when, flags);
         }
 
         /// <summary>
-        /// Increment
+        /// Set
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <param name="when"></param>
+        /// <param name="flags"></param>
+        public async Task SetAsync<T>(string key, T value, int db = 0, TimeSpan? timeSpan = null, When when = When.Always, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            await database.StringSetAsync(_instanceName + key, SerializeObject(value), timeSpan, when, flags);
+        }
+
+        /// <summary>
+        /// Incr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public long Increment(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
+        public long Incr(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.StringIncrement(_instanceName + key, value, flags);
         }
 
         /// <summary>
-        /// Decrement
+        /// Incr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public long Decrement(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
+        public async Task<long> IncrAsync(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.StringIncrementAsync(_instanceName + key, value, flags);
+        }
+
+        /// <summary>
+        /// Incr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public double Incr(string key, double value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return database.StringIncrement(_instanceName + key, value, flags);
+        }
+
+        /// <summary>
+        /// Incr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<double> IncrAsync(string key, double value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.StringIncrementAsync(_instanceName + key, value, flags);
+        }
+
+        /// <summary>
+        /// Decr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public long Decr(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
             return database.StringDecrement(_instanceName + key, value, flags);
+        }
+
+        /// <summary>
+        /// Decr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<long> DecrAsync(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.StringDecrementAsync(_instanceName + key, value, flags);
+        }
+
+        /// <summary>
+        /// Decr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public double Decr(string key, double value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return database.StringDecrement(_instanceName + key, value, flags);
+        }
+
+        /// <summary>
+        /// Decr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<double> DecrAsync(string key, double value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.StringDecrementAsync(_instanceName + key, value, flags);
         }
 
         #endregion
 
         #region String
-        ///APPEND
-        ///BITCOUNT
-        ///BITOP
-        ///BITFIELD
-        ///DECR
-        ///DECRBY
-        ///GET
-        ///GETBIT
-        ///GETRANGE
-        ///GETSET
-        ///INCR
-        ///INCRBY
-        ///INCRBYFLOAT
-        ///MGET
-        ///MSET
-        ///MSETNX
-        ///PSETEX
-        ///SET
-        ///SETBIT
-        ///SETEX
-        ///SETNX
-        ///SETRANGE
-        ///STRLEN
+        //APPEND
+        //BITCOUNT
+        //BITOP
+        //BITFIELD
+        //DECR
+        //DECRBY
+        //GET
+        //GETBIT
+        //GETRANGE
+        //GETSET
+        //INCR
+        //INCRBY
+        //INCRBYFLOAT
+        //MGET
+        //MSET
+        //MSETNX
+        //PSETEX
+        //SET
+        //SETBIT
+        //SETEX
+        //SETNX
+        //SETRANGE
+        //STRLEN
         #endregion
 
         #region Hash完事儿
+
         /// <summary>
         /// HDel
         /// </summary>
@@ -300,8 +522,22 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public bool HDel(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.HashDelete(_instanceName + key, hashid, flags);
+        }
+
+        /// <summary>
+        /// HDel
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> HDelAsync(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.HashDeleteAsync(_instanceName + key, hashid, flags);
         }
 
         /// <summary>
@@ -314,13 +550,31 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public long HDel(string key, string[] hashids, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             var keyArray = new RedisValue[hashids.Length];
             for (int i = 0; i < hashids.Length; i++)
             {
                 keyArray[i] = hashids[i];
             }
             return database.HashDelete(_instanceName + key, keyArray, flags);
+        }
+
+        /// <summary>
+        /// HDel
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashids"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<long> HDelAsync(string key, string[] hashids, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            var keyArray = new RedisValue[hashids.Length];
+            for (int i = 0; i < hashids.Length; i++)
+                keyArray[i] = hashids[i];
+
+            return await database.HashDeleteAsync(_instanceName + key, keyArray, flags);
         }
 
         /// <summary>
@@ -333,8 +587,22 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public bool HExists(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.HashExists(_instanceName + key, hashid, flags);
+        }
+
+        /// <summary>
+        /// HExists
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> HExistsAsync(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.HashExistsAsync(_instanceName + key, hashid, flags);
         }
 
         /// <summary>
@@ -348,8 +616,23 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public T HGet<T>(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return DeserializeObject<T>(database.HashGet(_instanceName + key, hashid, flags));
+        }
+
+        /// <summary>
+        /// HGet
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="hashid"></param>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<T> HGetAsync<T>(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return DeserializeObject<T>(await database.HashGetAsync(_instanceName + key, hashid, flags));
         }
 
         /// <summary>
@@ -363,7 +646,7 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public IDictionary<string, T> HGet<T>(string key, string[] hashids, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             var hashFields = new RedisValue[hashids.Length];
             for (int i = 0; i < hashids.Length; i++)
             {
@@ -371,6 +654,34 @@ namespace SnowLeopard.Redis
             }
             var redisValues = database.HashGet(_instanceName + key, hashFields, flags);
             var resDic = new Dictionary<string, T>();
+            for (int i = 0; i < redisValues.Length; i++)
+            {
+                if (redisValues[i].HasValue)
+                    resDic.Add(hashids[i], DeserializeObject<T>(redisValues[i]));
+            }
+            return resDic;
+        }
+
+        /// <summary>
+        /// HGet
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="hashids"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<IDictionary<string, T>> HGetAsync<T>(string key, string[] hashids, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            var hashFields = new RedisValue[hashids.Length];
+            for (int i = 0; i < hashids.Length; i++)
+                hashFields[i] = hashids[i];
+
+            var redisValues = await database.HashGetAsync(_instanceName + key, hashFields, flags);
+
+            var resDic = new Dictionary<string, T>();
+
             for (int i = 0; i < redisValues.Length; i++)
             {
                 if (redisValues[i].HasValue)
@@ -389,7 +700,7 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public IDictionary<string, T> HGetAll<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             HashEntry[] hashEntry = database.HashGetAll(_instanceName + key, flags);
             var resDic = new Dictionary<string, T>();
             foreach (var item in hashEntry)
@@ -400,7 +711,27 @@ namespace SnowLeopard.Redis
         }
 
         /// <summary>
-        /// HIncrBy
+        /// HGetAll
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<IDictionary<string, T>> HGetAllAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            HashEntry[] hashEntry = await database.HashGetAllAsync(_instanceName + key, flags);
+
+            var resDic = new Dictionary<string, T>();
+            foreach (var item in hashEntry)
+                resDic.Add(item.Name, DeserializeObject<T>(item.Value));
+
+            return resDic;
+        }
+
+        /// <summary>
+        /// HIncr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashid"></param>
@@ -408,14 +739,14 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public long HIncrBy(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
+        public long HIncr(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.HashIncrement(_instanceName + key, hashid, value, flags);
         }
 
         /// <summary>
-        /// HIncrByDouble
+        /// HIncr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashid"></param>
@@ -423,14 +754,29 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public double HIncrByDouble(string key, string hashid, double value = 1.0, int db = 0, CommandFlags flags = CommandFlags.None)
+        public async Task<long> HIncrAsync(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.HashIncrementAsync(_instanceName + key, hashid, value, flags);
+        }
+
+        /// <summary>
+        /// HIncr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public double HIncr(string key, string hashid, double value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
             return database.HashIncrement(_instanceName + key, hashid, value, flags);
         }
 
         /// <summary>
-        /// HDecrBy
+        /// HIncr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashid"></param>
@@ -438,14 +784,29 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public long HDecrBy(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
+        public async Task<double> HIncrAsync(string key, string hashid, double value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.HashIncrementAsync(_instanceName + key, hashid, value, flags);
+        }
+
+        /// <summary>
+        /// HDecr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public long HDecr(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
             return database.HashDecrement(_instanceName + key, hashid, value, flags);
         }
 
         /// <summary>
-        /// HDecrByDouble
+        /// HDecr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashid"></param>
@@ -453,10 +814,40 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public double HDecrByDouble(string key, string hashid, double value = 1.0, int db = 0, CommandFlags flags = CommandFlags.None)
+        public async Task<long> HDecrAsync(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.HashDecrementAsync(_instanceName + key, hashid, value, flags);
+        }
+
+        /// <summary>
+        /// HDecr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public double HDecr(string key, string hashid, double value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
             return database.HashDecrement(_instanceName + key, hashid, value, flags);
+        }
+
+        /// <summary>
+        /// HDecr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<double> HDecrAsync(string key, string hashid, double value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.HashDecrementAsync(_instanceName + key, hashid, value, flags);
         }
 
         /// <summary>
@@ -468,13 +859,31 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public string[] HKeys(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             var redisValues = database.HashKeys(_instanceName + key, flags);
             var res = new string[redisValues.Length];
             for (int i = 0; i < redisValues.Length; i++)
             {
                 res[i] = redisValues[i];
             }
+            return res;
+        }
+
+        /// <summary>
+        /// HKeys
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<string[]> HKeysAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            var redisValues = await database.HashKeysAsync(_instanceName + key, flags);
+
+            var res = new string[redisValues.Length];
+            for (int i = 0; i < redisValues.Length; i++)
+                res[i] = redisValues[i];
             return res;
         }
 
@@ -487,8 +896,21 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public long HLen(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.HashLength(_instanceName + key, flags);
+        }
+
+        /// <summary>
+        /// HLen
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<long> HLenAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.HashLengthAsync(_instanceName + key, flags);
         }
 
         /// <summary>
@@ -504,8 +926,25 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public bool HSet<T>(string key, string hashid, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.HashSet(_instanceName + key, hashid, SerializeObject(value), when, flags);
+        }
+
+        /// <summary>
+        /// HSet
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="when"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> HSetAsync<T>(string key, string hashid, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.HashSetAsync(_instanceName + key, hashid, SerializeObject(value), when, flags);
         }
 
         /// <summary>
@@ -518,7 +957,7 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         public void HSet<T>(string key, IDictionary<string, T> dic, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             var hashEntry = new HashEntry[dic.Count];
             int i = 0;
             foreach (var item in dic)
@@ -526,6 +965,25 @@ namespace SnowLeopard.Redis
                 hashEntry[i++] = new HashEntry(item.Key, SerializeObject(item.Value));
             }
             database.HashSet(_instanceName + key, hashEntry, flags);
+        }
+
+        /// <summary>
+        /// HSet
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="dic"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        public async Task HSetAsync<T>(string key, IDictionary<string, T> dic, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            var hashEntry = new HashEntry[dic.Count];
+            int i = 0;
+            foreach (var item in dic)
+                hashEntry[i++] = new HashEntry(item.Key, SerializeObject(item.Value));
+
+            await database.HashSetAsync(_instanceName + key, hashEntry, flags);
         }
 
         /// <summary>
@@ -538,7 +996,7 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public T[] HValues<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             var redisValues = database.HashValues(_instanceName + key, flags);
 
             var res = new T[redisValues.Length];
@@ -546,6 +1004,26 @@ namespace SnowLeopard.Redis
             {
                 res[i] = DeserializeObject<T>(redisValues[i]);
             }
+            return res;
+        }
+
+        /// <summary>
+        /// HValues
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<T[]> HValuesAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            RedisValue[] redisValues = await database.HashValuesAsync(_instanceName + key, flags);
+
+            var res = new T[redisValues.Length];
+            for (int i = 0; i < redisValues.Length; i++)
+                res[i] = DeserializeObject<T>(redisValues[i]);
+
             return res;
         }
 
@@ -560,20 +1038,20 @@ namespace SnowLeopard.Redis
         public T[] HScan<T>(string key, string pattern, int db = 0)
         {
             //TODO 需要测试
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             var values = database.HashScan(_instanceName + key, pattern);
             var res = new T[values.Count()];
             int i = 0;
             foreach (var item in values)
-            {
                 res[i++] = DeserializeObject<T>(item.Value);
-            }
+
             return res;
         }
 
         #endregion
 
         #region Set完事儿
+
         /// <summary>
         /// SAdd
         /// </summary>
@@ -582,11 +1060,12 @@ namespace SnowLeopard.Redis
         /// <param name="value"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
-        public void SAdd<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
+        public bool SAdd<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
-            database.SetAdd(_instanceName + key, SerializeObject(value), flags);
+            IDatabase database = _connection.GetDatabase(db);
+            return database.SetAdd(_instanceName + key, SerializeObject(value), flags);
         }
+
         /// <summary>
         /// SAddAsync
         /// </summary>
@@ -598,19 +1077,32 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public Task<bool> SAddAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.SetAddAsync(_instanceName + key, SerializeObject(value), flags);
         }
+
         /// <summary>
         /// Set元素数量
         /// </summary>
         /// <param name="key"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
-        public void SCard(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        public long SLength(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
-            database.SetLength(_instanceName + key, flags);
+            IDatabase database = _connection.GetDatabase(db);
+            return database.SetLength(_instanceName + key, flags);
+        }
+
+        /// <summary>
+        /// Set元素数量
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        public async Task<long> SLengthAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.SetLengthAsync(_instanceName + key, flags);
         }
 
         ///SDIFF
@@ -637,9 +1129,24 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public T SPop<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return DeserializeObject<T>(database.SetPop(_instanceName + key, flags));
         }
+
+        /// <summary>
+        /// SPop
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<T> SPopAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return DeserializeObject<T>(await database.SetPopAsync(_instanceName + key, flags));
+        }
+
         /// <summary>
         /// SRemove
         /// </summary>
@@ -651,11 +1158,12 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public bool SRemove<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.SetRemove(_instanceName + key, SerializeObject(value), flags);
         }
+
         /// <summary>
-        /// SRemoveAsync
+        /// SRemove
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
@@ -663,10 +1171,10 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        public Task<bool> SRemoveAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
+        public async Task<bool> SRemoveAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
-            return database.SetRemoveAsync(_instanceName + key, SerializeObject(value), flags);
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.SetRemoveAsync(_instanceName + key, SerializeObject(value), flags);
         }
 
         #endregion
@@ -682,10 +1190,25 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="when"></param>
         /// <param name="flags"></param>
-        public void LPush<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None)
+        public long LPush<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
-            database.ListLeftPush(_instanceName + key, SerializeObject(value), when, flags);
+            IDatabase database = _connection.GetDatabase(db);
+            return database.ListLeftPush(_instanceName + key, SerializeObject(value), when, flags);
+        }
+
+        /// <summary>
+        /// LPush
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="when"></param>
+        /// <param name="flags"></param>
+        public async Task<long> LPushAsync<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.ListLeftPushAsync(_instanceName + key, SerializeObject(value), when, flags);
         }
 
         /// <summary>
@@ -698,8 +1221,22 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public T RPop<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return DeserializeObject<T>(database.ListRightPop(_instanceName + key, flags));
+        }
+
+        /// <summary>
+        /// RPop
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<T> RPopAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return DeserializeObject<T>(await database.ListRightPopAsync(_instanceName + key, flags));
         }
 
         /// <summary>
@@ -711,10 +1248,25 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="when"></param>
         /// <param name="flags"></param>
-        public void RPush<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None)
+        public long RPush<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
-            database.ListRightPush(_instanceName + key, SerializeObject(value), when, flags);
+            IDatabase database = _connection.GetDatabase(db);
+            return database.ListRightPush(_instanceName + key, SerializeObject(value), when, flags);
+        }
+
+        /// <summary>
+        /// RPush
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="when"></param>
+        /// <param name="flags"></param>
+        public async Task<long> RPushAsync<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.ListRightPushAsync(_instanceName + key, SerializeObject(value), when, flags);
         }
 
         /// <summary>
@@ -727,8 +1279,22 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public T LPop<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return DeserializeObject<T>(database.ListLeftPop(_instanceName + key, flags));
+        }
+
+        /// <summary>
+        /// LPop
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<T> LPopAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return DeserializeObject<T>(await database.ListLeftPopAsync(_instanceName + key, flags));
         }
 
         #endregion
@@ -755,8 +1321,23 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public long Publish<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.Publish(_instanceName + key, SerializeObject(value), flags);
+        }
+
+        /// <summary>
+        /// Publish
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<long> PublishAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.PublishAsync(_instanceName + key, SerializeObject(value), flags);
         }
 
         /// <summary>
@@ -769,8 +1350,22 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         public long PublishString(string key, string value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
-            var database = _connection.GetDatabase(db);
+            IDatabase database = _connection.GetDatabase(db);
             return database.Publish(_instanceName + key, value, flags);
+        }
+
+        /// <summary>
+        /// PublishString
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<long> PublishStringAsync(string key, string value, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return await database.PublishAsync(_instanceName + key, value, flags);
         }
 
         #endregion

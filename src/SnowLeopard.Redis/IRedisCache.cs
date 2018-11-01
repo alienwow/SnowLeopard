@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 
@@ -22,11 +21,29 @@ namespace SnowLeopard.Redis
         /// <summary>
         /// KeyDelete
         /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> KeyDeleteAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// KeyDelete
+        /// </summary>
         /// <param name="keys"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
         long KeyDelete(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// KeyDelete
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<long> KeyDeleteAsync(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// KeyDump
@@ -36,6 +53,15 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         byte[] KeyDump(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// KeyDump
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<byte[]> KeyDumpAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// KeyExists
@@ -50,11 +76,30 @@ namespace SnowLeopard.Redis
         /// KeyExists
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> KeyExistsAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// KeyExists
+        /// </summary>
+        /// <param name="key"></param>
         /// <param name="expiry"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
         bool KeyExpire(string key, TimeSpan? expiry, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// KeyExists
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expiry"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> KeyExpireAsync(string key, TimeSpan? expiry, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// KeyExpire
@@ -65,6 +110,16 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         bool KeyExpire(string key, DateTime? expiry, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// KeyExpire
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="expiry"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> KeyExpireAsync(string key, DateTime? expiry, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// 模糊匹配查询Key
@@ -114,6 +169,16 @@ namespace SnowLeopard.Redis
         T Get<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
+        /// Get
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<T> GetAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -122,6 +187,16 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         T[] Get<T>(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="keys"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<T[]> GetAsync<T>(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// Set
@@ -136,54 +211,127 @@ namespace SnowLeopard.Redis
         void Set<T>(string key, T value, int db = 0, TimeSpan? timeSpan = null, When when = When.Always, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
-        /// Increment
+        /// Set
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <param name="when"></param>
         /// <param name="flags"></param>
-        /// <returns></returns>
-        long Increment(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+        Task SetAsync<T>(string key, T value, int db = 0, TimeSpan? timeSpan = null, When when = When.Always, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
-        /// Decrement
+        /// Incr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        long Decrement(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+        long Incr(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Incr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<long> IncrAsync(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Incr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        double Incr(string key, double value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Incr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<double> IncrAsync(string key, double value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Decr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        long Decr(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Decr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<long> DecrAsync(string key, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Decr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        double Decr(string key, double value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Decr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<double> DecrAsync(string key, double value, int db = 0, CommandFlags flags = CommandFlags.None);
 
         #endregion
 
         #region String
-        ///APPEND
-        ///BITCOUNT
-        ///BITOP
-        ///BITFIELD
-        ///DECR
-        ///DECRBY
-        ///GET
-        ///GETBIT
-        ///GETRANGE
-        ///GETSET
-        ///INCR
-        ///INCRBY
-        ///INCRBYFLOAT
-        ///MGET
-        ///MSET
-        ///MSETNX
-        ///PSETEX
-        ///SET
-        ///SETBIT
-        ///SETEX
-        ///SETNX
-        ///SETRANGE
-        ///STRLEN
+        //APPEND
+        //BITCOUNT
+        //BITOP
+        //BITFIELD
+        //DECR
+        //DECRBY
+        //GET
+        //GETBIT
+        //GETRANGE
+        //GETSET
+        //INCR
+        //INCRBY
+        //INCRBYFLOAT
+        //MGET
+        //MSET
+        //MSETNX
+        //PSETEX
+        //SET
+        //SETBIT
+        //SETEX
+        //SETNX
+        //SETRANGE
+        //STRLEN
         #endregion
 
         #region Hash完事儿
+
         /// <summary>
         /// HDel
         /// </summary>
@@ -198,11 +346,31 @@ namespace SnowLeopard.Redis
         /// HDel
         /// </summary>
         /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> HDelAsync(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HDel
+        /// </summary>
+        /// <param name="key"></param>
         /// <param name="hashids"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
         long HDel(string key, string[] hashids, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HDel
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashids"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<long> HDelAsync(string key, string[] hashids, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// HExists
@@ -213,6 +381,16 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         bool HExists(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HExists
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> HExistsAsync(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// HGet
@@ -229,12 +407,34 @@ namespace SnowLeopard.Redis
         /// HGet
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="hashid"></param>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<T> HGetAsync<T>(string key, string hashid, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HGet
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
         /// <param name="hashids"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
         IDictionary<string, T> HGet<T>(string key, string[] hashids, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HGet
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="hashids"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<IDictionary<string, T>> HGetAsync<T>(string key, string[] hashids, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// HGetAll
@@ -247,18 +447,17 @@ namespace SnowLeopard.Redis
         IDictionary<string, T> HGetAll<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
-        /// HIncrBy
+        /// HGetAll
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
-        /// <param name="hashid"></param>
-        /// <param name="value"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        long HIncrBy(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+        Task<IDictionary<string, T>> HGetAllAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
-        /// HIncrByDouble
+        /// HIncr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashid"></param>
@@ -266,10 +465,10 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        double HIncrByDouble(string key, string hashid, double value = 1.0, int db = 0, CommandFlags flags = CommandFlags.None);
+        long HIncr(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
-        /// HDecrBy
+        /// HIncr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashid"></param>
@@ -277,10 +476,10 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        long HDecrBy(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+        Task<long> HIncrAsync(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
-        /// HDecrByDouble
+        /// HIncr
         /// </summary>
         /// <param name="key"></param>
         /// <param name="hashid"></param>
@@ -288,7 +487,62 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="flags"></param>
         /// <returns></returns>
-        double HDecrByDouble(string key, string hashid, double value = 1.0, int db = 0, CommandFlags flags = CommandFlags.None);
+        double HIncr(string key, string hashid, double value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HIncr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<double> HIncrAsync(string key, string hashid, double value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HDecr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        long HDecr(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HDecr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<long> HDecrAsync(string key, string hashid, long value = 1, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HDecr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        double HDecr(string key, string hashid, double value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HDecr
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<double> HDecrAsync(string key, string hashid, double value, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// HKeys
@@ -300,6 +554,15 @@ namespace SnowLeopard.Redis
         string[] HKeys(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
+        /// HKeys
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<string[]> HKeysAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
         /// HLen
         /// </summary>
         /// <param name="key"></param>
@@ -307,6 +570,15 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         long HLen(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HLen
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<long> HLenAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// HSet
@@ -326,10 +598,33 @@ namespace SnowLeopard.Redis
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
+        /// <param name="hashid"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="when"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> HSetAsync<T>(string key, string hashid, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HSet
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
         /// <param name="dic"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
         void HSet<T>(string key, IDictionary<string, T> dic, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HSet
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="dic"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        Task HSetAsync<T>(string key, IDictionary<string, T> dic, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// HValues
@@ -340,6 +635,16 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         T[] HValues<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// HValues
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<T[]> HValuesAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// HScan
@@ -354,6 +659,7 @@ namespace SnowLeopard.Redis
         #endregion
 
         #region Set完事儿
+
         /// <summary>
         /// SAdd
         /// </summary>
@@ -362,7 +668,8 @@ namespace SnowLeopard.Redis
         /// <param name="value"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
-        void SAdd<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
+        bool SAdd<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
+
         /// <summary>
         /// SAddAsync
         /// </summary>
@@ -373,13 +680,22 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         Task<bool> SAddAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
+
         /// <summary>
         /// Set元素数量
         /// </summary>
         /// <param name="key"></param>
         /// <param name="db"></param>
         /// <param name="flags"></param>
-        void SCard(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+        long SLength(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Set元素数量
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        Task<long> SLengthAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         ///SDIFF
         ///SDIFFSTORE
@@ -404,6 +720,17 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         T SPop<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// SPop
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<T> SPopAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
         /// <summary>
         /// SRemove
         /// </summary>
@@ -414,8 +741,9 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         bool SRemove<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
+
         /// <summary>
-        /// SRemoveAsync
+        /// SRemove
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="key"></param>
@@ -438,7 +766,18 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="when"></param>
         /// <param name="flags"></param>
-        void LPush<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None);
+        long LPush<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// LPush
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="when"></param>
+        /// <param name="flags"></param>
+        Task<long> LPushAsync<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// RPop
@@ -451,6 +790,16 @@ namespace SnowLeopard.Redis
         T RPop<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
+        /// RPop
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<T> RPopAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
         /// RPush
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -459,7 +808,18 @@ namespace SnowLeopard.Redis
         /// <param name="db"></param>
         /// <param name="when"></param>
         /// <param name="flags"></param>
-        void RPush<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None);
+        long RPush<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// RPush
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="when"></param>
+        /// <param name="flags"></param>
+        Task<long> RPushAsync<T>(string key, T value, int db = 0, When when = When.Always, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// LPop
@@ -470,6 +830,16 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         T LPop<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// LPop
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<T> LPopAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         #endregion
 
@@ -493,6 +863,17 @@ namespace SnowLeopard.Redis
         long Publish<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
+        /// Publish
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<long> PublishAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
         /// PublishString
         /// </summary>
         /// <param name="key"></param>
@@ -502,6 +883,17 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         long PublishString(string key, string value, int db = 0, CommandFlags flags = CommandFlags.None);
 
+        /// <summary>
+        /// PublishString
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<long> PublishStringAsync(string key, string value, int db = 0, CommandFlags flags = CommandFlags.None);
+
         #endregion
+
     }
 }
