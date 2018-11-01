@@ -11,19 +11,23 @@ namespace SnowLeopard.Infrastructure
     {
         private readonly ILogger _logger;
         private readonly SnowLeopardUtils _snowLeopardUtils;
+        private readonly CommonUtils _commonUtils;
 
         /// <summary>
         /// VersionsController
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="snowLeopardUtils"></param>
+        /// <param name="commonUtils"></param>
         public VersionsController(
             ILogger<VersionsController> logger,
-            SnowLeopardUtils snowLeopardUtils
-            )
+            SnowLeopardUtils snowLeopardUtils,
+            CommonUtils commonUtils
+        )
         {
             _logger = logger;
             _snowLeopardUtils = snowLeopardUtils;
+            _commonUtils = commonUtils;
         }
 
         /// <summary>
@@ -33,7 +37,7 @@ namespace SnowLeopard.Infrastructure
         [HttpGet("EntryAssemblyVersion")]
         public string GetEntryAssemblyVersion()
         {
-            return _snowLeopardUtils.EntryAssemblyVersion;
+            return _commonUtils.EntryAssemblyVersion;
         }
 
         /// <summary>

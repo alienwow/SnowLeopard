@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Infrastructure;
 using SnowLeopard.Infrastructure.Http;
 using SnowLeopard.Infrastructure.ModelBinders;
 using SnowLeopard.Model.BaseModels;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+using SnowLeopard.Redis;
 
 namespace SnowLeopard.WebApi.Controllers
 {
@@ -20,14 +21,17 @@ namespace SnowLeopard.WebApi.Controllers
     public class ValuesController : BaseApiController
     {
         private readonly ILogger _logger;
+        private readonly IRedisCache _redisCache;
         private readonly SnowLeopardHttpClient _snowLeopardHttpClient;
 
         public ValuesController(
             ILogger<ValuesController> logger,
-            SnowLeopardHttpClient snowLeopardHttpClient
+            SnowLeopardHttpClient snowLeopardHttpClient,
+            IRedisCache redisCache
         )
         {
             _logger = logger;
+            _redisCache = redisCache;
             _snowLeopardHttpClient = snowLeopardHttpClient;
         }
         /// <summary>

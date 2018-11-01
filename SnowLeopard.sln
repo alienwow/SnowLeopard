@@ -28,15 +28,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Mongo", "src\Sn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Lynx", "src\SnowLeopard.Lynx\SnowLeopard.Lynx.csproj", "{7E531AC2-375B-41A3-A60E-F5640BC98B02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowLeopard.Lynx.ConsoleTest", "test\SnowLeopard.Lynx.ConsoleTest\SnowLeopard.Lynx.ConsoleTest.csproj", "{289BC5C4-7E40-4F09-9A70-77A0A6FB2314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Lynx.ConsoleTest", "test\SnowLeopard.Lynx.ConsoleTest\SnowLeopard.Lynx.ConsoleTest.csproj", "{289BC5C4-7E40-4F09-9A70-77A0A6FB2314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowLeopard.Lynx.UnitTest", "test\SnowLeopard.Lynx.UnitTest\SnowLeopard.Lynx.UnitTest.csproj", "{C1AA62D8-5CCE-4E6E-8C80-F495273ABFE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Lynx.UnitTest", "test\SnowLeopard.Lynx.UnitTest\SnowLeopard.Lynx.UnitTest.csproj", "{C1AA62D8-5CCE-4E6E-8C80-F495273ABFE0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{6CA31C17-DCBC-467D-BFDA-BCBD32E6167F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.WebApi", "sample\SnowLeopard.WebApi\SnowLeopard.WebApi.csproj", "{3D21E2C9-D113-45DA-93C3-49599BEA41A9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.FastDFS", "src\SnowLeopard.FastDFS\SnowLeopard.FastDFS.csproj", "{61BD106E-84A9-4980-AD19-3FD750056F83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Redis", "src\SnowLeopard.Redis\SnowLeopard.Redis.csproj", "{2207D62B-5011-478A-A853-3D3B0EC18500}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Redis.ConsoleTest", "test\SnowLeopard.Redis.ConsoleTest\SnowLeopard.Redis.ConsoleTest.csproj", "{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowLeopard.Utils", "src\SnowLeopard.Utils\SnowLeopard.Utils.csproj", "{95A15461-BC38-4E06-98E5-C01C03D8AF55}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +90,18 @@ Global
 		{61BD106E-84A9-4980-AD19-3FD750056F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61BD106E-84A9-4980-AD19-3FD750056F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61BD106E-84A9-4980-AD19-3FD750056F83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2207D62B-5011-478A-A853-3D3B0EC18500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2207D62B-5011-478A-A853-3D3B0EC18500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2207D62B-5011-478A-A853-3D3B0EC18500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2207D62B-5011-478A-A853-3D3B0EC18500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95A15461-BC38-4E06-98E5-C01C03D8AF55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95A15461-BC38-4E06-98E5-C01C03D8AF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95A15461-BC38-4E06-98E5-C01C03D8AF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95A15461-BC38-4E06-98E5-C01C03D8AF55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +117,9 @@ Global
 		{C1AA62D8-5CCE-4E6E-8C80-F495273ABFE0} = {7D8F4061-A053-4450-9917-0687BF608E82}
 		{3D21E2C9-D113-45DA-93C3-49599BEA41A9} = {6CA31C17-DCBC-467D-BFDA-BCBD32E6167F}
 		{61BD106E-84A9-4980-AD19-3FD750056F83} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
+		{2207D62B-5011-478A-A853-3D3B0EC18500} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
+		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346} = {7D8F4061-A053-4450-9917-0687BF608E82}
+		{95A15461-BC38-4E06-98E5-C01C03D8AF55} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C818AB9D-C1C2-4DFA-B615-D5CB147E1306}

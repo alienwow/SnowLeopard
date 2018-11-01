@@ -10,20 +10,20 @@ namespace SnowLeopard.Infrastructure
     public class HealthController : BaseApiController
     {
         private readonly ILogger _logger;
-        private readonly SnowLeopardUtils _snowLeopardUtils;
+        private readonly CommonUtils _commonUtils;
 
         /// <summary>
         /// HealthController
         /// </summary>
         /// <param name="logger"></param>
-        /// <param name="snowLeopardUtils"></param>
+        /// <param name="commonUtils"></param>
         public HealthController(
             ILogger<HealthController> logger,
-            SnowLeopardUtils snowLeopardUtils
+            CommonUtils commonUtils
             )
         {
             _logger = logger;
-            _snowLeopardUtils = snowLeopardUtils;
+            _commonUtils = commonUtils;
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SnowLeopard.Infrastructure
         [HttpGet]
         public string Get()
         {
-            return _snowLeopardUtils.EntryAssemblyVersion;
+            return _commonUtils.EntryAssemblyVersion;
         }
     }
 }

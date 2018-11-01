@@ -79,6 +79,7 @@ namespace SnowLeopard.WebApi
             services.AddSnowLeopardServices();
             services.AddHttpClient();
             services.AddSingleton<SnowLeopardHttpClient, SnowLeopardHttpClient>();
+            services.AddSnowLeopardRedis(Configuration);
 
             services.AddSnowLeopardMongoContext();
 
