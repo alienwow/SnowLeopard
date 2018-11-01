@@ -7,24 +7,6 @@ namespace SnowLeopard
     /// </summary>
     public class SnowLeopardUtils
     {
-        private string _entryAssemblyVersion;
-
-        /// <summary>
-        /// EntryAssemblyVersion
-        /// </summary>
-        public string EntryAssemblyVersion
-        {
-            get
-            {
-                if (_entryAssemblyVersion == null)
-                {
-                    var assemblyName = Assembly.GetEntryAssembly().GetName();
-                    _entryAssemblyVersion = $"{assemblyName.Name}-{assemblyName.Version}";
-                }
-                return _entryAssemblyVersion;
-            }
-        }
-
         private string _snowLeopardVersion;
 
         /// <summary>
@@ -42,6 +24,5 @@ namespace SnowLeopard
                 return _snowLeopardVersion;
             }
         }
-
     }
 }
