@@ -10,7 +10,7 @@
   <Import Project="..\..\common.props" />
 
   <ItemGroup>
-    <PackageReference Include="BCrypt.Net-Core" Version="1.4.0" />
+    <PackageReference Include="BCrypt.Net-Core" Version="1.5.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
     <PackageReference Include="System.Text.Encodings.Web" Version="4.5.0" />

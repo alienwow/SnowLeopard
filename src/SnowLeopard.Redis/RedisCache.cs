@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SnowLeopard.Lynx;
 using StackExchange.Redis;
 
 // VSCode 正则替换生成接口
@@ -20,7 +21,7 @@ namespace SnowLeopard.Redis
     {
         #region StackExchangeRedis
 
-        public const string DEFAULT_CONNECTIONSTRING = "localhost:6379,name=SnowLeopard.Redis,connectTimeout=180,password=";
+        public const string DEFAULT_CONNECTIONSTRING = "localhost:6379,name=SnowLeopard.Redis,connectTimeout=5000,password=";
 
         private readonly ConnectionMultiplexer _connection;
         private readonly RedisOption _redisOption;
@@ -29,7 +30,7 @@ namespace SnowLeopard.Redis
         public RedisCache(
             ConnectionMultiplexer connectionMultiplexer,
             IOptions<RedisConfig> redisConfig,
-            CommonUtils commonUtils
+            LynxUtils lynxUtils
             )
         {
             if (redisConfig != null && redisConfig.Value != null)
@@ -37,7 +38,7 @@ namespace SnowLeopard.Redis
 
             _instanceName = _redisOption.InstanceName;
             if (string.IsNullOrEmpty(_instanceName))
-                _instanceName = commonUtils.EntryAssemblyName.Name;
+                _instanceName = lynxUtils.EntryAssemblyName.Name;
 
             _instanceName += ":";
 

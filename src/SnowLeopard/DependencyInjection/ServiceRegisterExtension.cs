@@ -18,7 +18,7 @@ namespace SnowLeopard.DependencyInjection
         public static void AddSnowLeopardServices(this IServiceCollection services)
         {
             services.AddSingleton<SnowLeopardUtils>();
-            services.AddSingleton<CommonUtils>();
+            services.AddSingleton<LynxUtils>();
 
             #region 自动注册 IDependencyTransientRegister、IDependencyTransientRegister、IDependencySingletonRegister
 

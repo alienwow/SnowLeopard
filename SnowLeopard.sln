@@ -42,8 +42,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Redis", "src\Sn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Redis.ConsoleTest", "test\SnowLeopard.Redis.ConsoleTest\SnowLeopard.Redis.ConsoleTest.csproj", "{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowLeopard.Utils", "src\SnowLeopard.Utils\SnowLeopard.Utils.csproj", "{95A15461-BC38-4E06-98E5-C01C03D8AF55}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,10 +96,6 @@ Global
 		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95A15461-BC38-4E06-98E5-C01C03D8AF55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95A15461-BC38-4E06-98E5-C01C03D8AF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95A15461-BC38-4E06-98E5-C01C03D8AF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95A15461-BC38-4E06-98E5-C01C03D8AF55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,7 +113,6 @@ Global
 		{61BD106E-84A9-4980-AD19-3FD750056F83} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 		{2207D62B-5011-478A-A853-3D3B0EC18500} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346} = {7D8F4061-A053-4450-9917-0687BF608E82}
-		{95A15461-BC38-4E06-98E5-C01C03D8AF55} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C818AB9D-C1C2-4DFA-B615-D5CB147E1306}

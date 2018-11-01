@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SnowLeopard.Lynx;
 
 namespace SnowLeopard.Infrastructure
 {
@@ -10,20 +11,20 @@ namespace SnowLeopard.Infrastructure
     public class HealthController : BaseApiController
     {
         private readonly ILogger _logger;
-        private readonly CommonUtils _commonUtils;
+        private readonly LynxUtils _lynxUtils;
 
         /// <summary>
         /// HealthController
         /// </summary>
         /// <param name="logger"></param>
-        /// <param name="commonUtils"></param>
+        /// <param name="lynxUtils"></param>
         public HealthController(
             ILogger<HealthController> logger,
-            CommonUtils commonUtils
+            LynxUtils lynxUtils
             )
         {
             _logger = logger;
-            _commonUtils = commonUtils;
+            _lynxUtils = lynxUtils;
         }
 
         /// <summary>
@@ -33,7 +34,7 @@ namespace SnowLeopard.Infrastructure
         [HttpGet]
         public string Get()
         {
-            return _commonUtils.EntryAssemblyVersion;
+            return _lynxUtils.EntryAssemblyVersion;
         }
     }
 }

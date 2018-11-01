@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SnowLeopard.Lynx;
 
 namespace SnowLeopard.Infrastructure
 {
@@ -11,23 +12,23 @@ namespace SnowLeopard.Infrastructure
     {
         private readonly ILogger _logger;
         private readonly SnowLeopardUtils _snowLeopardUtils;
-        private readonly CommonUtils _commonUtils;
+        private readonly LynxUtils _lynxUtils;
 
         /// <summary>
         /// VersionsController
         /// </summary>
         /// <param name="logger"></param>
         /// <param name="snowLeopardUtils"></param>
-        /// <param name="commonUtils"></param>
+        /// <param name="lynxUtils"></param>
         public VersionsController(
             ILogger<VersionsController> logger,
             SnowLeopardUtils snowLeopardUtils,
-            CommonUtils commonUtils
+            LynxUtils lynxUtils
         )
         {
             _logger = logger;
             _snowLeopardUtils = snowLeopardUtils;
-            _commonUtils = commonUtils;
+            _lynxUtils = lynxUtils;
         }
 
         /// <summary>
@@ -37,7 +38,7 @@ namespace SnowLeopard.Infrastructure
         [HttpGet("EntryAssemblyVersion")]
         public string GetEntryAssemblyVersion()
         {
-            return _commonUtils.EntryAssemblyVersion;
+            return _lynxUtils.EntryAssemblyVersion;
         }
 
         /// <summary>

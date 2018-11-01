@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SnowLeopard.Utils\SnowLeopard.Utils.csproj" />
+    <ProjectReference Include="..\SnowLeopard.Lynx\SnowLeopard.Lynx.csproj" />
   </ItemGroup>
 
 </Project>
