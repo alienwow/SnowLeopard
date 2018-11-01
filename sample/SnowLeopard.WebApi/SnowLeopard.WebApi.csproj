@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\src\SnowLeopard.Caching.Redis\SnowLeopard.Caching.Redis.csproj" />
         <ProjectReference Include="..\..\src\SnowLeopard.Mongo\SnowLeopard.Mongo.csproj" />
         <ProjectReference Include="..\..\src\SnowLeopard.Redis\SnowLeopard.Redis.csproj" />
         <ProjectReference Include="..\..\src\SnowLeopard\SnowLeopard.csproj" />

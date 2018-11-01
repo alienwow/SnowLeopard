@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Description>SnowLeopard.Caching.Redis</Description>
+        <AssemblyName>SnowLeopard.Caching.Redis</AssemblyName>
+        <Title>$(AssemblyName)</Title>
+    </PropertyGroup>
+
+    <Import Project="..\..\common.props" />
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\SnowLeopard.Caching.Abstractions\SnowLeopard.Caching.Abstractions.csproj" />
+      <ProjectReference Include="..\SnowLeopard.Redis\SnowLeopard.Redis.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -42,6 +42,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Redis", "src\Sn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Redis.ConsoleTest", "test\SnowLeopard.Redis.ConsoleTest\SnowLeopard.Redis.ConsoleTest.csproj", "{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Caching.Abstractions", "src\SnowLeopard.Caching.Abstractions\SnowLeopard.Caching.Abstractions.csproj", "{9C42A618-8E60-4768-8994-27FF275B3A46}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SnowLeopard.Caching.Redis", "src\SnowLeopard.Caching.Redis\SnowLeopard.Caching.Redis.csproj", "{0DBBAAD1-B889-4E0C-98F0-1C3BBC724401}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +100,14 @@ Global
 		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C42A618-8E60-4768-8994-27FF275B3A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C42A618-8E60-4768-8994-27FF275B3A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C42A618-8E60-4768-8994-27FF275B3A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C42A618-8E60-4768-8994-27FF275B3A46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DBBAAD1-B889-4E0C-98F0-1C3BBC724401}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DBBAAD1-B889-4E0C-98F0-1C3BBC724401}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DBBAAD1-B889-4E0C-98F0-1C3BBC724401}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DBBAAD1-B889-4E0C-98F0-1C3BBC724401}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -113,6 +125,8 @@ Global
 		{61BD106E-84A9-4980-AD19-3FD750056F83} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 		{2207D62B-5011-478A-A853-3D3B0EC18500} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 		{4AC983DE-077F-4ED2-BDC4-6CC7AE8C0346} = {7D8F4061-A053-4450-9917-0687BF608E82}
+		{9C42A618-8E60-4768-8994-27FF275B3A46} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
+		{0DBBAAD1-B889-4E0C-98F0-1C3BBC724401} = {C3A140D7-4FF4-4BFC-84E1-7BFE5E10BD24}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C818AB9D-C1C2-4DFA-B615-D5CB147E1306}
