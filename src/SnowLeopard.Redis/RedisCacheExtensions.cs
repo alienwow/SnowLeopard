@@ -9,9 +9,9 @@ using StackExchange.Redis;
 namespace SnowLeopard
 {
     /// <summary>
-    /// RedisExtension
+    /// RedisCacheExtensions
     /// </summary>
-    public static class RedisDependencyInjection
+    public static class RedisCacheExtensions
     {
         /// <summary>
         /// AddSnowLeopardRedis
