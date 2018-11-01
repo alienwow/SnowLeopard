@@ -13,7 +13,7 @@ namespace SnowLeopard.Lynx.Extension
     /// <summary>
     /// 字符串辅助类
     /// </summary>
-    public static class StringExtension
+    public static partial class StringExtension
     {
         /// <summary>
         /// 将数据列表转化为逗号分隔的字符串
