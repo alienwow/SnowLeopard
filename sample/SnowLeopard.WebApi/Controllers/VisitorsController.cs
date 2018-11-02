@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using SnowLeopard.Caching.Abstractions;
 using SnowLeopard.Infrastructure;
 using SnowLeopard.Model.BaseModels;
 using SnowLeopard.Mongo;
 using SnowLeopard.WebApi.MongoEntities;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace SnowLeopard.WebApi.Controllers
 {
@@ -17,7 +19,6 @@ namespace SnowLeopard.WebApi.Controllers
     /// </summary>
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
-    [ApiController]
     public class VisitorsController : BaseApiController
     {
         private readonly ILogger _logger;
@@ -31,20 +32,23 @@ namespace SnowLeopard.WebApi.Controllers
             _logger = logger;
             _vistorMongoCtx = vistorMongoCtx;
         }
+
         /// <summary>
         /// Get
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(BaseDTO<IEnumerable<Visitor>>), (int)HttpStatusCode.OK)]
-        public async Task<IEnumerable<Visitor>> Get()
+        [CachingInterceptor]
+        [Caching]
+        public virtual async Task<List<Visitor>> Get()
         {
-            return await _vistorMongoCtx.Visitors.FindToListAsync(x => true);
+            return _vistorMongoCtx.Visitors.AsQueryable().Take(10).ToList();
         }
 
         /// <summary>
         /// Get
-        /// </summary>
+        /// </summary>+
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]

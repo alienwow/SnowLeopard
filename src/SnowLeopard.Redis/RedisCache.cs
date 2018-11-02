@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -10,7 +12,7 @@ using StackExchange.Redis;
 
 // VSCode 正则替换生成接口
 // from: ((public async)|(public)) (.*\))\n\s+\{[a-zA-Z0-9=_\(\);+,\.\n\s\[\]<>\{\}\/\u4e00-\u9fa5]+\}
-// to: $1;
+// to: $4;
 
 namespace SnowLeopard.Redis
 {
@@ -43,6 +45,18 @@ namespace SnowLeopard.Redis
             _instanceName += ":";
 
             _connection = connectionMultiplexer;
+            jsonSerializer = new JsonSerializer()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Error,
+                TypeNameHandling = TypeNameHandling.None,
+                MetadataPropertyHandling = MetadataPropertyHandling.Default,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                NullValueHandling = NullValueHandling.Include,
+                DefaultValueHandling = DefaultValueHandling.Include,
+                ObjectCreationHandling = ObjectCreationHandling.Auto,
+                PreserveReferencesHandling = PreserveReferencesHandling.None,
+                ConstructorHandling = ConstructorHandling.Default
+            };
         }
 
         /// <summary>
@@ -50,7 +64,8 @@ namespace SnowLeopard.Redis
         /// </summary>
         public static readonly IsoDateTimeConverter TimeFormat = new IsoDateTimeConverter()
         {
-            DateTimeFormat = "yyyy-MM-dd HH:mm:ss"
+            //DateTimeFormat = "yyyy-MM-dd HH:mm:ss"
+            DateTimeFormat = "yyyy-MM-ddTHH:mm:ss.FFFFFFFK"
         };
 
         #endregion
@@ -293,6 +308,20 @@ namespace SnowLeopard.Redis
         {
             IDatabase database = _connection.GetDatabase(db);
             return DeserializeObject<T>(await database.StringGetAsync(_instanceName + key, flags));
+        }
+
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="type"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<object> GetAsync(string key, Type type, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = _connection.GetDatabase(db);
+            return DeserializeObject(await database.StringGetAsync(_instanceName + key, flags), type);
         }
 
         /// <summary>
@@ -1372,18 +1401,75 @@ namespace SnowLeopard.Redis
 
         #region Json
 
-        private T DeserializeObject<T>(string obj)
+        private readonly JsonSerializer jsonSerializer;
+
+        private object DeserializeObject(RedisValue redisValue, Type type)
         {
-            if (string.IsNullOrEmpty(obj))
-                return default(T);
-            return JsonConvert.DeserializeObject<T>(obj);
+            if (redisValue.IsNull)
+                return default;
+
+            byte[] bytes = redisValue;
+            using (var ms = new MemoryStream(bytes))
+            using (var sr = new StreamReader(ms, Encoding.UTF8))
+            using (var jtr = new JsonTextReader(sr))
+            {
+                return jsonSerializer.Deserialize(jtr, type);
+            }
         }
 
-        private string SerializeObject(object obj)
+        private T DeserializeObject<T>(RedisValue redisValue)
         {
-            if (obj == null)
-                return null;
-            return JsonConvert.SerializeObject(obj, TimeFormat);
+            if (redisValue.IsNull)
+                return default;
+
+            if (typeof(T) == typeof(string))
+                return (T)Convert.ChangeType(redisValue.ToString(), typeof(T));
+
+            byte[] bytes = redisValue;
+            using (var ms = new MemoryStream(bytes))
+            using (var sr = new StreamReader(ms, Encoding.UTF8))
+            using (var jtr = new JsonTextReader(sr))
+            {
+                return jsonSerializer.Deserialize<T>(jtr);
+            }
+
+            //if (redisValue.IsNull)
+            //    return default;
+
+            //byte[] bytes = redisValue;
+            //using (var ms = new MemoryStream(bytes))
+            //    return (T)(new BinaryFormatter().Deserialize(ms));
+
+            //if (string.IsNullOrEmpty(obj))
+            //    return default;
+
+            //if (obj is T result)
+            //    return result;
+
+            //return JsonConvert.DeserializeObject<T>(obj);
+        }
+
+        private byte[] SerializeObject(object value)
+        {
+            using (var ms = new MemoryStream())
+            {
+                using (var sr = new StreamWriter(ms, Encoding.UTF8))
+                using (var jtr = new JsonTextWriter(sr))
+                {
+                    jsonSerializer.Serialize(jtr, value);
+                }
+                return ms.ToArray();
+            }
+            //using (var ms = new MemoryStream())
+            //{
+            //    new BinaryFormatter().Serialize(ms, obj);
+            //    return ms.ToArray();
+            //}
+
+            //if (obj == null)
+            //    return null;
+
+            //return JsonConvert.SerializeObject(obj, TimeFormat);
         }
 
         #endregion

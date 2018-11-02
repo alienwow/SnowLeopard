@@ -6,7 +6,7 @@ namespace SnowLeopard.Caching
     /// <summary>
     /// ICacheProvider
     /// </summary>
-    public interface ICacheProvider
+    public interface ICachingProvider
     {
         /// <summary>
         /// Get

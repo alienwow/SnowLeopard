@@ -92,7 +92,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Post, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body, settings));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendAsync<T>(requestMsg);
@@ -149,7 +149,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Put, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body, settings));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendAsync<T>(requestMsg);
@@ -206,7 +206,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Delete, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body, settings));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendAsync<T>(requestMsg);
@@ -233,7 +233,7 @@ namespace SnowLeopard.Infrastructure.Http
             using (HttpRequestMessage requestMsg = new HttpRequestMessage(HttpMethod.Delete, new Uri(url)))
             {
                 requestMsg.ProcessHttpRequestHeaders(requestHeaders);
-                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body));
+                requestMsg.Content = new StringContent(SnowLeopardJsonConvert.SerializeObject(body, settings));
                 requestMsg.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
 
                 return await SendForStringAsync(requestMsg);

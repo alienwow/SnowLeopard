@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SnowLeopard.Lynx;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using SnowLeopard.Infrastructure.Json;
+using SnowLeopard.Lynx;
 
 namespace SnowLeopard.Mongo
 {
@@ -16,6 +17,11 @@ namespace SnowLeopard.Mongo
         /// <param name="services"></param>
         public static void AddSnowLeopardMongoContext(this IServiceCollection services)
         {
+            JsonSerializerSetting.Config(x =>
+            {
+                x.Converters.Add(new ObjectIdConverter());
+            });
+
             var types = LynxUtils.GetAllType();
             var singletonServiceInterface = typeof(MongoContext);
             var singletonServiceTypes = types.Where(x => singletonServiceInterface.IsAssignableFrom(x) && !x.GetTypeInfo().IsAbstract).ToArray();

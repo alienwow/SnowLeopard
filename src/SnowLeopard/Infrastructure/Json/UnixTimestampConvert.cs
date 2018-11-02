@@ -21,14 +21,11 @@ namespace SnowLeopard.Infrastructure
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var isNullable = objectType.IsNullable();
-            Type t = isNullable ? Nullable.GetUnderlyingType(objectType) : objectType;
 
             if (reader.TokenType == JsonToken.Null)
             {
                 if (!isNullable)
-                {
-                    throw new Exception(string.Format("不能转换null value to {0}.", objectType));
-                }
+                    throw new Exception(string.Format("不能转换 null value to {0}.", objectType));
 
                 return null;
             }

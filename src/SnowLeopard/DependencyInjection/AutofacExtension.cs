@@ -16,10 +16,10 @@ namespace SnowLeopard.DependencyInjection
         /// <param name="services"></param>
         public static IServiceProvider AddSnowLeopardAutofac(this IServiceCollection services)
         {
-            var container = new ContainerBuilder();
-            container.Populate(services);
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
 
-            var serviceProvider = new AutofacServiceProvider(container.Build());
+            var serviceProvider = new AutofacServiceProvider(builder.Build());
             GlobalServices.SetServiceProvider(serviceProvider);
 
             return serviceProvider;

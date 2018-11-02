@@ -179,6 +179,16 @@ namespace SnowLeopard.Redis
         Task<T> GetAsync<T>(string key, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="type"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<object> GetAsync(string key, Type type, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <typeparam name="T"></typeparam>

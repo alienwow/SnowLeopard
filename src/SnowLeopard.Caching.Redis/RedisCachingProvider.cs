@@ -3,18 +3,18 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Redis;
 
-namespace SnowLeopard.Caching.Redis
+namespace SnowLeopard.Caching
 {
     /// <summary>
-    /// RedisCacheProvider
+    /// RedisCachingProvider
     /// </summary>
-    public class RedisCacheProvider : ICacheProvider
+    public class RedisCachingProvider : ICachingProvider
     {
         private readonly ILogger _logger;
         private readonly IRedisCache _cache;
 
-        public RedisCacheProvider(
-            ILogger<RedisCacheProvider> logger,
+        public RedisCachingProvider(
+            ILogger<RedisCachingProvider> logger,
             IRedisCache cache
         )
         {

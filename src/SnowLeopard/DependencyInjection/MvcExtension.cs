@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using SnowLeopard.Infrastructure;
 using SnowLeopard.Infrastructure.Json;
-using System.Reflection;
 
 namespace SnowLeopard.DependencyInjection
 {

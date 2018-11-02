@@ -12,10 +12,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SnowLeopard.Lynx\SnowLeopard.Lynx.csproj" />
+    <ProjectReference Include="..\SnowLeopard\SnowLeopard.csproj" />
   </ItemGroup>
 
 </Project>
