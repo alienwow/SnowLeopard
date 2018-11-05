@@ -1,8 +1,10 @@
 ﻿using System;
-using AspectCore.Extensions.DependencyInjection;
-using AspectCore.Injector;
+using AspectCore.Extensions.Autofac;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using SnowLeopard.Caching;
+using SnowLeopard.Caching.Abstractions;
 
 namespace SnowLeopard
 {
@@ -19,12 +21,14 @@ namespace SnowLeopard
         {
             services.AddTransient<ICachingProvider, RedisCachingProvider>();
 
-            //将IServiceCollection的服务添加到ServiceContainer容器中
-            var container = services.ToServiceContainer();
-            return container.Build();
+            var builder = new ContainerBuilder();
+            builder.Populate(services);
+            builder.RegisterDynamicProxy();
 
-            //services.BuildAspectInjectorProvider();
-            //services.WeaveDynamicProxyService();
+            var serviceProvider = new AutofacServiceProvider(builder.Build());
+            GlobalServices.SetServiceProvider(serviceProvider);
+
+            return serviceProvider;
         }
 
     }

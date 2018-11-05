@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace SnowLeopard.Caching
+namespace SnowLeopard.Caching.Abstractions
 {
     /// <summary>
     /// ICacheProvider

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using SnowLeopard.Caching.Abstractions;
 
-namespace SnowLeopard.Caching.Abstractions
+namespace SnowLeopard.Caching
 {
     public class MemoryCachingProvider : ICachingProvider
     {
@@ -17,7 +18,7 @@ namespace SnowLeopard.Caching.Abstractions
         {
             if (_cache.Get(cacheKey) is T result)
                 return result;
-            return default(T);
+            return default;
         }
 
         public async Task<T> GetAsync<T>(string cacheKey)

@@ -10,9 +10,9 @@
     <Import Project="..\..\common.props" />
 
     <ItemGroup>
+        <PackageReference Include="AspectCore.Extensions.Autofac" Version="1.0.1" />
         <PackageReference Include="Autofac" Version="4.8.1" />
         <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
-        <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="1.0.1" />
         <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
     </ItemGroup>
 

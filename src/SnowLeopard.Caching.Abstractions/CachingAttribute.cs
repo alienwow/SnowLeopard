@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SnowLeopard.Caching.Abstractions
+namespace SnowLeopard.Caching
 {
     /// <summary>
     /// Caching

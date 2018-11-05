@@ -83,9 +83,8 @@ namespace SnowLeopard.WebApi
             //services.AddSnowLeopardRedisCache();
 
             services.AddSnowLeopardMongoContext();
+
             return services.AddSnowLeopardRedisCache();
-            //return services.AddSnowLeopardMemoryCache();
-            //return services.AddSnowLeopardAutofac();
         }
 
         /// <summary>

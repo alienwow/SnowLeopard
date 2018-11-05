@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using SnowLeopard.Caching;
 using SnowLeopard.Caching.Abstractions;
 using SnowLeopard.Infrastructure;
 using SnowLeopard.Model.BaseModels;
@@ -37,11 +38,11 @@ namespace SnowLeopard.WebApi.Controllers
         /// Get
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost("{test}/Test")]
         [ProducesResponseType(typeof(BaseDTO<IEnumerable<Visitor>>), (int)HttpStatusCode.OK)]
         [CachingInterceptor]
         [Caching]
-        public virtual async Task<List<Visitor>> Get()
+        public virtual async Task<List<Visitor>> Get(string a, int b, string test, [FromBody]Visitor visitor)
         {
             return _vistorMongoCtx.Visitors.AsQueryable().Take(10).ToList();
         }

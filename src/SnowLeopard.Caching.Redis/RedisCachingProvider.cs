@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using SnowLeopard.Caching.Abstractions;
 using SnowLeopard.Redis;
 
 namespace SnowLeopard.Caching

@@ -1,13 +1,14 @@
-﻿using MongoDB.Bson;
+﻿using System;
+using MongoDB.Bson;
+using SnowLeopard.Caching.Abstractions;
 using SnowLeopard.Mongo.BaseEntities;
-using System;
 
 namespace SnowLeopard.WebApi.MongoEntities
 {
     /// <summary>
     /// 来访表
     /// </summary>
-    public class Visitor : TopBaseMongoEntity<ObjectId>
+    public class Visitor : TopBaseMongoEntity<ObjectId>, ICachable
     {
         /// <summary>
         /// UserId
@@ -23,5 +24,7 @@ namespace SnowLeopard.WebApi.MongoEntities
         /// 来访时间
         /// </summary>
         public DateTime VisitTime { get; set; }
+
+        public string CacheKey => Id.ToString();
     }
 }

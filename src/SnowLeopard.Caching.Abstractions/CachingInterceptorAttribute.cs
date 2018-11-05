@@ -5,8 +5,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using AspectCore.DynamicProxy;
 using Newtonsoft.Json;
+using SnowLeopard.Caching.Abstractions;
 
-namespace SnowLeopard.Caching.Abstractions
+namespace SnowLeopard.Caching
 {
     /// <summary>
     /// CachingInterceptor
@@ -64,7 +65,7 @@ namespace SnowLeopard.Caching.Abstractions
                 {
                     PropertyInfo propertyInfo = context.ServiceMethod.ReturnType.GetMember("Result")[0] as PropertyInfo;
                     dynamic returnValue = JsonConvert.DeserializeObject(cacheValue.ToString(), propertyInfo.PropertyType);
-                    
+
                     context.ReturnValue = Task.FromResult(returnValue);
                 }
                 else
@@ -114,7 +115,7 @@ namespace SnowLeopard.Caching.Abstractions
             {
                 string typeName = context.ServiceMethod.DeclaringType.Name;
                 string methodName = context.ServiceMethod.Name;
-                IList<string> methodArguments = FormatArguments(context.ServiceMethod.GetParameters());
+                IList<string> methodArguments = FormatArguments(context.Parameters);
 
                 cachingKey = GenerateCachingKey(typeName, methodName, methodArguments);
             }
@@ -141,27 +142,13 @@ namespace SnowLeopard.Caching.Abstractions
         /// 
         /// </summary>
         /// <param name="arguments"></param>
-        /// <param name="maxCount"></param>
         /// <returns></returns>
-        private IList<string> FormatArguments(ParameterInfo[] arguments, int maxCount = 5)
+        private IList<string> FormatArguments(object[] arguments)
         {
-            //arguments
-            //           .Select(x =>
-            //           {
-            //               x.obj
-
-            //               if (x is int || x is long || x is float || x is double || x is decimal || x is string)
-            //                   return x.ToString();
-
-            //               if (x is DateTime || x is DateTime?)
-            //                   return ((DateTime)x).ToString("yyyyMMddHHmmss");
-
-            //               if (x is IQCachable)
-            //                   return ((IQCachable)x).CacheKey;
-            //           })
-            //           .Take(maxCount)
-            //           .ToList();
-            return arguments.Select(GetArgumentValue).Take(maxCount).ToList();
+            if (arguments != null && arguments.Length > 0)
+                return arguments.Select(GetArgumentValue).ToList();
+            else
+                return new List<string> { "0" };
         }
 
         /// <summary>
@@ -177,8 +164,8 @@ namespace SnowLeopard.Caching.Abstractions
             if (arg is DateTime || arg is DateTime?)
                 return ((DateTime)arg).ToString("yyyyMMddHHmmss");
 
-            //if (arg is IQCachable)
-            //    return ((IQCachable)arg).CacheKey;
+            if (arg is ICachable)
+                return ((ICachable)arg).CacheKey;
 
             return null;
         }
