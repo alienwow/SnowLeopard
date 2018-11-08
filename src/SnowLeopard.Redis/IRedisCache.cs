@@ -7,6 +7,8 @@ namespace SnowLeopard.Redis
 {
     public interface IRedisCache
     {
+        ConnectionMultiplexer Connection { get; }
+
         #region Key（键）完事儿
 
         /// <summary>
@@ -44,6 +46,24 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         Task<long> KeyDeleteAsync(string[] keys, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// KeyPatternDelete
+        /// </summary>
+        /// <param name="keyPattern"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        RedisResult KeyPatternDelete(string keyPattern, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// KeyPatternDeleteAsync
+        /// </summary>
+        /// <param name="keyPattern"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<RedisResult> KeyPatternDeleteAsync(string keyPattern, int db = 0, CommandFlags flags = CommandFlags.None);
 
         /// <summary>
         /// KeyDump
@@ -763,6 +783,28 @@ namespace SnowLeopard.Redis
         /// <returns></returns>
         Task<bool> SRemoveAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
 
+        /// <summary>
+        /// SContains
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        bool SContains<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// SContains
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> SContainsAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None);
+
         #endregion
 
         #region List
@@ -902,6 +944,30 @@ namespace SnowLeopard.Redis
         /// <param name="flags"></param>
         /// <returns></returns>
         Task<long> PublishStringAsync(string key, string value, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        #endregion
+
+        #region LuaScript
+
+        /// <summary>
+        /// ScriptEvaluate
+        /// </summary>
+        /// <param name="script"></param>
+        /// <param name="parameters"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        RedisResult ScriptEvaluate(LuaScript script, object parameters = null, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// ScriptEvaluate
+        /// </summary>
+        /// <param name="script"></param>
+        /// <param name="parameters"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<RedisResult> ScriptEvaluateAsync(LuaScript script, object parameters = null, int db = 0, CommandFlags flags = CommandFlags.None);
 
         #endregion
 

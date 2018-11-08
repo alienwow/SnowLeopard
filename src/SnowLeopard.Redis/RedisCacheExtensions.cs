@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SnowLeopard.Lynx;
 using SnowLeopard.Redis;
 using StackExchange.Redis;
 
@@ -20,6 +21,7 @@ namespace SnowLeopard
         /// <param name="Configuration"></param>
         public static void AddSnowLeopardRedis(this IServiceCollection services, IConfiguration Configuration)
         {
+            services.AddSingleton<LynxUtils>();
             services.Configure<RedisConfig>(Configuration);
 
             services.AddSingleton(x =>
@@ -52,6 +54,7 @@ namespace SnowLeopard
             if (string.IsNullOrEmpty(configuration))
                 throw new ArgumentNullException(nameof(configuration));
 
+            services.AddSingleton<LynxUtils>();
             services.AddSingleton(x =>
             {
                 var connectionMultiplexer = ConnectionMultiplexer.Connect(configuration);
@@ -74,6 +77,7 @@ namespace SnowLeopard
             if (configuration == null)
                 throw new ArgumentNullException(nameof(configuration));
 
+            services.AddSingleton<LynxUtils>();
             services.AddSingleton(x =>
             {
                 var connectionMultiplexer = ConnectionMultiplexer.Connect(configuration);
