@@ -1242,7 +1242,7 @@ namespace SnowLeopard.Redis
         public bool SContains<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
             IDatabase database = Connection.GetDatabase(db);
-            return database.SetContains(key, SerializeObject(value));
+            return database.SetContains(_instanceName + key, SerializeObject(value));
         }
 
         /// <summary>
@@ -1257,7 +1257,7 @@ namespace SnowLeopard.Redis
         public async Task<bool> SContainsAsync<T>(string key, T value, int db = 0, CommandFlags flags = CommandFlags.None)
         {
             IDatabase database = Connection.GetDatabase(db);
-            return await database.SetContainsAsync(key, SerializeObject(value));
+            return await database.SetContainsAsync(_instanceName + key, SerializeObject(value));
         }
 
         #endregion
