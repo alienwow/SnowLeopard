@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Model.BaseModels;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace SnowLeopard.Infrastructure
 {
@@ -58,8 +58,8 @@ namespace SnowLeopard.Infrastructure
 
                 var result = new BaseDTO<List<ModelStateErrorMsg>>()
                 {
-                    Code = (int)HttpStatusCode.BadRequest,
-                    Msg = nameof(HttpStatusCode.BadRequest),
+                    Code = StatusCodes.Status400BadRequest,
+                    Msg = nameof(StatusCodes.Status400BadRequest),
                     Data = modelStateErrorMsgs
                 };
 

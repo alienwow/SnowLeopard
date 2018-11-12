@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using System.Net;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Model.BaseModels;
-using System;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace SnowLeopard.Infrastructure
 {
@@ -43,13 +44,13 @@ namespace SnowLeopard.Infrastructure
                     var result = new BaseDTO<object>();
                     if (objectResult.Value == null)
                     {
-                        result.Code = (int)HttpStatusCode.NoContent;
-                        result.Msg = nameof(HttpStatusCode.NoContent);
+                        result.Code = StatusCodes.Status204NoContent;
+                        result.Msg = nameof(StatusCodes.Status204NoContent);
                     }
                     else
                     {
-                        result.Code = (int)HttpStatusCode.OK;
-                        result.Msg = nameof(HttpStatusCode.OK);
+                        result.Code = StatusCodes.Status200OK;
+                        result.Msg = nameof(StatusCodes.Status200OK);
                     }
 
                     result.Data = objectResult.Value;
@@ -59,8 +60,8 @@ namespace SnowLeopard.Infrastructure
                 {
                     var result = new BaseDTO<object>()
                     {
-                        Code = (int)HttpStatusCode.NoContent,
-                        Msg = nameof(HttpStatusCode.NoContent),
+                        Code = StatusCodes.Status204NoContent,
+                        Msg = nameof(StatusCodes.Status204NoContent),
                         Data = context.Result
                     };
                     context.Result = new OkObjectResult(result);
@@ -71,8 +72,8 @@ namespace SnowLeopard.Infrastructure
 
                     var result = new BaseDTO<object>()
                     {
-                        Code = (int)HttpStatusCode.OK,
-                        Msg = nameof(HttpStatusCode.OK),
+                        Code = StatusCodes.Status200OK,
+                        Msg = nameof(StatusCodes.Status200OK),
                         Data = contentResult.Content
                     };
                     context.Result = new OkObjectResult(result);

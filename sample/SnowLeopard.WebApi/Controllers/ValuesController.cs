@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Infrastructure;
@@ -39,7 +39,7 @@ namespace SnowLeopard.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), StatusCodes.Status200OK)]
         public async Task<IEnumerable<string>> Get()
         {
             var result = await _snowLeopardHttpClient.GetAsync<string>("http://10.100.82.157:8013/api/v1/Health");
@@ -52,7 +52,7 @@ namespace SnowLeopard.WebApi.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), StatusCodes.Status200OK)]
         public async Task<string> Get([FromRoute][ModelBinder(typeof(DateTimeBinder))]DateTime? id, [ModelBinder(typeof(DateTimeBinder))]DateTime? abc)
         {
             return await Task.FromResult($"{id.Value.ToString("yyyy-MM-dd HH:mm:ss")}:{(abc.HasValue ? abc.Value.ToString("yyyy-MM-dd HH:mm:ss") : "null")}");
