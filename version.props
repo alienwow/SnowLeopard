@@ -7,7 +7,7 @@
     <!-- 产品创建版本号 -->
     <ProductBuildNumber></ProductBuildNumber>
     <!-- NuGet 包后缀 -->
-    <PackageSuffix>insider002</PackageSuffix>
+    <PackageSuffix>insider003</PackageSuffix>
 
     <BuildNumber Condition="'$(BuildNumber)' == ''">0</BuildNumber>
     <!-- 文件版本 -->

@@ -34,8 +34,9 @@ namespace SnowLeopard.Infrastructure.Json
                 NamingStrategy = new CamelCaseNamingStrategy()
             };
 
-            foreach (var jsonSettingAction in _jsonSettingActions)
-                jsonSettingAction(DefaultJsonSerializerSettings);
+            if (_jsonSettingActions != null)
+                foreach (var jsonSettingAction in _jsonSettingActions)
+                    jsonSettingAction(DefaultJsonSerializerSettings);
         }
 
         /// <summary>
