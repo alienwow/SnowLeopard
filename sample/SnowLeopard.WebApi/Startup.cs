@@ -52,6 +52,8 @@ namespace SnowLeopard.WebApi
                 .AddSnowLeopardMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSession();
+
             services.AddSnowLeopardSwaggerGen(HostingEnvironment, options =>
             {
                 options.SwaggerDoc("v1", new Info
@@ -106,7 +108,7 @@ namespace SnowLeopard.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseSession();
             app.UseMvc();
 
             app.UseSwagger()
