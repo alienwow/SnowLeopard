@@ -1,9 +1,9 @@
 ﻿namespace SnowLeopard.WebApi
 {
     /// <summary>
-    /// GlobalConsts
+    /// GlobalConstants
     /// </summary>
-    public class GlobalConsts
+    public class GlobalConstants
     {
         /// <summary>
         /// Application Url Key
