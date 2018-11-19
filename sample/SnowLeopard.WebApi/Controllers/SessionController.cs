@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using Exceptionless.Json;
+﻿using Exceptionless.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SnowLeopard.Extensions;
 
 namespace SnowLeopard.WebApi.Controllers
 {
@@ -31,35 +31,6 @@ namespace SnowLeopard.WebApi.Controllers
                 Current = string.Join(',', res),
                 Writed = string.Join(',', res1)
             }));
-        }
-    }
-
-    public static class SessionExtensions
-    {
-        public static void Set<T>(this ISession session, string key, T value)
-        {
-            session.SetAsync(key, value).Wait();
-        }
-
-        public static async Task SetAsync<T>(this ISession session, string key, T value)
-        {
-            session.SetString(key, JsonConvert.SerializeObject(value));
-            await session.CommitAsync();
-        }
-
-        public static T Get<T>(this ISession session, string key)
-        {
-            var value = session.GetString(key);
-            return value == null ? default :
-                                  JsonConvert.DeserializeObject<T>(value);
-        }
-
-        public static async Task<T> GetAsync<T>(this ISession session, string key)
-        {
-            await session.LoadAsync();
-            var value = session.GetString(key);
-            return value == null ? default :
-                                  JsonConvert.DeserializeObject<T>(value);
         }
     }
 }
