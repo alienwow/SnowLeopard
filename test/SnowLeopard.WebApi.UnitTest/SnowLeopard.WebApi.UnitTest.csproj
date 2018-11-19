@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.1</TargetFramework>
-        <Description>SnowLeopard.Lynx.UnitTest</Description>
-        <AssemblyName>SnowLeopard.Lynx.UnitTest</AssemblyName>
+        <Description>SnowLeopard.WebApi.UnitTest</Description>
+        <AssemblyName>SnowLeopard.WebApi.UnitTest</AssemblyName>
         <Title>$(AssemblyName)</Title>
         <IsPackable>false</IsPackable>
     </PropertyGroup>
@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\SnowLeopard.Lynx\SnowLeopard.Lynx.csproj" />
+        <ProjectReference Include="..\..\sample\SnowLeopard.WebApi\SnowLeopard.WebApi.csproj" />
     </ItemGroup>
 
 </Project>
