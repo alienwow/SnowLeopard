@@ -7,73 +7,112 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SnowLeopard.DependencyInjection;
-using StackExchange.Redis;
 
 namespace SnowLeopard.Redis.ConsoleTest
 {
     class Program
     {
+        static void Run()
+        {
+            var redisCache = GlobalServices.GetRequiredService<IRedisCache>();
+            redisCache.KeyDelete("Q_Flag_SignIn1");
+            redisCache.KeyDelete("Q_Flag_SignIn2");
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            int count = 0;
+            for (int j = 0; j < 50; j++)
+            {
+                Task.Run(async () =>
+                {
+                    for (int i = 0; i < 5000; i++)
+                    {
+                        //await redisCache.HSetAsync("Q_Flag_SignIn2", Guid.NewGuid().ToString(), new
+                        //{
+                        //    userCode = "1850410605",
+                        //    Longitude = 117.111464,
+                        //    Latitude = 39.070614,
+                        //    Place = "压测",
+                        //    SignInTime = "2018-11-07 16:12:13"
+                        //});
+                        await redisCache.LPushAsync("Q_Flag_SignIn1", new
+                        {
+                            userCode = "1850410605",
+                            Longitude = 117.111464,
+                            Latitude = 39.070614,
+                            Place = "压测",
+                            SignInTime = "2018-11-07 16:12:13"
+                        });
+                    }
+                    count++;
+                    if (count == 50)
+                    {
+                        stopwatch.Stop();
+                        Console.WriteLine($"耗时：{stopwatch.ElapsedMilliseconds}");
+                    }
+                });
+            }
+        }
+
         public static void Main(string[] args)
         {
-            var ss = ConfigurationOptions.Parse("10.9.101.72:6379,name=SnowLeopard.Redis.ConsoleTest,ConnectTimeout=60000,AsyncTimeout=60000,SyncTimeout=60000,password=");
-
             RegisterServices();
-            var redisCache = GlobalServices.GetRequiredService<IRedisCache>();
-
-            var _contentRootPath = Directory.GetCurrentDirectory();
-            HashSetTest(redisCache);
-            HashGetTest(redisCache);
-            HashGetAllTest(redisCache);
-            Debug.WriteLine(redisCache.HLen("TestHashID"));
-
-            Debug.WriteLine(redisCache.HDel("TestHashID", "1"));
-            Debug.WriteLine(redisCache.HDel("TestHashID", new string[] { "1", "2", "3", "4" }));
-            Debug.WriteLine(redisCache.HExists("TestHashID", "1"));
-            Debug.WriteLine(redisCache.HExists("TestHashID", "99"));
-
-            var keys = redisCache.HKeys("TestHashID");
-            foreach (var item in keys)
-            {
-                Debug.WriteLine(item);
-            }
-
-            var values = redisCache.HValues<string>("TestHashID");
-            foreach (var item in values)
-            {
-                Debug.WriteLine(item);
-            }
-
+            //var redisCache = GlobalServices.GetRequiredService<IRedisCache>();
+            Run();
 
             Console.ReadKey();
+            //HashSetTest(redisCache);
+            //HashGetTest(redisCache);
+            //HashGetAllTest(redisCache);
+            //Debug.WriteLine(redisCache.HLen("TestHashID"));
+
+            //Debug.WriteLine(redisCache.HDel("TestHashID", "1"));
+            //Debug.WriteLine(redisCache.HDel("TestHashID", new string[] { "1", "2", "3", "4" }));
+            //Debug.WriteLine(redisCache.HExists("TestHashID", "1"));
+            //Debug.WriteLine(redisCache.HExists("TestHashID", "99"));
+
+            //var keys = redisCache.HKeys("TestHashID");
+            //foreach (var item in keys)
+            //{
+            //    Debug.WriteLine(item);
+            //}
+
+            //var values = redisCache.HValues<string>("TestHashID");
+            //foreach (var item in values)
+            //{
+            //    Debug.WriteLine(item);
+            //}
 
 
-            Task.Factory.StartNew(() =>
-            {
-                int index = 0;
-                while (true)
-                {
-                    var sub = redisCache.GetSubscriber();
-                    sub.Publish("message", "value" + index++);
-                }
-            });
-            Task.Factory.StartNew(() =>
-            {
-                var sub = redisCache.GetSubscriber();
-                sub.Subscribe("message", (channel, message) =>
-                {
-                    Console.WriteLine(message);
-                    // Thread.Sleep(1000);
-                });
-            });
-            Task.Factory.StartNew(() =>
-            {
-                var sub = redisCache.GetSubscriber();
-                sub.Subscribe("message", (channel, message) =>
-                {
-                    Console.WriteLine("Task111111111111111111111111111111111111111:" + message);
-                    //Thread.Sleep(1000);
-                });
-            });
+            //Console.ReadKey();
+
+
+            //Task.Factory.StartNew(() =>
+            //{
+            //    int index = 0;
+            //    while (true)
+            //    {
+            //        var sub = redisCache.GetSubscriber();
+            //        sub.Publish("message", "value" + index++);
+            //    }
+            //});
+            //Task.Factory.StartNew(() =>
+            //{
+            //    var sub = redisCache.GetSubscriber();
+            //    sub.Subscribe("message", (channel, message) =>
+            //    {
+            //        Console.WriteLine(message);
+            //        // Thread.Sleep(1000);
+            //    });
+            //});
+            //Task.Factory.StartNew(() =>
+            //{
+            //    var sub = redisCache.GetSubscriber();
+            //    sub.Subscribe("message", (channel, message) =>
+            //    {
+            //        Console.WriteLine("Task111111111111111111111111111111111111111:" + message);
+            //        //Thread.Sleep(1000);
+            //    });
+            //});
             //Task.Factory.StartNew(() =>
             //{
             //    var index = 0;
@@ -92,7 +131,6 @@ namespace SnowLeopard.Redis.ConsoleTest
             //        index++;
             //    }
             //});
-
 
             Console.ReadKey();
         }
@@ -129,7 +167,6 @@ namespace SnowLeopard.Redis.ConsoleTest
                 Debug.WriteLine(item);
             }
         }
-
 
         static void RegisterServices()
         {
