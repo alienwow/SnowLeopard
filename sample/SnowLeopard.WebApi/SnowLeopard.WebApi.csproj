@@ -6,6 +6,7 @@
         <AssemblyName>SnowLeopard.WebApi</AssemblyName>
         <Title>$(AssemblyName)</Title>
         <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <Import Project="..\..\common.props" />
