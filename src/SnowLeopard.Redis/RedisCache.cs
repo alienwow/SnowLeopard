@@ -1506,8 +1506,8 @@ namespace SnowLeopard.Redis
             if (redisValue.IsNull)
                 return default;
 
-            if (typeof(T) == typeof(string))
-                return (T)Convert.ChangeType(redisValue.ToString(), typeof(T));
+            //if (typeof(T) == typeof(string))
+            //    return (T)Convert.ChangeType(redisValue.ToString(), typeof(T));
 
             byte[] bytes = redisValue;
             using (var ms = new MemoryStream(bytes))
