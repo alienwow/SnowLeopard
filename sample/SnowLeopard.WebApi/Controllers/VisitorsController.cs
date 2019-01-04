@@ -43,7 +43,7 @@ namespace SnowLeopard.WebApi.Controllers
         [Caching]
         public virtual async Task<List<Visitor>> Get(string a, int b, string test, [FromBody]Visitor visitor)
         {
-            return _vistorMongoCtx.Visitors.AsQueryable().Take(10).ToList();
+            return await Task.FromResult(_vistorMongoCtx.Visitors.AsQueryable().Take(10).ToList());
         }
 
         /// <summary>

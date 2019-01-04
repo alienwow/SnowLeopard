@@ -120,7 +120,7 @@ namespace SnowLeopard.WebApi
                });
 
 #if RELEASE
-            app.RegisterService(GlobalConsts.SERVICE_NAME, GlobalConfig.ApplicationUrl);
+            app.RegisterService(GlobalConstants.SERVICE_NAME, GlobalConfig.ApplicationUrl);
 #endif
         }
     }

@@ -34,6 +34,7 @@ namespace SnowLeopard.WebApi.Controllers
             _redisCache = redisCache;
             _snowLeopardHttpClient = snowLeopardHttpClient;
         }
+
         /// <summary>
         /// Get
         /// </summary>
@@ -50,6 +51,7 @@ namespace SnowLeopard.WebApi.Controllers
         /// Get
         /// </summary>
         /// <param name="id"></param>
+        /// <param name="abc"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(BaseDTO<IEnumerable<string>>), StatusCodes.Status200OK)]
