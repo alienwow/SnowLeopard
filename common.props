@@ -4,7 +4,7 @@
     <Product>SnowLeopard</Product>
     <Authors>Vito</Authors>
     <Company>Vito</Company>
-    <Copyright>Copyright © Vito 2018</Copyright>
+    <Copyright>Copyright © Vito 2019</Copyright>
     <PackageId>$(ProjectName)</PackageId>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
