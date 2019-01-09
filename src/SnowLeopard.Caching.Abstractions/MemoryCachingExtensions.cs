@@ -22,6 +22,7 @@ namespace SnowLeopard
             services.AddMemoryCache();
 
             services.AddTransient<ICachingProvider, MemoryCachingProvider>();
+            services.AddCachingCore();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);

@@ -15,18 +15,13 @@ namespace SnowLeopard.Caching
     [AttributeUsage(AttributeTargets.Method)]
     public class CachingInterceptorAttribute : AbstractInterceptorAttribute
     {
-        /// <summary>
-        /// CachingKey 分割符
-        /// </summary>
-        public const string SPLIT_CHAR = ":";
-
         public CachingInterceptorAttribute()
         {
         }
 
         public async override Task Invoke(AspectContext context, AspectDelegate next)
         {
-            var cachingAttribute = GetCachingAttributeInfo(context.ServiceMethod);
+            var cachingAttribute = GetCachingAttributeInfo(context.ImplementationMethod);
             if (cachingAttribute != null)
             {
                 await DoCaching(context, next, cachingAttribute);
@@ -115,59 +110,15 @@ namespace SnowLeopard.Caching
             {
                 string typeName = context.ServiceMethod.DeclaringType.Name;
                 string methodName = context.ServiceMethod.Name;
-                IList<string> methodArguments = FormatArguments(context.Parameters);
-
-                cachingKey = GenerateCachingKey(typeName, methodName, methodArguments);
+                cachingKey = $"{typeName}{DefaultCachingKeyGenerater.SPLIT_CHAR}{methodName}";
             }
 
+            var cachingKeyGenerater = context.ServiceProvider.GetService(typeof(ICachingKeyGenerater)) as ICachingKeyGenerater;
+            IList<string> methodArguments = cachingKeyGenerater.FormatArguments(context.Parameters);
+
+            cachingKey = cachingKeyGenerater.GenerateCachingKey(cachingKey, methodArguments);
+
             return cachingKey;
-        }
-
-        /// <summary>
-        /// 生成 CachingKey
-        /// </summary>
-        /// <param name="typeName"></param>
-        /// <param name="methodName"></param>
-        /// <param name="parameters"></param>
-        /// <returns></returns>
-        private string GenerateCachingKey(string typeName, string methodName, IList<string> parameters)
-        {
-            parameters.Insert(0, typeName);
-            parameters.Insert(1, methodName);
-
-            return string.Join(SPLIT_CHAR, parameters);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arguments"></param>
-        /// <returns></returns>
-        private IList<string> FormatArguments(object[] arguments)
-        {
-            if (arguments != null && arguments.Length > 0)
-                return arguments.Select(GetArgumentValue).ToList();
-            else
-                return new List<string> { "0" };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="arg"></param>
-        /// <returns></returns>
-        private string GetArgumentValue(object arg)
-        {
-            if (arg is int || arg is long || arg is float || arg is double || arg is decimal || arg is string)
-                return arg.ToString();
-
-            if (arg is DateTime || arg is DateTime?)
-                return ((DateTime)arg).ToString("yyyyMMddHHmmss");
-
-            if (arg is ICachable)
-                return ((ICachable)arg).CacheKey;
-
-            return null;
         }
 
     }

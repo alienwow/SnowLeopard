@@ -20,6 +20,7 @@ namespace SnowLeopard
         public static IServiceProvider AddSnowLeopardRedisCache(this IServiceCollection services)
         {
             services.AddTransient<ICachingProvider, RedisCachingProvider>();
+            services.AddCachingCore();
 
             var builder = new ContainerBuilder();
             builder.Populate(services);

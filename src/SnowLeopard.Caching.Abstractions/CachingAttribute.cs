@@ -11,10 +11,8 @@ namespace SnowLeopard.Caching
         /// <summary>
         /// CachingAttribute
         /// </summary>
-        /// <param name="expiration">缓存过期时间 默认30s</param>
-        public CachingAttribute(int expiration = 30)
+        public CachingAttribute()
         {
-            Expiration = expiration;
         }
 
         /// <summary>
@@ -23,9 +21,9 @@ namespace SnowLeopard.Caching
         public string Key { get; set; }
 
         /// <summary>
-        /// Expiration
+        /// 缓存过期时间 默认30s
         /// </summary>
-        public int Expiration { get; set; }
+        public int Expiration { get; set; } = 30;
 
     }
 }
