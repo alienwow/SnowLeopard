@@ -69,5 +69,51 @@ namespace SnowLeopard.Caching
         {
             await _cache.SetAsync(key, value, timeSpan: timeSpan);
         }
+
+        /// <summary>
+        /// Lock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <returns></returns>
+        public bool Lock(string key, int db = 0, TimeSpan? timeSpan = null)
+        {
+            return _cache.Lock(key, db, timeSpan);
+        }
+
+        /// <summary>
+        /// Lock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <returns></returns>
+        public async Task<bool> LockAsync(string key, int db = 0, TimeSpan? timeSpan = null)
+        {
+            return await _cache.LockAsync(key, db, timeSpan);
+        }
+
+        /// <summary>
+        /// UnLock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        public bool UnLock(string key, int db = 0)
+        {
+            return _cache.UnLock(key, db);
+        }
+
+        /// <summary>
+        /// UnLock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        public async Task<bool> UnLockAsync(string key, int db = 0)
+        {
+            return await _cache.UnLockAsync(key, db);
+        }
     }
 }

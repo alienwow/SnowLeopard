@@ -38,5 +38,25 @@ namespace SnowLeopard.Caching
                 _cache.Set(cacheKey, cacheValue, absoluteExpirationRelativeToNow);
             });
         }
+
+        public bool Lock(string key, int db = 0, TimeSpan? timeSpan = null)
+        {
+            throw new Exception("MemoryCachingProvider 不支持分布式锁");
+        }
+
+        public Task<bool> LockAsync(string key, int db = 0, TimeSpan? timeSpan = null)
+        {
+            throw new Exception("MemoryCachingProvider 不支持分布式锁");
+        }
+
+        public bool UnLock(string key, int db = 0)
+        {
+            throw new Exception("MemoryCachingProvider 不支持分布式锁");
+        }
+
+        public Task<bool> UnLockAsync(string key, int db = 0)
+        {
+            throw new Exception("MemoryCachingProvider 不支持分布式锁");
+        }
     }
 }

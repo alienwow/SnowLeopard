@@ -42,5 +42,40 @@ namespace SnowLeopard.Caching.Abstractions
         /// <param name="timeSpan"></param>
         /// <returns></returns>
         Task SetAsync<T>(string key, T value, TimeSpan timeSpan);
+
+        /// <summary>
+        /// Lock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <returns></returns>
+        bool Lock(string key, int db = 0, TimeSpan? timeSpan = null);
+
+        /// <summary>
+        /// Lock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <returns></returns>
+        Task<bool> LockAsync(string key, int db = 0, TimeSpan? timeSpan = null);
+
+        /// <summary>
+        /// UnLock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        bool UnLock(string key, int db = 0);
+
+        /// <summary>
+        /// UnLock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        Task<bool> UnLockAsync(string key, int db = 0);
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using AspectCore.DynamicProxy;
 using Newtonsoft.Json;
@@ -50,8 +51,9 @@ namespace SnowLeopard.Caching
         )
         {
             var cacheProvider = context.ServiceProvider.GetService(typeof(ICachingProvider)) as ICachingProvider;
-
             var cachingKey = GenerateCachingKey(context, cachingAttribute);
+
+            getCache:
             object cacheValue = await cacheProvider.GetAsync<object>(cachingKey);
 
             if (cacheValue != null)// 若读取到缓存就直接返回，否则设置缓存
@@ -70,25 +72,38 @@ namespace SnowLeopard.Caching
             }
             else
             {
-                await next(context);
-
-                // 设置缓存
-                if (!string.IsNullOrWhiteSpace(cachingKey))
+                // 加分布式锁
+                if (await cacheProvider.LockAsync(cachingKey, timeSpan: TimeSpan.FromSeconds(3 * 1000)))
                 {
-                    object returnValue = null;
+                    await next(context);
 
-                    if (context.IsAsync())
-                        returnValue = await context.UnwrapAsyncReturnValue();
-                    else
-                        returnValue = context.ReturnValue;
+                    // 设置缓存
+                    if (!string.IsNullOrWhiteSpace(cachingKey))
+                    {
+                        object returnValue = null;
 
-                    await cacheProvider.SetAsync(
-                                        cachingKey,
-                                        returnValue,
-                                        TimeSpan.FromSeconds(cachingAttribute.Expiration)
-                                    );
+                        if (context.IsAsync())
+                            returnValue = await context.UnwrapAsyncReturnValue();
+                        else
+                            returnValue = context.ReturnValue;
+
+                        await cacheProvider.SetAsync(
+                                            cachingKey,
+                                            returnValue,
+                                            TimeSpan.FromSeconds(cachingAttribute.Expiration)
+                                        );
+                    }
+
+                    // 解分布式锁
+                    await cacheProvider.UnLockAsync(cachingKey);
+                }
+                else
+                {
+                    Thread.Sleep(50);
+                    goto getCache;
                 }
             }
+
         }
 
         /// <summary>

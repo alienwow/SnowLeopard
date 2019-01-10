@@ -561,6 +561,63 @@ namespace SnowLeopard.Redis
         //SETNX
         //SETRANGE
         //STRLEN
+
+        const string RedisLockerKey = "Lock:";
+
+        /// <summary>
+        /// Lock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public bool Lock(string key, int db = 0, TimeSpan? timeSpan = null, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = Connection.GetDatabase(db);
+            return database.StringSet(_instanceName + RedisLockerKey + key, SerializeObject(""), timeSpan, When.NotExists, flags);
+        }
+
+        /// <summary>
+        /// Lock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> LockAsync(string key, int db = 0, TimeSpan? timeSpan = null, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = Connection.GetDatabase(db);
+            return await database.StringSetAsync(_instanceName + RedisLockerKey + key, SerializeObject(""), timeSpan, When.NotExists, flags);
+        }
+
+        /// <summary>
+        /// UnLock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public bool UnLock(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = Connection.GetDatabase(db);
+            return database.KeyDelete(_instanceName + RedisLockerKey + key, flags);
+        }
+
+        /// <summary>
+        /// UnLock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        public async Task<bool> UnLockAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None)
+        {
+            IDatabase database = Connection.GetDatabase(db);
+            return await database.KeyDeleteAsync(_instanceName + RedisLockerKey + key, flags);
+        }
+
         #endregion
 
         #region Hash完事儿

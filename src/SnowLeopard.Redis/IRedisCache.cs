@@ -358,6 +358,45 @@ namespace SnowLeopard.Redis
         //SETNX
         //SETRANGE
         //STRLEN
+
+        /// <summary>
+        /// Lock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        bool Lock(string key, int db = 0, TimeSpan? timeSpan = null, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// Lock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="timeSpan"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> LockAsync(string key, int db = 0, TimeSpan? timeSpan = null, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// UnLock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        bool UnLock(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
+        /// <summary>
+        /// UnLock
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="db"></param>
+        /// <param name="flags"></param>
+        /// <returns></returns>
+        Task<bool> UnLockAsync(string key, int db = 0, CommandFlags flags = CommandFlags.None);
+
         #endregion
 
         #region Hash完事儿
