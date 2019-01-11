@@ -639,9 +639,10 @@ namespace SnowLeopard.Lynx.Extension
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="algo">algorithmName: MD5,SHA1,SHA256,SHA384,SHA512 default: SHA256</param>
+        /// <param name="key">key</param>
         /// <param name="fromFile">是否是文件</param>
         /// <returns>A hash</returns>
-        public static string Hmac(this string input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256, bool fromFile = false)
+        public static string Hmac(this string input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256, string key = null, bool fromFile = false)
         {
             if (input.IsMissing()) return string.Empty;
 
@@ -649,12 +650,16 @@ namespace SnowLeopard.Lynx.Extension
             {
                 using (FileStream fs = new FileStream(input, FileMode.Open))
                 {
-                    return fs.Hmac(algo);
+                    return fs.Hmac(algo, key);
                 }
             }
 
             using (var sha = HMAC.Create(algo.ToString()))
             {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    sha.Key = Encoding.UTF8.GetBytes(key);
+                }
                 var bytes = Encoding.UTF8.GetBytes(input);
                 return sha.ComputeHash(bytes).Tox2String();
             }
@@ -665,14 +670,19 @@ namespace SnowLeopard.Lynx.Extension
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="algo">algorithmName: MD5,SHA1,SHA256,SHA384,SHA512 default: SHA256</param>
+        /// <param name="key">key</param>
         /// <returns>A hash</returns>
-        public static string Hmac(this Stream input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256)
+        public static string Hmac(this Stream input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256, string key = null)
         {
             if (input == null)
                 throw new ArgumentNullException(nameof(input));
 
             using (var sha = HMAC.Create(algo.ToString()))
             {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    sha.Key = Encoding.UTF8.GetBytes(key);
+                }
                 return sha.ComputeHash(input).Tox2String();
             }
         }
@@ -682,8 +692,9 @@ namespace SnowLeopard.Lynx.Extension
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="algo">algorithmName: MD5,SHA1,SHA256,SHA384,SHA512 default: SHA256</param>
+        /// <param name="key">key</param>
         /// <returns>A hash.</returns>
-        public static string Hmac(this byte[] input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256)
+        public static string Hmac(this byte[] input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256, string key = null)
         {
             if (input == null)
             {
@@ -692,6 +703,10 @@ namespace SnowLeopard.Lynx.Extension
 
             using (var sha = HMAC.Create(algo.ToString()))
             {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    sha.Key = Encoding.UTF8.GetBytes(key);
+                }
                 return sha.ComputeHash(input).Tox2String();
             }
         }
@@ -701,9 +716,10 @@ namespace SnowLeopard.Lynx.Extension
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="algo">algorithmName: MD5,SHA1,SHA256,SHA384,SHA512 default: SHA256</param>
+        /// <param name="key">key</param>
         /// <param name="fromFile">是否是文件</param>
         /// <returns>A hash</returns>
-        public static string HmacBase64(this string input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256, bool fromFile = false)
+        public static string HmacBase64(this string input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256, string key = null, bool fromFile = false)
         {
             if (input.IsMissing()) return string.Empty;
 
@@ -711,12 +727,16 @@ namespace SnowLeopard.Lynx.Extension
             {
                 using (FileStream fs = new FileStream(input, FileMode.Open))
                 {
-                    return fs.HmacBase64(algo);
+                    return fs.HmacBase64(algo, key);
                 }
             }
 
             using (var sha = HMAC.Create(algo.ToString()))
             {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    sha.Key = Encoding.UTF8.GetBytes(key);
+                }
                 var bytes = Encoding.UTF8.GetBytes(input);
                 return sha.ComputeHash(bytes).ToBase64();
             }
@@ -727,14 +747,19 @@ namespace SnowLeopard.Lynx.Extension
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="algo">algorithmName: MD5,SHA1,SHA256,SHA384,SHA512 default: SHA256</param>
+        /// <param name="key">key</param>
         /// <returns>A hash</returns>
-        public static string HmacBase64(this Stream input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256)
+        public static string HmacBase64(this Stream input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256, string key = null)
         {
             if (input == null)
                 throw new ArgumentNullException(nameof(input));
 
             using (var sha = HMAC.Create(algo.ToString()))
             {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    sha.Key = Encoding.UTF8.GetBytes(key);
+                }
                 return sha.ComputeHash(input).ToBase64();
             }
         }
@@ -744,8 +769,9 @@ namespace SnowLeopard.Lynx.Extension
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="algo">algorithmName: MD5,SHA1,SHA256,SHA384,SHA512 default: SHA256</param>
+        /// <param name="key">key</param>
         /// <returns>A hash.</returns>
-        public static string HmacBase64(this byte[] input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256)
+        public static string HmacBase64(this byte[] input, AlgorithmNameEnum algo = AlgorithmNameEnum.HMACSHA256, string key = null)
         {
             if (input == null)
             {
@@ -754,6 +780,10 @@ namespace SnowLeopard.Lynx.Extension
 
             using (var sha = HMAC.Create(algo.ToString()))
             {
+                if (!string.IsNullOrEmpty(key))
+                {
+                    sha.Key = Encoding.UTF8.GetBytes(key);
+                }
                 return sha.ComputeHash(input).ToBase64();
             }
         }
