@@ -1,4 +1,4 @@
-﻿using SnowLeopard.Lynx.Extension;
+﻿using SnowLeopard.Lynx.Extensions;
 using System;
 
 namespace SnowLeopard.Lynx.ConsoleTest

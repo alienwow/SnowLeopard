@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace SnowLeopard.Lynx.Extension
+namespace SnowLeopard.Lynx.Extensions
 {
     /// <summary>
     /// 枚举扩展函数
     /// </summary>
-    public static class EnumExtension
+    public static class EnumExtensions
     {
         /// <summary>
         /// 获取枚举显示名称
@@ -17,7 +17,6 @@ namespace SnowLeopard.Lynx.Extension
         /// <returns>枚举显示名称</returns>
         public static string GetEnumDisplayName(this Enum value)
         {
-
             return GetEnumDisplayName(value.GetType(), value.ToString());
         }
 

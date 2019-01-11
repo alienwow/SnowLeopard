@@ -1,7 +1,7 @@
 ﻿using System;
 using MongoDB.Bson;
 using Newtonsoft.Json;
-using SnowLeopard.Lynx.Extension;
+using SnowLeopard.Lynx.Extensions;
 
 namespace SnowLeopard.Infrastructure.Json
 {

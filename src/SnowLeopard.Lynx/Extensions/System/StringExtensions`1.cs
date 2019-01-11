@@ -8,12 +8,12 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace SnowLeopard.Lynx.Extension
+namespace SnowLeopard.Lynx.Extensions
 {
     /// <summary>
     /// 字符串辅助类
     /// </summary>
-    public static partial class StringExtension
+    public static partial class StringExtensions
     {
         #region ToStringArray
 

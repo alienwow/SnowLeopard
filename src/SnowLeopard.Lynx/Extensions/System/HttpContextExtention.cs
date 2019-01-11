@@ -1,7 +1,7 @@
 ﻿//using Microsoft.AspNetCore.Http;
 //using System.Linq;
 
-//namespace SnowLeopard.Lynx.Extension
+//namespace SnowLeopard.Lynx.Extensions
 //{
 //    public static class HttpContextExtention
 //    {

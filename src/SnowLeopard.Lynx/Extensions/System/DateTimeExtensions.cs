@@ -1,13 +1,13 @@
-﻿using SnowLeopard.Lynx.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using SnowLeopard.Lynx.Enums;
 
-namespace SnowLeopard.Lynx.Extension
+namespace SnowLeopard.Lynx.Extensions
 {
     /// <summary>
-    /// DateTimeExtension
+    /// DateTimeExtensions
     /// </summary>
-    public static class DateTimeExtension
+    public static class DateTimeExtensions
     {
         #region UnixTimestamp
 

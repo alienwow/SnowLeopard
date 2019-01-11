@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SnowLeopard.Lynx.Extension
+namespace SnowLeopard.Lynx.Extensions
 {
     /// <summary>
     /// AlgorithmNameEnum

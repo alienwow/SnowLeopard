@@ -1,7 +1,7 @@
 ﻿using Consul;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using SnowLeopard.Lynx.Extension;
+using SnowLeopard.Lynx.Extensions;
 using System;
 using System.IO;
 using System.Text;

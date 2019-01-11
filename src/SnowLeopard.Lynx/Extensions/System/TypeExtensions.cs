@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 
-namespace SnowLeopard.Lynx.Extension
+namespace SnowLeopard.Lynx.Extensions
 {
     /// <summary>
-    /// Type的扩展函数
+    /// TypeExtensions
     /// </summary>
-    public static class TypeExtension
+    public static class TypeExtensions
     {
         /// <summary>
         /// 判断是否是泛型

@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace SnowLeopard.Lynx.Extension
+namespace SnowLeopard.Lynx.Extensions
 {
     /// <summary>
-    /// System Extension
+    /// System Extensions
     /// </summary>
-    public static class SystemExtension
+    public static class SystemExtensions
     {
         #region Guid Extensions
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using SnowLeopard.Lynx.Extension;
+using SnowLeopard.Lynx.Extensions;
 
 namespace SnowLeopard.Infrastructure.ModelBinders
 {

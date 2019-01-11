@@ -1,4 +1,4 @@
-﻿using SnowLeopard.Lynx.Extension;
+﻿using SnowLeopard.Lynx.Extensions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using SnowLeopard.Infrastructure.Swagger;

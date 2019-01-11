@@ -1,6 +1,6 @@
-﻿using SnowLeopard.Lynx.Extension;
+﻿using SnowLeopard.Lynx.Extensions;
 using Xunit;
-using static SnowLeopard.Lynx.Extension.HashExtension;
+using static SnowLeopard.Lynx.Extensions.HashExtension;
 
 namespace SnowLeopard.Lynx.UnitTest
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -15,42 +16,86 @@ namespace SnowLeopard.Redis.ConsoleTest
         static void Run()
         {
             var redisCache = GlobalServices.GetRequiredService<IRedisCache>();
-            redisCache.KeyDelete("Q_Flag_SignIn1");
-            redisCache.KeyDelete("Q_Flag_SignIn2");
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            int count = 0;
-            for (int j = 0; j < 50; j++)
+            var key = "123";
+            var value = "123";
+            var count = 0;
+            var finish = 0;
+            var taskCount = 5;
+            var obj = new object();
+            for (int i = 0; i < taskCount; i++)
             {
-                Task.Run(async () =>
+                Task.Run(() =>
                 {
-                    for (int i = 0; i < 5000; i++)
+                    if (redisCache.Lock(key))
                     {
-                        //await redisCache.HSetAsync("Q_Flag_SignIn2", Guid.NewGuid().ToString(), new
-                        //{
-                        //    userCode = "1850410605",
-                        //    Longitude = 117.111464,
-                        //    Latitude = 39.070614,
-                        //    Place = "压测",
-                        //    SignInTime = "2018-11-07 16:12:13"
-                        //});
-                        await redisCache.LPushAsync("Q_Flag_SignIn1", new
-                        {
-                            userCode = "1850410605",
-                            Longitude = 117.111464,
-                            Latitude = 39.070614,
-                            Place = "压测",
-                            SignInTime = "2018-11-07 16:12:13"
-                        });
+                        redisCache.Set(key, value);
+                        count++;
+                        redisCache.UnLock(key);
                     }
-                    count++;
-                    if (count == 50)
+                    Thread.Sleep(20);
+                    Console.WriteLine($"Value:{redisCache.Get<string>(key)}");
+                    lock (obj)
                     {
-                        stopwatch.Stop();
-                        Console.WriteLine($"耗时：{stopwatch.ElapsedMilliseconds}");
+                        finish++;
                     }
                 });
             }
+            //for (int i = 0; i < taskCount; i++)
+            //{
+            //    Task.Run(() =>
+            //    {
+            //        redisCache.Set(key, value);
+            //        count++;
+            //        finish++;
+            //        Console.WriteLine($"Value:{redisCache.Get<string>(key)}");
+            //    });
+            //}
+
+            while (true)
+            {
+                if (finish == taskCount)
+                    break;
+                Thread.Sleep(10);
+            }
+            Console.WriteLine($"Count:{count}");
+            Console.ReadLine();
+
+            //redisCache.KeyDelete("Q_Flag_SignIn1");
+            //redisCache.KeyDelete("Q_Flag_SignIn2");
+            //var stopwatch = new Stopwatch();
+            //stopwatch.Start();
+            //int count = 0;
+            //for (int j = 0; j < 50; j++)
+            //{
+            //    Task.Run(async () =>
+            //    {
+            //        for (int i = 0; i < 5000; i++)
+            //        {
+            //            //await redisCache.HSetAsync("Q_Flag_SignIn2", Guid.NewGuid().ToString(), new
+            //            //{
+            //            //    userCode = "1850410605",
+            //            //    Longitude = 117.111464,
+            //            //    Latitude = 39.070614,
+            //            //    Place = "压测",
+            //            //    SignInTime = "2018-11-07 16:12:13"
+            //            //});
+            //            await redisCache.LPushAsync("Q_Flag_SignIn1", new
+            //            {
+            //                userCode = "1850410605",
+            //                Longitude = 117.111464,
+            //                Latitude = 39.070614,
+            //                Place = "压测",
+            //                SignInTime = "2018-11-07 16:12:13"
+            //            });
+            //        }
+            //        count++;
+            //        if (count == 50)
+            //        {
+            //            stopwatch.Stop();
+            //            Console.WriteLine($"耗时：{stopwatch.ElapsedMilliseconds}");
+            //        }
+            //    });
+            //}
         }
 
         public static void Main(string[] args)

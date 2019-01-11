@@ -8,12 +8,12 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Text.Encodings.Web;
 
-namespace SnowLeopard.Lynx.Extension
+namespace SnowLeopard.Lynx.Extensions
 {
     /// <summary>
     /// 字符串辅助类
     /// </summary>
-    public static partial class StringExtension
+    public static partial class StringExtensions
     {
         /// <summary>
         /// 将数据列表转化为逗号分隔的字符串
