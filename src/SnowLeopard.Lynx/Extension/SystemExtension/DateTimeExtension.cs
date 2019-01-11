@@ -22,7 +22,7 @@ namespace SnowLeopard.Lynx.Extension
         /// ToUnixTimestamp
         /// </summary>
         /// <param name="self"></param>
-        /// <returns></returns>
+        /// <returns>返回距离1970-01-01 00:00:00经过的毫秒数</returns>
         public static long ToUnixTimestamp(this DateTime self)
         {
             return (self.ToUniversalTime().Ticks - JAN_1_1970_TICKS) / 10000;
@@ -32,7 +32,7 @@ namespace SnowLeopard.Lynx.Extension
         /// 根据时间戳获取 UTC 时间
         /// </summary>
         /// <param name="self"></param>
-        /// <returns></returns>
+        /// <returns>返回UTC时间</returns>
         public static DateTime ToUtcTime(this long self)
         {
             return Jan1st1970.AddMilliseconds(self);
@@ -42,7 +42,7 @@ namespace SnowLeopard.Lynx.Extension
         /// 根据时间戳获取 LocalTime
         /// </summary>
         /// <param name="self"></param>
-        /// <returns></returns>
+        /// <returns>返回本地时间</returns>
         public static DateTime ToLocalTime(this long self)
         {
             return Jan1st1970.AddMilliseconds(self).ToLocalTime();
