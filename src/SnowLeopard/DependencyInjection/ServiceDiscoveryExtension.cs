@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using SnowLeopard.Infrastructure.Consul;
 
 namespace SnowLeopard.DependencyInjection
@@ -14,7 +15,7 @@ namespace SnowLeopard.DependencyInjection
         /// <param name="services"></param>
         public static void AddSnowLeopardServiceDiscovery(this IServiceCollection services)
         {
-            services.AddSingleton<ServiceDiscovery, DefaultServiceDiscovery>();
+            services.TryAddSingleton<ServiceDiscovery, DefaultServiceDiscovery>();
         }
     }
 }

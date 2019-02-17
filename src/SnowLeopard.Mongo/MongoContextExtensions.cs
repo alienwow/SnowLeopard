@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using SnowLeopard.Infrastructure.Json;
 using SnowLeopard.Lynx;
 
@@ -29,7 +30,7 @@ namespace SnowLeopard.Mongo
             // 注册 Singleton 服务
             foreach (var serviceType in singletonServiceTypes)
             {
-                services.AddSingleton(serviceType);
+                services.TryAddSingleton(serviceType);
             }
         }
 
@@ -39,7 +40,7 @@ namespace SnowLeopard.Mongo
         /// <param name="services"></param>
         public static void AddSnowLeopardMongoContext<T>(this IServiceCollection services) where T : MongoContext
         {
-            services.AddSingleton<T>();
+            services.TryAddSingleton<T>();
         }
     }
 }

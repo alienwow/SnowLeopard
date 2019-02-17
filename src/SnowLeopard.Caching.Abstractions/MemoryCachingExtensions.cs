@@ -3,6 +3,7 @@ using AspectCore.Extensions.Autofac;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using SnowLeopard.Caching;
 using SnowLeopard.Caching.Abstractions;
 
@@ -21,7 +22,7 @@ namespace SnowLeopard
         {
             services.AddMemoryCache();
 
-            services.AddTransient<ICachingProvider, MemoryCachingProvider>();
+            services.TryAddTransient<ICachingProvider, MemoryCachingProvider>();
             services.AddCachingCore();
 
             var builder = new ContainerBuilder();
