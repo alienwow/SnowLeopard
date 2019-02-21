@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using SnowLeopard.Abstractions.Services;
 using SnowLeopard.Lynx;
 using System.Linq;
@@ -17,8 +18,8 @@ namespace SnowLeopard.DependencyInjection
         /// <param name="services"></param>
         public static void AddSnowLeopardServices(this IServiceCollection services)
         {
-            services.AddSingleton<SnowLeopardUtils>();
-            services.AddSingleton<LynxUtils>();
+            services.TryAddSingleton<SnowLeopardUtils>();
+            services.TryAddSingleton<LynxUtils>();
 
             #region 自动注册 IDependencyTransientRegister、IDependencyTransientRegister、IDependencySingletonRegister
 
@@ -47,7 +48,7 @@ namespace SnowLeopard.DependencyInjection
                 // 注册服务
                 foreach (var implementationType in implementationTypes)
                 {
-                    services.AddTransient(serviceType, implementationType);
+                    services.TryAddTransient(serviceType, implementationType);
                 }
             }
 
@@ -61,7 +62,7 @@ namespace SnowLeopard.DependencyInjection
                 // 注册服务
                 foreach (var implementationType in implementationTypes)
                 {
-                    services.AddScoped(serviceType, implementationType);
+                    services.TryAddScoped(serviceType, implementationType);
                 }
             }
 
@@ -76,14 +77,14 @@ namespace SnowLeopard.DependencyInjection
                 {
                     // 注册服务
                     if (!serviceType.GetTypeInfo().IsAbstract)
-                        services.AddSingleton(serviceType);
+                        services.TryAddSingleton(serviceType);
                 }
                 else
                 {
                     // 注册服务
                     foreach (var implementationType in implementationTypes)
                     {
-                        services.AddSingleton(serviceType, implementationType);
+                        services.TryAddSingleton(serviceType, implementationType);
                     }
                 }
             }

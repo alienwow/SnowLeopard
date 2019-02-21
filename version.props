@@ -3,7 +3,7 @@
     <!-- 版本前缀 -->
     <VersionPrefix>1.1.0</VersionPrefix>
     <!-- 版本后缀 -->
-    <VersionSuffix Condition="'$(VersionSuffix)' == ''">pre1</VersionSuffix>
+    <VersionSuffix Condition="'$(VersionSuffix)' == ''">pre3</VersionSuffix>
     <!-- 产品创建版本号 -->
     <ProductBuildNumber></ProductBuildNumber>
     <!-- NuGet 包后缀 -->

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace SnowLeopard.Caching.Abstractions
 {
@@ -10,7 +11,7 @@ namespace SnowLeopard.Caching.Abstractions
         /// <param name="services"></param>
         public static IServiceCollection AddCachingCore(this IServiceCollection services)
         {
-            services.AddSingleton<ICachingKeyGenerater, DefaultCachingKeyGenerater>();
+            services.TryAddSingleton<ICachingKeyGenerater, DefaultCachingKeyGenerater>();
             return services;
         }
 
