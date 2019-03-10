@@ -217,5 +217,69 @@ namespace SnowLeopard.Lynx.Extensions
         }
 
         #endregion
+
+        #region 月份日期相关
+
+        /// <summary>
+        /// Firsts the day of month.
+        /// </summary>
+        /// <returns>The day of month.</returns>
+        /// <param name="datetime">Datetime.</param>
+        public static DateTime FirstDayOfMonth(this DateTime datetime)
+        {
+            return datetime.AddDays(1 - datetime.Day).Date;
+        }
+
+        /// <summary>
+        /// Lasts the day of month.
+        /// </summary>
+        /// <returns>The day of month.</returns>
+        /// <param name="datetime">Datetime.</param>
+        public static DateTime LastDayOfMonth(this DateTime datetime)
+        {
+            return datetime.AddDays(1 - datetime.Day).AddMonths(1).Date.AddMilliseconds(-1);
+        }
+
+        /// <summary>
+        /// Firsts the day of previous month.
+        /// </summary>
+        /// <returns>The day of previous month.</returns>
+        /// <param name="datetime">Datetime.</param>
+        public static DateTime FirstDayOfPreviousMonth(this DateTime datetime)
+        {
+            return datetime.AddDays(1 - datetime.Day).AddMonths(-1).Date;
+        }
+
+        /// <summary>
+        /// Lasts the day of prdvious month.
+        /// </summary>
+        /// <returns>The day of prdvious month.</returns>
+        /// <param name="datetime">Datetime.</param>
+        public static DateTime LastDayOfPrdviousMonth(this DateTime datetime)
+        {
+            return datetime.AddDays(1 - datetime.Day).Date.AddMilliseconds(-1);
+        }
+
+        /// <summary>
+        /// Firsts the day of next month.
+        /// </summary>
+        /// <returns>The day of next month.</returns>
+        /// <param name="datetime">Datetime.</param>
+        public static DateTime FirstDayOfNextMonth(this DateTime datetime)
+        {
+            return datetime.AddDays(1 - datetime.Day).AddMonths(1).Date;
+        }
+
+        /// <summary>
+        /// Lasts the day of next month.
+        /// </summary>
+        /// <returns>The day of next month.</returns>
+        /// <param name="datetime">Datetime.</param>
+        public static DateTime LastDayOfNextMonth(this DateTime datetime)
+        {
+            datetime = datetime.AddMonths(2);
+            return datetime.AddDays(1 - datetime.Day).Date.AddMilliseconds(-1);
+        }
+        #endregion
     }
 }
