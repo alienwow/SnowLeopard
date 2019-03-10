@@ -44,7 +44,7 @@ namespace SnowLeopard.Infrastructure
                     var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
                     if (controllerActionDescriptor != null)
                     {
-                        ignoreResult = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true);
+                        ignoreResult = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(IgnoreResultFilterAttribute), true);
                         if (ignoreResult != null)
                         {
                             base.OnResultExecuting(context);
