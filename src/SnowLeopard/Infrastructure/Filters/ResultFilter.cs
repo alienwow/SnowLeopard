@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using SnowLeopard.Model.BaseModels;
@@ -37,6 +38,26 @@ namespace SnowLeopard.Infrastructure
         {
             if (context.ModelState.IsValid)
             {
+                var ignoreResult = context.Controller.GetType().GetCustomAttributes(typeof(IgnoreResultFilterAttribute), true);
+                if (ignoreResult == null)
+                {
+                    var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
+                    if (controllerActionDescriptor != null)
+                    {
+                        ignoreResult = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true);
+                        if (ignoreResult != null)
+                        {
+                            base.OnResultExecuting(context);
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    base.OnResultExecuting(context);
+                    return;
+                }
+
                 //根据实际需求进行具体实现
                 if (context.Result is ObjectResult)
                 {
