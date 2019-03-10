@@ -23,7 +23,7 @@ namespace SnowLeopard.Model.BaseModels
     /// </summary>
     public abstract class TopBasePocoGuid
     {
-        private Guid _id;
+        private Guid? _id;
 
         /// <summary>
         /// Id
@@ -34,11 +34,15 @@ namespace SnowLeopard.Model.BaseModels
         {
             get
             {
-                if (_id == Guid.Empty)
+                if (!_id.HasValue || _id.Value == Guid.Empty)
                 {
                     _id = Guid.NewGuid();
                 }
-                return _id;
+                return _id.Value;
+            }
+            set
+            {
+                _id = value;
             }
         }
     }
