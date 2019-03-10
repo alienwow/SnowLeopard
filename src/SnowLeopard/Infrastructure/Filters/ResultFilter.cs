@@ -39,13 +39,13 @@ namespace SnowLeopard.Infrastructure
             if (context.ModelState.IsValid)
             {
                 var ignoreResult = context.Controller.GetType().GetCustomAttributes(typeof(IgnoreResultFilterAttribute), true);
-                if (ignoreResult == null)
+                if (ignoreResult == null || ignoreResult.Length == 0)
                 {
                     var controllerActionDescriptor = context.ActionDescriptor as ControllerActionDescriptor;
                     if (controllerActionDescriptor != null)
                     {
                         ignoreResult = controllerActionDescriptor.MethodInfo.GetCustomAttributes(typeof(IgnoreResultFilterAttribute), true);
-                        if (ignoreResult != null)
+                        if (ignoreResult != null && ignoreResult.Length > 0)
                         {
                             base.OnResultExecuting(context);
                             return;
