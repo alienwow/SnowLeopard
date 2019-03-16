@@ -12,7 +12,7 @@
     <Import Project="..\..\common.props" />
 
     <ItemGroup>
-        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.1" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0" />
         <PackageReference Include="Exceptionless" Version="4.3.2012" />
         <PackageReference Include="Exceptionless.AspNetCore" Version="4.3.2012" />
         <PackageReference Include="Exceptionless.Extensions.Logging" Version="4.3.2012" />
