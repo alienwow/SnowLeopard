@@ -1,18 +1,24 @@
 <Project>
   <Import Project=".\version.props" />
+
+  <PropertyGroup Label="Package">
+    <Copyright>Copyright © Vito 2019</Copyright>
+    <Description>SnowLeopard 框架</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/alienwow/SnowLeopard/develop/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/alienwow/SnowLeopard</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/alienwow/SnowLeopard.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>utils;aspnetcore;</PackageTags>
+    <Company>Vito</Company>
+    <Authors>Vito</Authors>
+
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageIconUrl>http://license.alienwow.cc/SnowLeopard.ico</PackageIconUrl>
+  </PropertyGroup>
+
   <PropertyGroup>
     <Product>SnowLeopard</Product>
-    <Authors>Vito</Authors>
-    <Company>Vito</Company>
-    <Copyright>Copyright © Vito 2019</Copyright>
     <PackageId>$(ProjectName)</PackageId>
-    <RepositoryType>git</RepositoryType>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <RepositoryUrl>https://gitee.com/alienwow/SnowLeopard.git</RepositoryUrl>
-    <PackageLicenseUrl>http://license.alienwow.cc</PackageLicenseUrl>
-    <PackageProjectUrl>https://gitee.com/alienwow/SnowLeopard/</PackageProjectUrl>
-    <PackageIconUrl>http://license.alienwow.cc/SnowLeopard.ico</PackageIconUrl>
-    <PackageTags></PackageTags>
     <NeutralLanguage>zh-CN</NeutralLanguage>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageOutputPath></PackageOutputPath>
