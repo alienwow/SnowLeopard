@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-sample-SnowLeopard.WebApi",
+            "command": "dotnet",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "args": [
+                "build",
+                "${workspaceFolder}/sample/SnowLeopard.WebApi/SnowLeopard.WebApi.csproj"
+            ],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-sample-SnowLeopard.Console",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/test/SnowLeopard.Console/SnowLeopard.Console.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-sample-SnowLeopard.Lynx.ConsoleTest",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/test/SnowLeopard.Lynx.ConsoleTest/SnowLeopard.Lynx.ConsoleTest.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-sample-SnowLeopard.Redis.ConsoleTest",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "build",
+                "${workspaceFolder}/test/SnowLeopard.Redis.ConsoleTest/SnowLeopard.Redis.ConsoleTest.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
