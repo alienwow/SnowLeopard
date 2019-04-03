@@ -2,7 +2,10 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/alienwow/SnowLeopard/badge.svg?branch=master)](https://coveralls.io/github/alienwow/SnowLeopard?branch=master)
 [![GitHub license](https://img.shields.io/github/license/alienwow/SnowLeopard.svg)](https://github.com/alienwow/SnowLeopard/blob/master/LICENSE)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Falienwow%2FSnowLeopard.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Falienwow%2FSnowLeopard?ref=badge_shield)
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+
 
 ## CI Build Status
 
