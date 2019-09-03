@@ -9,11 +9,11 @@
 
 ## CI Build Status
 
-| Platform | Build Server | Master Status  | Develop Status  |
-|--------- |------------- |---------|---------|
-| Azure Pipelines |  Linux | [![Build status](https://dev.azure.com/vitowu/SnowLeopard/_apis/build/status/SnowLeopard-CI-master-nuget-org)](https://dev.azure.com/vitowu/SnowLeopard/_build/latest?definitionId=5) | [![Build status](https://dev.azure.com/vitowu/SnowLeopard/_apis/build/status/SnowLeopard-CI)](https://dev.azure.com/vitowu/SnowLeopard/_build/latest?definitionId=2) |
-| AppVeyor |  Windows/Linux | - | - |
-| Travis   | Linux/OSX | - | - |
+| Platform | Build Server | SDK | Master Status  | Develop Status  |
+| -------- | ------------ | ---- |---------|---------|
+| Azure Pipelines |  Windows/Linux/OSX | v2.2.300 | [![Build Status](https://dev.azure.com/vitowu/SnowLeopard/_apis/build/status/SnowLeopard-CI?branchName=master)](https://dev.azure.com/vitowu/SnowLeopard/_build/latest?definitionId=22&branchName=master) | [![Build Status](https://dev.azure.com/vitowu/SnowLeopard/_apis/build/status/SnowLeopard-CI?branchName=develop)](https://dev.azure.com/vitowu/SnowLeopard/_build/latest?definitionId=22&branchName=develop) |
+| AppVeyor |  Windows/Linux | - | - | - |
+| Travis   | Linux/OSX | - | - | - |
 
 ## Nuget Packages
 
