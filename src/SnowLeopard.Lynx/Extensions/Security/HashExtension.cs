@@ -800,11 +800,6 @@ namespace SnowLeopard.Lynx.Extensions
             return sb.ToString();
         }
 
-        private static string ToBase64(this byte[] input)
-        {
-            return Convert.ToBase64String(input);
-        }
-
         #endregion
     }
 }
