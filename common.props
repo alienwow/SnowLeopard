@@ -2,27 +2,23 @@
   <Import Project=".\version.props" />
 
   <PropertyGroup Label="Package">
-    <Copyright>Copyright © Vito 2019</Copyright>
-    <Description>SnowLeopard 框架</Description>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/alienwow/SnowLeopard/develop/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/alienwow/SnowLeopard</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/alienwow/SnowLeopard.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>utils;aspnetcore;</PackageTags>
-    <Company>Vito</Company>
-    <Authors>Vito</Authors>
-
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageIconUrl>http://license.alienwow.cc/SnowLeopard.ico</PackageIconUrl>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <Product>SnowLeopard</Product>
     <PackageId>$(ProjectName)</PackageId>
-    <NeutralLanguage>zh-CN</NeutralLanguage>
+    <Description>SnowLeopard 框架</Description>
+
+    <Authors>Vito</Authors>
+    <Company>Vito</Company>
+    <Copyright>Copyright © Vito 2019</Copyright>
+
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/alienwow/SnowLeopard.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/alienwow/SnowLeopard</PackageProjectUrl>
+    <PackageIconUrl>http://license.alienwow.cc/SnowLeopard.ico</PackageIconUrl>
+    <PackageTags>utils;aspnetcore;</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <PackageOutputPath></PackageOutputPath>
-    <IncludeSymbols>false</IncludeSymbols>
+
     <IncludeSource>false</IncludeSource>
     <MinClientVersion>4.1.0</MinClientVersion>
     <IncludeContentInPack>true</IncludeContentInPack>
@@ -42,5 +38,9 @@
     <DocumentationFile>bin\Debug\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../LICENSE" Pack="true" PackagePath=""/>
+  </ItemGroup>
 
 </Project>
